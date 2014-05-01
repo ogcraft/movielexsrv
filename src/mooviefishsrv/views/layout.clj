@@ -4,6 +4,6 @@
 (defn common [& body]
   (html5
     [:head
-     [:title "Welcome to mooviefishsrv"]
+     [:title "mooviefishsrv"]
      (include-css "/css/screen.css")]
     [:body body]))

@@ -7,3 +7,13 @@
 (find-doc "mooviefishsrv")
 in mooviefish.repl
 exit
+(use 'mooviefish.repl)
+(use 'src/mooviefish.repl)
+(quit)
+(use 'mooviefish.repl)
+(quit)
+(use 'mooviefishsrv.repl)
+(start-server)
+(vars)
+(stop-server)
+(quit)
