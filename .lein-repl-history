@@ -1,0 +1,9 @@
+(start.server)
+(start-server)
+(liberator-service.repl/start-server)
+(quit)
+(mooviefishsrv.repl/start-server)
+(quit)
+(find-doc "mooviefishsrv")
+in mooviefish.repl
+exit
