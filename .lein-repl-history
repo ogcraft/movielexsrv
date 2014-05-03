@@ -17,3 +17,67 @@ exit
 (vars)
 (stop-server)
 (quit)
+(use 'mooviefishsrv.repl')
+(use 'mooviefishsrv.repl)
+(start-server)
+app-routes
+mooviefishsrv.handler/app-routes
+(print mooviefishsrv.handler/app-routes)
+(print mooviefishsrv.handler/app)
+(binding [*ns* (or (find-ns 'mooviefishsrv.handler) (find-ns 'user))] (load-string "(defn init []
+  (println \"mooviefishsrv is starting\"))"))
+(binding [*ns* (or (find-ns 'mooviefishsrv.handler) (find-ns 'user))] (load-string "(defn init []
+  (println \"mooviefishsrv is starting\"))"))
+(binding [*ns* (or (find-ns 'mooviefishsrv.handler) (find-ns 'user))] (load-string "(defn destroy []"))
+(defn init []
+  (println "mooviefishsrv is starting"))
+(init)
+(binding [*ns* (or (find-ns 'mooviefishsrv.routes.home) (find-ns 'user))] (load-string "(defresource home-txt
+  :handle-ok \"Welcome to MoovieFish!\"
+  :etag \"fixed-etag\" 
+  :available-media-types [\"text/plain\"])"))
+(binding [*ns* (or (find-ns 'mooviefishsrv-service.routes.home) (find-ns 'user))] (load-string "(defroutes home-routes
+  (ANY \"/\" request home-txt)
+  (ANY \"/add-movie\" request add-movie)
+  (ANY \"/movies\" request get-movies))"))
+(use 'mooviefishsrv.routes)
+(use 'mooviefishsrv.routes.home)
+(binding [*ns* (or (find-ns 'mooviefishsrv.routes.home) (find-ns 'user))] (load-string "(defroutes home-routes
+  (ANY \"/\" request home-txt)
+  (ANY \"/add-movie\" request add-movie)
+  (ANY \"/movies\" request get-movies))"))
+(binding [*ns* (or (find-ns 'mooviefishsrv.routes.home) (find-ns 'user))] (load-string "(ns mooviefishsrv.routes.home  
+  (:require [compojure.core :refer :all]
+            [liberator.core :refer [defresource resource]]
+            [cheshire.core :refer [generate-string]]
+            [noir.io :as io]
+            [clojure.java.io :refer [file]]))"))
+(. System exit 0)
+> (require ['com.ashafa.clutch :as 'clutch])
+> (require [cheshire.core])
+> (require ['cheshire.core])
+(def db "http://192.168.10.122:5984/clutchtest")
+(couch/all-databases db)
+(clutch/all-databases db)
+(clutch/couchdb-info db)
+(clutch/create-database "mvfishtest")
+(clutch/create-database db "mvfishtest")
+(clutch/create-database db)
+(clutch/all-databases db)
+(def db "http://192.168.10.122:5984/mvfishtest")
+(clutch/all-databases db)
+(clutch/create-database db)
+(clutch/all-databases db)
+(load-file "test/test_movie_list.clj")
+movies
+(parse-stream movie)
+(cheshire.core/parse-stream movie)
+(parse-stream movies)
+(cheshire.core/parse-stream movies)
+(cheshire.core/generate-string movies)
+(clutch/with-db db (clutch/bulk-update movies))
+(clutch/all-documents db)
+(couch/with-db db
+  (couch/all-documents {:include_docs true}))
+(clutch/all-documents db {:include_docs true})
+db
