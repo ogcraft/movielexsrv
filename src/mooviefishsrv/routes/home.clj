@@ -6,7 +6,6 @@
             [clojure.java.io :refer [file]]
             [mooviefishsrv.models.db :as db]))
 
-
 (defresource home-txt
   :service-available? true
   :handle-ok "Welcome to MoovieFish!"
@@ -15,21 +14,27 @@
 
 (defresource get-movies
   :allowed-methods [:get]
-  :handle-ok (fn [_] (db/movie-list)) 
+  :handle-ok (fn [_] 
+    (println "get-movies :handle-ok") 
+    (db/movie-list)) 
   :available-media-types ["application/json"])
 
-; (defresource add-movie
-;   :allowed-methods [:post]
-;   :malformed? (fn [context]
-;                 (let [params (get-in context [:request :form-params])] 
-;                   (empty? (get params "movie"))))
-;   :handle-malformed "movie name cannot be empty!"
-;   :post!  
-;   (fn [context]             
-;     (let [params (get-in context [:request :form-params])]
-;       (swap! movies conj (get params "movie"))))
-;   :handle-created (fn [_] (generate-string @movies))
-;   :available-media-types ["application/json"])
+(defresource get-movies-html
+    :available-media-types ["text/html"]
+
+    :exists?
+    (fn [context]
+      [(io/get-resource "/movie-list.html")
+       {::file (file (str (io/resource-path) "/movie-list.html"))}])
+
+    :handle-ok
+    (fn [{{{resource :resource} :route-params} :request}]
+      (println "get-movies-html :handle-ok")
+      (clojure.java.io/input-stream (io/get-resource "/movie-list.html")))
+    :last-modified
+    (fn [{{{resource :resource} :route-params} :request}]
+      (.lastModified (file (str (io/resource-path) "/movie-list.html")))))
+
 
 ;(context "/documents" [] (defroutes documents-routes
 ;    (GET "/" [] "get all documents")
@@ -44,4 +49,6 @@
 (defroutes home-routes
   (ANY "/" request home-txt)
   ;(ANY "/add-movie" request add-movie)
-  (ANY "/movies" request get-movies))
+  (ANY "/movies" request get-movies)
+  (ANY "/movie-list" request get-movies-html))
+
