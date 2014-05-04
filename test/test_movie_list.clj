@@ -87,5 +87,6 @@
    	}
    ])
 
-;(clutch/with-db db (clutch/bulk-update movies))
-;(clutch/all-documents db {:include_docs true})
+;(couch/create-database db)
+;(couch/with-db db (clutch/bulk-update movies))
+;(couch/all-documents db {:include_docs true})
