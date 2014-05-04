@@ -18,6 +18,7 @@
 	 			:year-released "2013"
 			}
 		]
+		:fpkeys-file "monsters.fpkeys",
 	  	:translations [
 	  		{
 	 			:lang "ru", 
@@ -44,6 +45,7 @@
 	 			:year-released "2011"
 			}
 		]
+		:fpkeys-file "smurfs.fpkeys",
 	  	:translations [
 	  		{
 	 			:lang "ar", 
@@ -70,6 +72,7 @@
 	 			:year-released "2013"
 			}
 		]
+		:fpkeys-file "despicableme2.fpkeys",
 	  	:translations [
 	  		{
 	 			:lang "ru", 
@@ -88,5 +91,5 @@
    ])
 
 ;(couch/create-database db)
-;(couch/with-db db (clutch/bulk-update movies))
+;(couch/with-db db (couch/bulk-update movies))
 ;(couch/all-documents db {:include_docs true})
