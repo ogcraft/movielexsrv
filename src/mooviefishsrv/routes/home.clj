@@ -12,11 +12,12 @@
   :etag "fixed-etag" 
   :available-media-types ["text/plain"])
 
-(defresource get-movies
+(defresource get-movies [lang]
   :allowed-methods [:get]
-  :handle-ok (fn [_] 
-    (println "get-movies :handle-ok") 
-    (db/movie-list)) 
+  :handle-ok (fn [ _ ] 
+    (println "get-movies :handle-ok lang: " lang) 
+    (generate-string 
+      (db/movie-list))) 
   :available-media-types ["application/json"])
 
 (defresource get-movies-html
@@ -49,6 +50,6 @@
 (defroutes home-routes
   (ANY "/" request home-txt)
   ;(ANY "/add-movie" request add-movie)
-  (ANY "/movies" request get-movies)
-  (ANY "/movie-list" request get-movies-html))
+  (GET "/movies/:lang" [lang] (get-movies lang))
+  (GET "/movie-list" request get-movies-html))
 
