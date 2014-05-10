@@ -11,15 +11,20 @@
 ;(def movies (parse-stream (clojure.java.io/reader "/tmp/movie_list.json")))
 
 (defn make-abs-url [u]
-	(str mvf-base "/" u))
+	(if (nil? u) 
+		u 
+		(str mvf-base "/" u)))
 
 (defn select-desc-by-lang [lang desc] 
-	(first (for [ e desc :when (= (:lang e) "ru")] e)))
+	(let [ d (first (for [ e desc :when (= (:lang e) lang)] e))]
+		(if (nil? d) 
+			(first (for [ e desc :when (= (:lang e) "en")] e))
+			d)))
 
 (defn update-url-in-translation [t]
-	(let [f (:file t)]
-		(assoc t :flie (make-abs-url f)))
-	t)
+	(let [	f (:file t) 
+			i (:img  t)]
+		(assoc t :file (make-abs-url f) :img  (make-abs-url i))))
 
 (defn get-short-desc [lang movie]
 	(let [{:keys [shortname descriptions _id fpkeys-file translations]} movie] 
@@ -34,7 +39,7 @@
 (defn movie-list [] 
 	(couch/all-documents db {:include_docs true}))
 
-(defn get-docs []
+(defn get-movies []
 	(map :doc  
 		(filter :doc (movie-list))))
 
