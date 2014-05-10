@@ -92,3 +92,306 @@ db
 (use 'mooviefishsrv.models.db)
 (movies->view (movie-list))
 (quit)
+(load "db")
+(load "models.db")
+(load "models/db")
+(load "mooviefishsrv.models.db")
+db
+(println db)
+(use 'mooviefishsrv.models.db)
+db
+(movie-list)
+(:doc (movie-list))
+(filter :doc (movie-list))
+(first (filter :doc (movie-list)))
+(get-docs)
+(use 'mooviefishsrv.models.db)
+(get-docs)
+(use 'mooviefishsrv.models.db :reload)
+(get-docs)
+(def d1 (first (get-docs)))
+d1
+(:doc d1)
+(movie-list)
+({:doc }(movie-list))
+(movie-list)
+(filter :doc (movie-list)
+)
+(filter :doc (movie-list))
+(filter :doc (filter :doc (movie-list)))
+(first (filter :doc (movie-list)))
+(map :doc (filter :doc (movie-list)))
+(nth (map :doc (filter :doc (movie-list))) 0)
+(nth (map :doc (filter :doc (movie-list))) 1)
+(nth (map :doc (filter :doc (movie-list))) 2)
+(use 'mooviefishsrv.models.db :reload)
+(get-docs)
+(def d1 (first (get-docs)))
+d1
+(use 'mooviefishsrv.models.db :reload)
+(prepare-for-mobile "en" d1)
+(select-keys :lang d1)
+(select-keys :shotname d1)
+(select-keys :shortname d1)
+(:shortname d1)
+(:descriptions d1)
+(prepare-for-mobile "en" d1)
+(let [{:shortname s} d1] (prn s))
+(let [{:keys [shortname descriptions _id]} d1] (prn shortname))
+(let [{:keys [shortname descriptions _id]} d1] (prn _id))
+(let [{:keys [shortname descriptions _id]} d1] (prn descriptions))
+(use 'mooviefishsrv.models.db :reload)
+(get-short-desc d1)
+(get-short-desc "en" d1)
+(use 'mooviefishsrv.models.db :reload)
+(get-short-desc "en" d1)
+(use 'mooviefishsrv.models.db :reload)
+(get-short-desc "en" d1)
+(def movies [
+{
+:shortname"monsters", 
+:descriptions [
+{
+:lang "en" 
+:title "Monsters University", 
+:desc "A look at the relationship between Mike and Sulley during their days at Monsters University -- when they weren't necessarily the best of friends.",
+ :img "monsters.jpg",
+ :year-released "2013"
+}
+{
+:lang "ru" 
+:title "Университет монстров (2013)", 
+:desc "Майк и Салли — самые опытные пугатели в Монстрополисе, но так было далеко не всегда. Когда они встретились впервые, эти монстры терпеть друг друга не могли. «Университет Монстров» — история о том, как наши старые знакомые прошли путь от взаимной неприязни к крепкой дружбе.",
+ :img "monsters.jpg"
+ :year-released "2013"
+}
+]
+:fpkeys-file "monsters.fpkeys",
+  :translations [
+  {
+ :lang "ru", 
+ :title "Русский", 
+ :desc "From original dvd", 
+ :img nil 
+ }
+  {
+  :lang "he", 
+  :title "עברית", 
+  :desc "From original dvd", 
+  :img nil 
+  }
+  ]
+    }
+    {
+:shortname "smurfs", 
+:descriptions [
+{
+:lang "en"  
+:title "The Smurfs", 
+:desc "When the evil wizard Gargamel chases the tiny blue Smurfs out of their village, they tumble from their magical world into New York City.",
+ :img "smurfs.jpg",
+ :year-released "2011"
+}
+]
+:fpkeys-file "smurfs.fpkeys",
+  :translations [
+  {
+ :lang "ar", 
+ :title "Arabic", 
+ :desc "From original dvd", 
+ :img nil 
+ }
+  {
+  :lang "he", 
+  :title "עברית", 
+  :desc "From original dvd", 
+  :img nil 
+  }
+  ]
+   }
+   {
+:shortname "despicableme2", 
+:descriptions [
+{
+:lang "en"  
+:title "Despicable Me 2", 
+:desc "Gru is recruited by the Anti-Villain League to hith a powerful new super criminal.",
+ :img "despicableme2.jpg",
+ :year-released "2013"
+}
+]
+:fpkeys-file "despicableme2.fpkeys",
+  :translations [
+  {
+ :lang "ru", 
+ :title "Русский", 
+ :desc "From original dvd", 
+ :img nil 
+ }
+  {
+  :lang "he", 
+  :title "עברית", 
+  :desc "From original dvd", 
+  :img nil 
+  }
+  ]
+   }
+   ])
+(first movies)
+(get-short-desc (first movies))
+(get-short-desc "en" (first movies))
+(couch/with-db db (couch/bulk-update movies))
+(cluch/with-db db (couch/bulk-update movies))
+(cluch/with-db db (cluch/bulk-update movies))
+(couch/with-db db (couch/bulk-update movies))
+(couch/bulk-update db movies)
+(com.ashafa.clutch/bulk-update db movies)
+(get-docs)
+(def d1 (first (get-docs)))
+(get-short-desc "en" d1)
+(com.ashafa.clutch/bulk-update db movies)
+db
+(get-docs)
+(couch/create-database db)
+(com.ashafa.clutch/create-database db)
+(com.ashafa.clutch/bulk-update db movies)
+(get-docs)
+(def d1 (first (get-docs)))
+(get-short-desc "en" d1)
+(use 'mooviefishsrv.models.db :reload)
+(def d1 (first (get-docs)))
+(get-short-desc "en" d1)
+(use 'mooviefishsrv.models.db :reload)
+(get-short-desc "en" d1)
+(into {} (filter val {:a 1, :b 2, :c nil}))
+d1
+(:descriptions d1)
+(def dd (:descriptions d1))
+dd
+(filter val dd)
+(filter #(if (%) %) dd)
+(into {} (for [[e] dd :when (= (:lang e) "en")] [e]))
+(for [ e dd :when (= (:lang e) "en")] e)
+(for [ e dd :when (= (:lang e) "ru")] e)
+(defn select-desc-by-lang [lang desc] 
+(first (for [ e desc :when (= (:lang e) "ru")] e)))
+(select-desc-by-lang "ru" (:descriptions d1)) 
+(use 'mooviefishsrv.models.db :reload)
+(get-short-desc "en" d1)
+(use 'mooviefishsrv.models.db :reload)
+(get-short-desc "en" d1)
+(use 'mooviefishsrv.models.db :reload)
+(get-short-desc "en" d1)
+(use 'mooviefishsrv.models.db :reload)
+(get-short-desc "en" d1)
+(use 'mooviefishsrv.models.db :reload)
+(get-short-desc "en" d1)
+(use 'mooviefishsrv.models.db :reload)
+(get-short-desc "en" d1)
+(def movies [
+{
+:shortname"monsters", 
+:descriptions [
+{
+:lang "en" 
+:title "Monsters University", 
+:desc "A look at the relationship between Mike and Sulley during their days at Monsters University -- when they weren't necessarily the best of friends.",
+ :img "monsters.jpg",
+ :year-released "2013"
+}
+{
+:lang "ru" 
+:title "Университет монстров (2013)", 
+:desc "Майк и Салли — самые опытные пугатели в Монстрополисе, но так было далеко не всегда. Когда они встретились впервые, эти монстры терпеть друг друга не могли. «Университет Монстров» — история о том, как наши старые знакомые прошли путь от взаимной неприязни к крепкой дружбе.",
+ :img "monsters.jpg"
+ :year-released "2013"
+}
+]
+:fpkeys-file "monsters.fpkeys",
+  :translations [
+  {
+ :lang "ru", 
+ :title "Русский", 
+ :desc "From original dvd", 
+ :file "monsters-ru.mp3",
+ :img nil 
+ }
+  {
+  :lang "he", 
+  :title "עברית", 
+  :desc "From original dvd", 
+  :file nil,
+  :img nil 
+  }
+  ]
+    }
+    {
+:shortname "smurfs", 
+:descriptions [
+{
+:lang "en"  
+:title "The Smurfs", 
+:desc "When the evil wizard Gargamel chases the tiny blue Smurfs out of their village, they tumble from their magical world into New York City.",
+ :img "smurfs.jpg",
+ :year-released "2011"
+}
+]
+:fpkeys-file "smurfs.fpkeys",
+  :translations [
+  {
+ :lang "ar", 
+ :title "Arabic", 
+ :desc "From original dvd",
+ :file "smurfs-ar.mp3" 
+ :img nil 
+ }
+  {
+  :lang "he", 
+  :title "עברית", 
+  :desc "From original dvd",
+  :file "smurfs-he.mp3" 
+  :img nil 
+  }
+  ]
+   }
+   {
+:shortname "despicableme2", 
+:descriptions [
+{
+:lan:title "Despicable Me 2", 
+:desc "Gru is recruited by the Anti-Villain League to help deal with a powerful new super criminal.",
+ :img "despicableme2.jpg",
+ :year-released "2013"
+}
+]
+:fpkeys-file "despicableme2.fpkeys",
+  :translations [
+  {
+ :lang "ru", 
+ :title "Русский", 
+ :desc "From original dvd",
+ :file "despicableme2-ru.mp3" 
+ :img nil 
+ }
+  {
+  :lang "he", 
+  :title "עברית", 
+  :desc "From original dvd",
+  :file "despicableme2-he.mp3" 
+  :img nil 
+  }
+  ]
+   }
+   ])
+(couch/create-database db)
+(use 'com.ashafa.clutch :as couch)
+(require 'com.ashafa.clutch :as couch)
+(com.ashafa.clutch/create-database db)
+(com.ashafa.clutch/bulk-update movies)
+(com.ashafa.clutch/bulk-update db movies)
+(use 'mooviefishsrv.models.db :reload)
+(get-docs)
+(first (get-docs))
+(get-short-desc "en" (first (get-docs))
+)
+(get-short-desc "en" (first (get-docs)))

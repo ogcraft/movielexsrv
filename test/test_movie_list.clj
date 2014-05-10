@@ -24,12 +24,14 @@
 	 			:lang "ru", 
 	 			:title "Русский", 
 	 			:desc "From original dvd", 
+	 			:file "monsters-ru.mp3",
 	 			:img nil 
 	 		}
 	  		{
 	  			:lang "he", 
 	  			:title "עברית", 
 	  			:desc "From original dvd", 
+	  			:file nil,
 	  			:img nil 
 	  		}
 	  	]
@@ -50,13 +52,15 @@
 	  		{
 	 			:lang "ar", 
 	 			:title "Arabic", 
-	 			:desc "From original dvd", 
+	 			:desc "From original dvd",
+	 			:file "smurfs-ar.mp3" 
 	 			:img nil 
 	 		}
 	  		{
 	  			:lang "he", 
 	  			:title "עברית", 
-	  			:desc "From original dvd", 
+	  			:desc "From original dvd",
+	  			:file "smurfs-he.mp3" 
 	  			:img nil 
 	  		}
 	  	]
@@ -77,13 +81,15 @@
 	  		{
 	 			:lang "ru", 
 	 			:title "Русский", 
-	 			:desc "From original dvd", 
+	 			:desc "From original dvd",
+	 			:file "despicableme2-ru.mp3" 
 	 			:img nil 
 	 		}
 	  		{
 	  			:lang "he", 
 	  			:title "עברית", 
-	  			:desc "From original dvd", 
+	  			:desc "From original dvd",
+	  			:file "despicableme2-he.mp3" 
 	  			:img nil 
 	  		}
 	  	]
