@@ -16,8 +16,7 @@
   :allowed-methods [:get]
   :handle-ok (fn [ _ ] 
     (println "get-movies :handle-ok lang: " lang) 
-    (generate-string 
-      (db/movie-list))) 
+    (generate-string (db/get-movies lang)))
   :available-media-types ["application/json"])
 
 (defresource get-movies-html

@@ -39,7 +39,8 @@
 (defn movie-list [] 
 	(couch/all-documents db {:include_docs true}))
 
-(defn get-movies []
-	(map :doc  
-		(filter :doc (movie-list))))
+(defn get-movies [lang]
+	(let [movies (map :doc (filter :doc (movie-list)))]
+		(map #(get-short-desc lang %) movies)))
+
 
