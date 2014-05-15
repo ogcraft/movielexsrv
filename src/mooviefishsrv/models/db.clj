@@ -3,10 +3,12 @@
   	[com.ashafa.clutch :as couch]
   	[cheshire.core :refer [generate-string parse-stream]]))
 
-(def db "http://192.168.10.122:5984/mvfishtest")
+;(def db "http://192.168.10.122:5984/mvfishtest")
 ;(def db "http://olegg-linux:5984/mvfishtest")
 
 (def mvf-base "http://mooviefish.com/files")
+(def cwd (System/getProperty "user.dir"))
+(def movies (load "models/movies"))
 
 ;(def movies (parse-stream (clojure.java.io/reader "/tmp/movie_list.json")))
 
@@ -36,11 +38,12 @@
 				:desc (:desc desc)
 				:translations (map update-url-in-translation translations)})))
 
-(defn movie-list [] 
-	(couch/all-documents db {:include_docs true}))
+;(defn movie-list [] 
+;	(map :doc (filter :doc 
+;		(couch/all-documents db {:include_docs true}))))
 
 (defn get-movies [lang]
-	(let [movies (map :doc (filter :doc (movie-list)))]
-		(map #(get-short-desc lang %) movies)))
+	(println "cwd: " cwd " movies: " (count movies))
+	(map #(get-short-desc lang %) movies))
 
 

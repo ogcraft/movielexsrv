@@ -8,7 +8,8 @@
             [mooviefishsrv.routes.home :refer [home-routes]]))
 
 (defn init []
-  (println "mooviefishsrv is starting"))
+  (println "mooviefishsrv is starting")
+  (println "CWD: " (System/getProperty "user.dir")))
 
 (defn destroy []
   (println "mooviefishsrv is shutting down"))
