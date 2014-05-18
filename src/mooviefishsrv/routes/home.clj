@@ -19,6 +19,13 @@
     (generate-string (db/get-movies lang)))
   :available-media-types ["application/json"])
 
+(defresource get-movie [lang id]
+  :allowed-methods [:get]
+  :handle-ok (fn [ _ ] 
+    (println "get-movie :handle-ok lang: " lang " id: " id) 
+    (generate-string (db/get-movie lang id)))
+  :available-media-types ["application/json"])
+
 (defresource get-movies-html
     :available-media-types ["text/html"]
 
@@ -50,5 +57,6 @@
   (ANY "/" request home-txt)
   ;(ANY "/add-movie" request add-movie)
   (GET "/movies/:lang" [lang] (get-movies lang))
+  (GET "/movie/:lang/:id" [lang id] (get-movie lang id))
   (GET "/movie-list" request get-movies-html))
 

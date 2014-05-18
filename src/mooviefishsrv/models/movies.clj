@@ -2,6 +2,7 @@
 
 (def movies [
 	{
+		:id 1001
 		:shortname	"monsters", 
 		:descriptions [
 			{	
@@ -38,6 +39,7 @@
 	  	]
     }
     {
+    	:id 1002
 		:shortname "smurfs", 
 		:descriptions [
 			{	
@@ -67,6 +69,7 @@
 	  	]
    	}
    	{
+   		:id 1003
 		:shortname "despicableme2", 
 		:descriptions [
 			{	

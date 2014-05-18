@@ -49,4 +49,7 @@
 (defn get-movies [lang]
 	(map #(get-short-desc lang %) movies))
 
+(defn get-movie [lang id]
+	(let [ mid (read-string id) ]
+		(get-short-desc lang (first (filter #(= (:id %) mid) movies)))))
 
