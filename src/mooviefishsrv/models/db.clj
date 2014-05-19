@@ -53,3 +53,6 @@
 	(let [ mid (read-string id) ]
 		(get-short-desc lang (first (filter #(= (:id %) mid) movies)))))
 
+(defn store-movies [fname]
+	(println "Storing movies to " fname)
+	(spit fname (.toString movies)))
