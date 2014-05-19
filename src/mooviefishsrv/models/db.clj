@@ -1,14 +1,21 @@
 (ns mooviefishsrv.models.db
   (:require  
   	[com.ashafa.clutch :as couch]
-  	[cheshire.core :refer [generate-string parse-stream]])
-  (:use mooviefishsrv.models.movies))
+  	[cheshire.core :refer [generate-string parse-stream]]))
+  ;(:use mooviefishsrv.models.movies))
 
 ;(def db "http://192.168.10.122:5984/mvfishtest")
 ;(def db "http://olegg-linux:5984/mvfishtest")
 
 (def mvf-base "http://mooviefish.com/files")
 (def cwd (System/getProperty "user.dir"))
+
+(def movies-data "data/movies.data")
+(def movies (load-file movies-data))
+
+(def users-data "data/users.data")
+(def users (load-file users-data))
+
 ;(def movies data/movies)
 
 ;(def movies (parse-stream (clojure.java.io/reader "/tmp/movie_list.json")))

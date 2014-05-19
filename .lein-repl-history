@@ -1,219 +1,4 @@
-mooviefishsrv.handler/app-routes
-(print mooviefishsrv.handler/app-routes)
-(print mooviefishsrv.handler/app)
-(binding [*ns* (or (find-ns 'mooviefishsrv.handler) (find-ns 'user))] (load-string "(defn init []
-  (println \"mooviefishsrv is starting\"))"))
-(binding [*ns* (or (find-ns 'mooviefishsrv.handler) (find-ns 'user))] (load-string "(defn init []
-  (println \"mooviefishsrv is starting\"))"))
-(binding [*ns* (or (find-ns 'mooviefishsrv.handler) (find-ns 'user))] (load-string "(defn destroy []"))
-(defn init []
-  (println "mooviefishsrv is starting"))
-(init)
-(binding [*ns* (or (find-ns 'mooviefishsrv.routes.home) (find-ns 'user))] (load-string "(defresource home-txt
-  :handle-ok \"Welcome to MoovieFish!\"
-  :etag \"fixed-etag\" 
-  :available-media-types [\"text/plain\"])"))
-(binding [*ns* (or (find-ns 'mooviefishsrv-service.routes.home) (find-ns 'user))] (load-string "(defroutes home-routes
-  (ANY \"/\" request home-txt)
-  (ANY \"/add-movie\" request add-movie)
-  (ANY \"/movies\" request get-movies))"))
-(use 'mooviefishsrv.routes)
-(use 'mooviefishsrv.routes.home)
-(binding [*ns* (or (find-ns 'mooviefishsrv.routes.home) (find-ns 'user))] (load-string "(defroutes home-routes
-  (ANY \"/\" request home-txt)
-  (ANY \"/add-movie\" request add-movie)
-  (ANY \"/movies\" request get-movies))"))
-(binding [*ns* (or (find-ns 'mooviefishsrv.routes.home) (find-ns 'user))] (load-string "(ns mooviefishsrv.routes.home  
-  (:require [compojure.core :refer :all]
-            [liberator.core :refer [defresource resource]]
-            [cheshire.core :refer [generate-string]]
-            [noir.io :as io]
-            [clojure.java.io :refer [file]]))"))
-(. System exit 0)
-> (require ['com.ashafa.clutch :as 'clutch])
-> (require [cheshire.core])
-> (require ['cheshire.core])
-(def db "http://192.168.10.122:5984/clutchtest")
-(couch/all-databases db)
-(clutch/all-databases db)
-(clutch/couchdb-info db)
-(clutch/create-database "mvfishtest")
-(clutch/create-database db "mvfishtest")
-(clutch/create-database db)
-(clutch/all-databases db)
-(def db "http://192.168.10.122:5984/mvfishtest")
-(clutch/all-databases db)
-(clutch/create-database db)
-(clutch/all-databases db)
-(load-file "test/test_movie_list.clj")
-movies
-(parse-stream movie)
-(cheshire.core/parse-stream movie)
-(parse-stream movies)
-(cheshire.core/parse-stream movies)
-(cheshire.core/generate-string movies)
-(clutch/with-db db (clutch/bulk-update movies))
-(clutch/all-documents db)
-(couch/with-db db
-  (couch/all-documents {:include_docs true}))
-(clutch/all-documents db {:include_docs true})
-db
-(quit)
-(use 'mooviefishsrv.models.db)
-(doc use)
-db
-(quit)
-(use 'mooviefishsrv.models.db)
-(movie->view)
-(movies->view)
-(use 'mooviefishsrv.models.db)
-(movies->view (movie-list))
-(quit)
-(load "db")
-(load "models.db")
-(load "models/db")
-(load "mooviefishsrv.models.db")
-db
-(println db)
-(use 'mooviefishsrv.models.db)
-db
-(movie-list)
-(:doc (movie-list))
-(filter :doc (movie-list))
-(first (filter :doc (movie-list)))
-(get-docs)
-(use 'mooviefishsrv.models.db)
-(get-docs)
-(use 'mooviefishsrv.models.db :reload)
-(get-docs)
-(def d1 (first (get-docs)))
-d1
-(:doc d1)
-(movie-list)
-({:doc }(movie-list))
-(movie-list)
-(filter :doc (movie-list)
-)
-(filter :doc (movie-list))
-(filter :doc (filter :doc (movie-list)))
-(first (filter :doc (movie-list)))
-(map :doc (filter :doc (movie-list)))
-(nth (map :doc (filter :doc (movie-list))) 0)
-(nth (map :doc (filter :doc (movie-list))) 1)
-(nth (map :doc (filter :doc (movie-list))) 2)
-(use 'mooviefishsrv.models.db :reload)
-(get-docs)
-(def d1 (first (get-docs)))
-d1
-(use 'mooviefishsrv.models.db :reload)
-(prepare-for-mobile "en" d1)
-(select-keys :lang d1)
-(select-keys :shotname d1)
-(select-keys :shortname d1)
-(:shortname d1)
-(:descriptions d1)
-(prepare-for-mobile "en" d1)
-(let [{:shortname s} d1] (prn s))
-(let [{:keys [shortname descriptions _id]} d1] (prn shortname))
-(let [{:keys [shortname descriptions _id]} d1] (prn _id))
-(let [{:keys [shortname descriptions _id]} d1] (prn descriptions))
-(use 'mooviefishsrv.models.db :reload)
-(get-short-desc d1)
 (get-short-desc "en" d1)
-(use 'mooviefishsrv.models.db :reload)
-(get-short-desc "en" d1)
-(use 'mooviefishsrv.models.db :reload)
-(get-short-desc "en" d1)
-(def movies [
-{
-:shortname"monsters", 
-:descriptions [
-{
-:lang "en" 
-:title "Monsters University", 
-:desc "A look at the relationship between Mike and Sulley during their days at Monsters University -- when they weren't necessarily the best of friends.",
- :img "monsters.jpg",
- :year-released "2013"
-}
-{
-:lang "ru" 
-:title "Университет монстров (2013)", 
-:desc "Майк и Салли — самые опытные пугатели в Монстрополисе, но так было далеко не всегда. Когда они встретились впервые, эти монстры терпеть друг друга не могли. «Университет Монстров» — история о том, как наши старые знакомые прошли путь от взаимной неприязни к крепкой дружбе.",
- :img "monsters.jpg"
- :year-released "2013"
-}
-]
-:fpkeys-file "monsters.fpkeys",
-  :translations [
-  {
- :lang "ru", 
- :title "Русский", 
- :desc "From original dvd", 
- :img nil 
- }
-  {
-  :lang "he", 
-  :title "עברית", 
-  :desc "From original dvd", 
-  :img nil 
-  }
-  ]
-    }
-    {
-:shortname "smurfs", 
-:descriptions [
-{
-:lang "en"  
-:title "The Smurfs", 
-:desc "When the evil wizard Gargamel chases the tiny blue Smurfs out of their village, they tumble from their magical world into New York City.",
- :img "smurfs.jpg",
- :year-released "2011"
-}
-]
-:fpkeys-file "smurfs.fpkeys",
-  :translations [
-  {
- :lang "ar", 
- :title "Arabic", 
- :desc "From original dvd", 
- :img nil 
- }
-  {
-  :lang "he", 
-  :title "עברית", 
-  :desc "From original dvd", 
-  :img nil 
-  }
-  ]
-   }
-   {
-:shortname "despicableme2", 
-:descriptions [
-{
-:lang "en"  
-:title "Despicable Me 2", 
-:desc "Gru is recruited by the Anti-Villain League to hith a powerful new super criminal.",
- :img "despicableme2.jpg",
- :year-released "2013"
-}
-]
-:fpkeys-file "despicableme2.fpkeys",
-  :translations [
-  {
- :lang "ru", 
- :title "Русский", 
- :desc "From original dvd", 
- :img nil 
- }
-  {
-  :lang "he", 
-  :title "עברית", 
-  :desc "From original dvd", 
-  :img nil 
-  }
-  ]
-   }
-   ])
 (first movies)
 (get-short-desc (first movies))
 (get-short-desc "en" (first movies))
@@ -471,30 +256,27 @@ movies
 (quit)
 (use 'mooviefishsrv.models.db)
 (get-movies "en")
-(use 'mooviefishsrv.models.db :reload-all)
-�quit)
+(= movies mm)
+(diff movies mm)
+movies
+mm
+(typeof "")
+(find-doc "equal")
+(compare movies mm)
+(find-doc "diff")
 (quit)
-(use 'mooviefishsrv.models.db :reload-all)
-(movie-count)
-(quit)
-(use 'mooviefishsrv.models.db :reload-all)
-(get-movie "en" 1001)
-(use 'mooviefishsrv.models.db :reload-all)
-(get-movie "en" 1001)
-(quit)
-(use 'mooviefishsrv.models.db :reload-all)
 (get-movie "en"  "1001")
+{
+"
+)
 (quit)
-(use 'mooviefishsrv.models.db :reload-all)
 (get-movie "en"  "1001")
-(store-movies)
+(:use 'mooviefishsrv.models.db :reload-all)
+(:use 'mooviefishsrv.models.db)
 (get-movie "en"  "1001")
-(use 'mooviefishsrv.models.db :reload-all)
-(quit)
-(use 'mooviefishsrv.models.db :reload-all)
-(get-movie "en"  "1001")
-(store-movies 
-"mmm.clj")
-(store-movies "mooviefishsrv/models/mmm.clj)
-(store-movies "mooviefishsrv/models/mmm.clj")
+(use 'mooviefishsrv.models.db)
+(get-movie  "en" 1001)
+(get-movie  "en" "1001")
+(load-file "data/users.data")
+(prn (load-file "data/users.data"))
 (quit)
