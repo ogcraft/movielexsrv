@@ -11,12 +11,13 @@
 (def cwd (System/getProperty "user.dir"))
 
 (def movies-data "data/movies.data")
-(def movies (load-file movies-data))
+;(def movies (load-file movies-data))
+(def movies (atom {}))
 
 (def users-data "data/users.data")
-(def users (load-file users-data))
 
-;(def movies data/movies)
+(def users (atom {}))
+
 
 ;(def movies (parse-stream (clojure.java.io/reader "/tmp/movie_list.json")))
 
@@ -51,15 +52,32 @@
 ;		(couch/all-documents db {:include_docs true}))))
 
 (defn movie-count []
-	(count movies))
+	(count @movies))
 
 (defn get-movies [lang]
-	(map #(get-short-desc lang %) movies))
+	(map #(get-short-desc lang %) (vals @movies)))
+
+;(defn get-movie [lang id]
+;	(let [ mid (read-string id) ]
+;		(get-short-desc lang (first (filter #(= (:id %) mid) movies)))))
 
 (defn get-movie [lang id]
 	(let [ mid (read-string id) ]
-		(get-short-desc lang (first (filter #(= (:id %) mid) movies)))))
+		(get-short-desc lang (get @movies mid))))
+
+(defn load-movies [fname]
+	(println "load-movies from " fname)
+	(let [ms (load-file fname)]
+		(reset! movies (into {} (for [m ms] [(:id m) m])))))
 
 (defn store-movies [fname]
 	(println "Storing movies to " fname)
-	(spit fname (.toString movies)))
+	(spit fname (.toString (vals @movies))))
+
+(defn load-movies-data []
+	(load-movies movies-data)
+	(println "Loaded " (movie-count) " movies"))
+
+(defn store-movies-data []
+	(store-movies movies-data)
+	(println "Stored " (movie-count) " movies"))

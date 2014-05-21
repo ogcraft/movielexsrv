@@ -280,3 +280,58 @@ mm
 (load-file "data/users.data")
 (prn (load-file "data/users.data"))
 (quit)
+(use 'mooviefishsrv.models.db)
+(wrap-base-url)
+(use 'compojure.route)
+(quit)
+(use 'mooviefishsrv.models.db)
+(get-movies "data/movies.data")
+(def mm (get-movies "data/movies.data"))
+mm
+(class mm)
+{:a 1 :b 2}
+(def zz {:a 1 :b 2} {:a 3 :b 4})
+(def zz [{:a 1 :b 2} {:a 3 :b 4}])
+zz
+(reduce #(:a %1) zz)
+(def aa #{})
+aa
+(assoc aa (:a zz) (first zz))
+zz
+(for [e zz] [(:a e) e])
+(into {} (for [e zz] [(:a e) e]))
+(use 'mooviefishsrv.models.db)
+(use 'mooviefishsrv.models.db :reload-all)
+(load-movies movies-data)
+(use 'mooviefishsrv.models.db :reload-all)
+movies
+(quit)
+(use 'mooviefishsrv.models.db :reload-all)
+(load-movies movies-data)
+movies
+@movies
+(use 'mooviefishsrv.models.db :reload-all)
+(load-movies movies-data)
+(use 'mooviefishsrv.models.db :reload-all)
+(load-movies movies-data)
+(quit)
+(use 'mooviefishsrv.models.db :reload-all)
+(load-movies movies-data)
+(use 'mooviefishsrv.models.db :reload-all)
+(load-movies movies-data)
+movies
+(use 'mooviefishsrv.models.db :reload-all)
+movies
+@movies
+(load-movies movies-data)
+@movies
+(get movies 1001)
+(get @movies 1001)
+(use 'mooviefishsrv.models.db :reload-all)
+(get @movies 1001)
+(load-movies movies-data)
+(get @movies 1001)
+(get-movie "ru" "1001")
+(val @movies)
+(vals @movies)
+(quit)
