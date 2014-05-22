@@ -12,19 +12,28 @@
         function renderMovies(movies) {
           $('#movie-list').empty();
           for(m in movies) {
-            var movie = movies[m].doc
+            var movie = movies[m]
             console.log(movie)
             //var obj = jQuery.parseJSON(movies[m])
 
             $('#movie-list').append($('<li/>', {html: JSON.stringify(movie)})); 
             //$('#movie-list').append($('<li/>', {html: movie.shortname}));   
-            }             
+            } 
+            var list = $('#movie-list')
+            for (i = 0, len = list.length; i < len; i++){
+              list[i].onclick = gotoSelection;
+            }            
         }
-        
+        function gotoSelection(movie) {
+          //$.getJSON("/api/movie/en/", renderMovies); 
+          console.log(movie);
+          var str="/api/movie/en/";
+          str += movie.id;
+          console.log(str);                      
+        }
         function getMovies() {
-          $.getJSON("/movies", renderMovies);                        
+          $.getJSON("/api/movies/en", renderMovies);                        
         }
-        
         function handleError(xhr) { 
           $('#error').text(xhr.statusText + ": " + xhr.responseText);
         }
@@ -33,7 +42,7 @@
     </script>
   </head>
   <body>
-    <h1>Current Movies</h1>
+    <h1>Available Movies</h1>
     <p id="error"></p>
     <ul id="movie-list"></ul>        
   </body>
