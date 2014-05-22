@@ -12,6 +12,7 @@
   [lib-noir "0.8.2"]
   [com.ashafa/clutch "0.4.0-RC1"]
   [ring-server "0.3.1"]
+  [domina "1.0.2"]
   [org.clojure/clojurescript "0.0-2197"]]
 
   :plugins [[lein-ring "0.8.10"] 
