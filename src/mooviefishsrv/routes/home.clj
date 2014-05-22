@@ -56,7 +56,8 @@
 (defroutes home-routes
   (ANY "/" request home-txt)
   ;(ANY "/add-movie" request add-movie)
+  (context "/api" []
   (GET "/movies/:lang" [lang] (get-movies lang))
   (GET "/movie/:lang/:id" [lang id] (get-movie lang id))
-  (GET "/movie-list" request get-movies-html))
+  (GET "/movie-list" request get-movies-html)))
 
