@@ -6,6 +6,8 @@
             [clojure.java.io :refer [file]]
             [mooviefishsrv.models.db :as db]))
 
+(def start-html "/index.html")
+
 (defresource home-txt
   :service-available? true
   :handle-ok "Welcome to MoovieFish!"
@@ -31,16 +33,16 @@
 
     :exists?
     (fn [context]
-      [(io/get-resource "/movie-list.html")
-       {::file (file (str (io/resource-path) "/movie-list.html"))}])
+      [(io/get-resource start-html)
+       {::file (file (str (io/resource-path) start-html))}])
 
     :handle-ok
     (fn [{{{resource :resource} :route-params} :request}]
       (println "get-movies-html :handle-ok")
-      (clojure.java.io/input-stream (io/get-resource "/movie-list.html")))
+      (clojure.java.io/input-stream (io/get-resource start-html)))
     :last-modified
     (fn [{{{resource :resource} :route-params} :request}]
-      (.lastModified (file (str (io/resource-path) "/movie-list.html")))))
+      (.lastModified (file (str (io/resource-path) start-html)))))
 
 
 ;(context "/documents" [] (defroutes documents-routes
@@ -59,5 +61,5 @@
   (context "/api" []
   (GET "/movies/:lang" [lang] (get-movies lang))
   (GET "/movie/:lang/:id" [lang id] (get-movie lang id))
-  (GET "/movie-list" request get-movies-html)))
+  (GET "/" request get-movies-html)))
 
