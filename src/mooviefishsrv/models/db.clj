@@ -81,3 +81,21 @@
 (defn store-movies-data []
 	(store-movies movies-data)
 	(println "Stored " (movie-count) " movies"))
+
+(defn add-user [did]
+	(println "Before: " (count @users))
+	(println "add-user: " did)
+	(if (contains? @users :did)
+		(reset! users (assoc @users :did {:did did}))
+		(reset! users (assoc @users :did {:did did})))
+	(println "After: " (count @users)))
+
+(defn check-permission [did id]
+	true)
+
+(defn aquire-movie [did id]
+	(let [ 	did (read-string did)
+			mid (read-string id)]
+		(add-user did)
+        (let [permission (check-permission did id)]
+           {:permission permission, :did did, :id mid})))

@@ -28,6 +28,14 @@
     (generate-string (db/get-movie lang id)))
   :available-media-types ["application/json"])
 
+(defresource aquire-movie [did id]
+  :allowed-methods [:get]
+  :handle-ok (fn [ _ ] 
+    (println "aquire-movie :handle-ok did: " did " id: " id) 
+    (generate-string (db/aquire-movie did id)))
+  :available-media-types ["application/json"])
+
+
 (defresource get-movies-html
     :available-media-types ["text/html"]
 
@@ -61,5 +69,6 @@
   (context "/api" []
   (GET "/movies/:lang" [lang] (get-movies lang))
   (GET "/movie/:lang/:id" [lang id] (get-movie lang id))
+  (GET "/aquire/:did/:id" [did id] (aquire-movie did id))
   (GET "/" request get-movies-html)))
 
