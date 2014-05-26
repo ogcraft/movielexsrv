@@ -52,6 +52,11 @@
     (fn [{{{resource :resource} :route-params} :request}]
       (.lastModified (file (str (io/resource-path) start-html)))))
 
+;(defresource test-route 
+;  :allowed-methods [:get]
+;  :handle-ok (fn [ _ ] 
+;    (prn "test :handle-ok request: " request)) 
+;  :available-media-types ["application/json"])
 
 ;(context "/documents" [] (defroutes documents-routes
 ;    (GET "/" [] "get all documents")
@@ -70,5 +75,6 @@
   (GET "/movies/:lang" [lang] (get-movies lang))
   (GET "/movie/:lang/:id" [lang id] (get-movie lang id))
   (GET "/aquire/:did/:id" [did id] (aquire-movie did id))
+  (GET "/test" request (str request))
   (GET "/" request get-movies-html)))
 

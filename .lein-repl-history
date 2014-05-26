@@ -376,3 +376,20 @@ movies
 (aquire-movie "111" "1001")
 users
 @users
+(clojure.string/split "Spaces Newlines\n\n" #"\s+")
+(bigint "122333444455555666666777777788888888999999999")
+(Integer/toString 42 16)
+�
+(Integer/toString 42 2)
+(java.util.UUID/randomUUID)
+(java.util.Date.)
+(conj (list 1 2 3) 4 5)
+(source defroutes)
+(source 'defroutes)
+(pprint (loaded-libs))
+(dir clojure.main)
+(use 'mooviefishsrv.models.db :reload-all)
+(dir mooviefishsrv.models.db)
+(source movies-data)
+(source movies)
+(quit)
