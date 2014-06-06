@@ -21,10 +21,10 @@
 
 ;(def movies (parse-stream (clojure.java.io/reader "/tmp/movie_list.json")))
 
-(defn make-abs-url [u]
+(defn make-abs-url [id u]
 	(if (nil? u) 
 		u 
-		(str mvf-base "/" u)))
+		(str mvf-base "/" id "/" u)))
 
 (defn select-desc-by-lang [lang desc] 
 	(let [ d (first (for [ e desc :when (= (:lang e) lang)] e))]
@@ -32,20 +32,21 @@
 			(first (for [ e desc :when (= (:lang e) "en")] e))
 			d)))
 
-(defn update-url-in-translation [t]
+(defn update-url-in-translation [id t]
 	(let [	f (:file t) 
 			i (:img  t)]
-		(assoc t :file (make-abs-url f) :img  (make-abs-url i))))
+		(assoc t :file (make-abs-url id f) :img  (make-abs-url id i))))
 
 (defn get-short-desc [lang movie]
-	(let [{:keys [shortname descriptions _id fpkeys-file translations]} movie] 
-		(let [ desc (select-desc-by-lang lang descriptions)]
+	(let [{:keys [shortname descriptions id fpkeys-file translations]} movie] 
+		(let [ 	desc (select-desc-by-lang lang descriptions)
+				update-url-in-translation-with-id (partial update-url-in-translation id)]
 			{   :shortname shortname,
 				:title (:title desc)
-				:fpkeys-file (make-abs-url fpkeys-file)
-				:img (make-abs-url (:img desc))
+				:fpkeys-file (make-abs-url id fpkeys-file)
+				:img (make-abs-url id (:img desc))
 				:desc (:desc desc)
-				:translations (map update-url-in-translation translations)})))
+				:translations (map update-url-in-translation-with-id translations)})))
 
 ;(defn movie-list [] 
 ;	(map :doc (filter :doc 
