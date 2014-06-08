@@ -43,7 +43,7 @@
 				update-url-in-translation-with-id (partial update-url-in-translation id)]
 			{   :shortname shortname,
 				:title (:title desc)
-				:fpkeys-file (make-abs-url id fpkeys-file)
+				:fpkeys-file (make-abs-url id (:en fpkeys-file))
 				:img (make-abs-url id (:img desc))
 				:desc (:desc desc)
 				:translations (map update-url-in-translation-with-id translations)})))

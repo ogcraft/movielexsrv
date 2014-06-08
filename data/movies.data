@@ -1,6 +1,6 @@
 [
 {
-	:fpkeys-file "monsters-en.fpkeys",
+	:fpkeys-file { :en "monsters-en.fpkeys"},
 	:id 1001,
 	:shortname "monsters", 
 	:descriptions [
@@ -24,7 +24,7 @@
 		]
 } 
 {
-	:fpkeys-file "smurfs-en.fpkeys", 
+	:fpkeys-file { :en "smurfs-en.fpkeys"} , 
 	:id 1002, 
 	:shortname "smurfs", 
 	:descriptions [
@@ -41,7 +41,7 @@
 		]
 } 
 {
-	:fpkeys-file "despicableme2-en.fpkeys", 
+	:fpkeys-file {:en "despicableme2-en.fpkeys"}, 
 	:id 1003, :shortname "despicableme2", 
 	:descriptions [
 		{
@@ -57,7 +57,7 @@
 		]
 }
 {
-	:fpkeys-file "spiderman2-en.fpkeys", 
+	:fpkeys-file {:en "spiderman2-en.fpkeys"}, 
 	:id 1004, 
 	:shortname "spiderman2", 
 	:descriptions [
