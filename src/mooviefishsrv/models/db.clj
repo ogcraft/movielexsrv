@@ -84,12 +84,9 @@
 	(println "Stored " (movie-count) " movies"))
 
 (defn add-user [did]
-	(println "Before: " (count @users))
 	(println "add-user: " did)
-	(if (contains? @users :did)
-		(reset! users (assoc @users :did {:did did}))
-		(reset! users (assoc @users :did {:did did})))
-	(println "After: " (count @users)))
+	(if (not (contains? @users :did))
+		(swap! users assoc did {:mids {}})))
 
 (defn check-permission [did id]
 	true)
