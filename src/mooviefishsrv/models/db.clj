@@ -86,14 +86,16 @@
 (defn add-user [did]
 	(println "add-user: " did)
 	(if (not (contains? @users :did))
-		(swap! users assoc did {:mids {}})))
+		(swap! users assoc did {:mids #{}})))
 
-(defn check-permission [did id]
+(defn check-permission [did mid]
 	true)
 
 (defn aquire-movie [did id]
 	(let [ 	did (read-string did)
 			mid (read-string id)]
 		(add-user did)
-        (let [permission (check-permission did id)]
-           {:permission permission, :did did, :id mid})))
+        (let [permission (check-permission did mid)]
+        	(if permission
+        		(println "Adding movie " mid " to user " did))
+           	{:permission permission, :did did, :id mid})))
