@@ -84,9 +84,8 @@
 	(println "Stored " (movie-count) " movies"))
 
 (defn add-user [did]
-	(println "add-user: " did)
-	(if (not (contains? @users :did))
-		(swap! users assoc did {:mids #{}})))
+	(if (not (contains? @users did))
+			(swap! users assoc did {:mids #{}})))
 
 (defn check-permission [did mid]
 	true)
@@ -97,5 +96,5 @@
 		(add-user did)
         (let [permission (check-permission did mid)]
         	(if permission
-        		(println "Adding movie " mid " to user " did))
+        		(swap! users update-in [did :mids] conj mid))
            	{:permission permission, :did did, :id mid})))

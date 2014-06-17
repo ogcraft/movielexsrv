@@ -1,43 +1,3 @@
-(get-short-desc "en" d1)
-(first movies)
-(get-short-desc (first movies))
-(get-short-desc "en" (first movies))
-(couch/with-db db (couch/bulk-update movies))
-(cluch/with-db db (couch/bulk-update movies))
-(cluch/with-db db (cluch/bulk-update movies))
-(couch/with-db db (couch/bulk-update movies))
-(couch/bulk-update db movies)
-(com.ashafa.clutch/bulk-update db movies)
-(get-docs)
-(def d1 (first (get-docs)))
-(get-short-desc "en" d1)
-(com.ashafa.clutch/bulk-update db movies)
-db
-(get-docs)
-(couch/create-database db)
-(com.ashafa.clutch/create-database db)
-(com.ashafa.clutch/bulk-update db movies)
-(get-docs)
-(def d1 (first (get-docs)))
-(get-short-desc "en" d1)
-(use 'mooviefishsrv.models.db :reload)
-(def d1 (first (get-docs)))
-(get-short-desc "en" d1)
-(use 'mooviefishsrv.models.db :reload)
-(get-short-desc "en" d1)
-(into {} (filter val {:a 1, :b 2, :c nil}))
-d1
-(:descriptions d1)
-(def dd (:descriptions d1))
-dd
-(filter val dd)
-(filter #(if (%) %) dd)
-(into {} (for [[e] dd :when (= (:lang e) "en")] [e]))
-(for [ e dd :when (= (:lang e) "en")] e)
-(for [ e dd :when (= (:lang e) "ru")] e)
-(defn select-desc-by-lang [lang desc] 
-(first (for [ e desc :when (= (:lang e) "ru")] e)))
-(select-desc-by-lang "ru" (:descriptions d1)) 
 (use 'mooviefishsrv.models.db :reload)
 (get-short-desc "en" d1)
 (use 'mooviefishsrv.models.db :reload)
@@ -63,8 +23,8 @@ dd
 }
 {
 :lang "ru" 
-:title "Университет монстров (2013)", 
-:desc "Майк и Салли — самые опытные пугатели в Монстрополисе, но так было далеко не всегда. Когда они встретились впервые, эти монстры терпеть друг друга не могли. «Университет Монстров» — история о том, как наши старые знакомые прошли путь от взаимной неприязни к крепкой дружбе.",
+:title "Универ�?итет мон�?тров (2013)", 
+:desc "Майк и Салли — �?амые опытные пугатели в Мон�?трополи�?е, но так было далеко не в�?егда. Когда они в�?третили�?ь впервые, �?ти мон�?тры терпеть друг друга не могли. «Универ�?итет Мон�?тров» — и�?тори�? о том, как наши �?тарые знакомые прошли путь от взаимной непри�?зни к крепкой дружбе.",
  :img "monsters.jpg"
  :year-released "2013"
 }
@@ -73,7 +33,7 @@ dd
   :translations [
   {
  :lang "ru", 
- :title "Русский", 
+ :title "Ру�?�?кий", 
  :desc "From original dvd", 
  :file "monsters-ru.mp3",
  :img nil 
@@ -130,7 +90,7 @@ dd
   :translations [
   {
  :lang "ru", 
- :title "Русский", 
+ :title "Ру�?�?кий", 
  :desc "From original dvd",
  :file "despicableme2-ru.mp3" 
  :img nil 
@@ -458,5 +418,83 @@ users
 (conj (:mids (@users 112)) 1001)
 (prn @users)
 (conj ((@users 112) :mids) 1001)
+(prn @users)
+(quit)
+{a: #{}}
+(def aa {a: #{}})
+(quit)
+(use 'mooviefishsrv.models.db :reload-all)
+(prn "aaaaa")
+(aquire-movie "114" "1001")
+(aquire-movie "113" "1001")
+(aquire-movie "112" "1001")
+(prn @users)
+(assoc-in @users [112 :mids] 1001)
+(assoc-in @users [112 :mids] 1002)
+(assoc-in @users [112 :mids] 1003)
+(assoc-in @users [112 :mids] (conj 1003))
+(swap! users assoc-in [112 :mids] 1001)
+(swap! users assoc-in [112 :mids] 1002)
+(swap! users update-in [112 :mids] conj 1001)
+(conj #{} 1001)
+(conj #{} 1002)
+(conj #{1001} 1002)
+(prn @users)
+(update-in @users [112 :mid] conj 1001)
+(prn @users)
+(swap! @users update-in [112 :mid] conj 1001)
+(swap! users update-in [112 :mid] conj 1001)
+(swap! users update-in [112 :mids] conj 1001)
+(update-in @users [112 :mids] conj 1001)
+(update-in @users [112 :mids] assoc 1001)
+(update-in @users [112 :mids] conj 1001)
+(get-in @users [112 :mids])
+(prn @users)
+(update-in @users [113 :mids] conj 1001)
+(update-in @users [113 :mids] conj 1002)
+(update-in @users [113 :mids] conj 1001)
+(swap! users update-in [114 :mids] conj 1001)
+(swap! users update-in [114 :mids] conj 1002)
+(swap! users update-in [114 :mids] conj 1004)
+(quit)
+(use 'mooviefishsrv.models.db :reload-all)
+(prn  @users)
+(aquire-movie "110" "1001")
+(aquire-movie "110" "1002")
+(aquire-movie "110" "1003")
+(aquire-movie "111" "1003")
+(aquire-movie "111" "1001")
+(prn  @users)
+(use 'mooviefishsrv.models.db :reload-all)
+(quit)
+(use 'mooviefishsrv.models.db :reload-all)
+(aquire-movie "111" "1001")
+(aquire-movie "111" "1002")
+(aquire-movie "111" "1003")
+(swap! users update-in [111 :mids] conj 1004)
+@users
+(swap! users update-in [111 :mids] conj 1002)
+@users
+(aquire-movie "111" 1003)
+(aquire-movie "111" "1007")
+(prn @users)
+(quit)
+(use 'mooviefishsrv.models.db :reload-all)
+(aquire-movie "111" 1003)
+(aquire-movie "111" "1003")
+(aquire-movie "111" "1002")
+(use 'mooviefishsrv.models.db :reload-all)
+(aquire-movie "111" "1002")
+(aquire-movie "111" "1003")
+(aquire-movie "111" "1004")
+(quit)
+(use 'mooviefishsrv.models.db :reload-all)
+(aquire-movie "111" "1004")
+(aquire-movie "111" "1003")
+(aquire-movie "111" "1002")
+(aquire-movie "111" "1001")
+(prn @utils)
+(prn @users)
+(aquire-movie "112" "1001")
 (prn @users)
 (quit)
