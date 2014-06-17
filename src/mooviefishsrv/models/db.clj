@@ -1,6 +1,8 @@
 (ns mooviefishsrv.models.db
   (:require  
   	[com.ashafa.clutch :as couch]
+  	[clj-time.core :as time]
+	[clj-time.format :as time-format]
   	[cheshire.core :refer [generate-string parse-stream]]))
   ;(:use mooviefishsrv.models.movies))
 
@@ -41,7 +43,8 @@
 	(let [{:keys [shortname descriptions id fpkeys-file translations]} movie] 
 		(let [ 	desc (select-desc-by-lang lang descriptions)
 				update-url-in-translation-with-id (partial update-url-in-translation id)]
-			{   :shortname shortname,
+			{   :id id
+				:shortname shortname,
 				:title (:title desc)
 				:fpkeys-file (make-abs-url id (:en fpkeys-file))
 				:img (make-abs-url id (:img desc))
@@ -85,16 +88,25 @@
 
 (defn add-user [did]
 	(if (not (contains? @users did))
-			(swap! users assoc did {:mids #{}})))
+			(swap! users assoc did {:mids {}})))
 
+(defn add-movie-to-user1 [did mid]
+	(swap! users update-in [did :mids] assoc mid 
+		(if-let [m (get-in @users [did :mids mid])] 
+			(conj (:date m) (time/now))	 
+			{:date [(time/now)]})))
+
+(defn add-movie-to-user [did mid]
+	nil)
+	
 (defn check-permission [did mid]
 	true)
 
-(defn aquire-movie [did id]
+(defn acquire-movie [did id]
 	(let [ 	did (read-string did)
 			mid (read-string id)]
 		(add-user did)
         (let [permission (check-permission did mid)]
         	(if permission
-        		(swap! users update-in [did :mids] conj mid))
+        		(add-movie-to-user did mid))
            	{:permission permission, :did did, :id mid})))
