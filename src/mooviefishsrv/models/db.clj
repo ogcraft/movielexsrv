@@ -1,9 +1,13 @@
 (ns mooviefishsrv.models.db
-  (:require  
-  	[com.ashafa.clutch :as couch]
-  	[clj-time.core :as time]
-	[clj-time.format :as time-format]
-  	[cheshire.core :refer [generate-string parse-stream]]))
+  	(:require 
+    	clojure.contrib.io 
+    	clojure.java.io
+  		[com.ashafa.clutch :as couch]
+  		[clj-time.core :as time]
+		[clj-time.format :as time-format]
+  		[cheshire.core :refer [generate-string parse-stream]])
+   	(:import java.io.PushbackReader)
+   	(:import java.io.FileReader))
   ;(:use mooviefishsrv.models.movies))
 
 ;(def db "http://192.168.10.122:5984/mvfishtest")
@@ -13,13 +17,22 @@
 (def cwd (System/getProperty "user.dir"))
 
 (def movies-data "data/movies.data")
-;(def movies (load-file movies-data))
 (def movies (atom {}))
 
 (def users-data "data/users.data")
-
 (def users (atom {}))
 
+(defn serialize
+	"Print a data structure to a file so that we may read it in later."
+  	[data-structure #^String filename]
+  	(clojure.contrib.io/with-out-writer
+    	(java.io.File. filename)
+    	(binding [*print-dup* true] (prn data-structure))))
+
+;; This allows us to then read in the structure at a later time, like so:
+(defn deserialize [filename]
+  	(with-open [r (PushbackReader. (FileReader. filename))]
+    	(read r)))
 
 ;(def movies (parse-stream (clojure.java.io/reader "/tmp/movie_list.json")))
 
@@ -76,7 +89,12 @@
 
 (defn store-movies [fname]
 	(println "Storing movies to " fname)
-	(spit fname (.toString (vals @movies))))
+	(spit fname (binding [*print-dup* true] @movies)))
+	;(spit fname (.toString (binding [*print-dup* true] @movies))))
+
+(defn store-users [fname]
+	(println "Storing users to " fname)
+	(spit fname (binding [*print-dup* true] @users)))
 
 (defn load-movies-data []
 	(load-movies movies-data)
