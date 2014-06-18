@@ -16,7 +16,7 @@
             console.log(movie)
             //var obj = jQuery.parseJSON(movies[m])
 
-            $('#movie-list').append($('<li/>', {html: JSON.stringify(movie)})); 
+            $('#movie-list').append($('<li/>', {html: syntaxHighlight(JSON.stringify(movie))})); 
             //$('#movie-list').append($('<li/>', {html: movie.shortname}));   
             } 
             var list = $('#movie-list')
@@ -37,7 +37,27 @@
         function handleError(xhr) { 
           $('#error').text(xhr.statusText + ": " + xhr.responseText);
         }
-        
+        function syntaxHighlight(json) {
+    if (typeof json != 'string') {
+         json = JSON.stringify(json, undefined, 2);
+    }
+    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+        var cls = 'number';
+        if (/^"/.test(match)) {
+            if (/:$/.test(match)) {
+                cls = 'key';
+            } else {
+                cls = 'string';
+            }
+        } else if (/true|false/.test(match)) {
+            cls = 'boolean';
+        } else if (/null/.test(match)) {
+            cls = 'null';
+        }
+        return '<span class="' + cls + '">' + match + '</span>';
+    });
+}
         $(function() {getMovies();});
     </script>
   </head>

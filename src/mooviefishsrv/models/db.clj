@@ -88,17 +88,17 @@
 
 (defn add-user [did]
 	(if (not (contains? @users did))
-			(swap! users assoc did {:mids {}})))
+			(swap! users assoc did {})))
 
-(defn add-movie-to-user1 [did mid]
-	(swap! users update-in [did :mids] assoc mid 
-		(if-let [m (get-in @users [did :mids mid])] 
-			(conj (:date m) (time/now))	 
-			{:date [(time/now)]})))
+;; {11 {:mids {:dates [#<DateTime 2014-06-18T12:59:36.148Z> ]}}}
+(defn add-movie-to-user [u mid]
+	(let [ dates (get-in u [:mids mid :dates] [])]
+		(prn dates)
+		(assoc-in u [:mids mid :dates] (conj dates (time/now)))))
 
-(defn add-movie-to-user [did mid]
-	nil)
-	
+(defn update-users-with-movie [did mid]
+	(swap! users assoc did (add-movie-to-user (@users did) mid)))
+
 (defn check-permission [did mid]
 	true)
 
@@ -108,5 +108,5 @@
 		(add-user did)
         (let [permission (check-permission did mid)]
         	(if permission
-        		(add-movie-to-user did mid))
+        		(update-users-with-movie did mid))
            	{:permission permission, :did did, :id mid})))
