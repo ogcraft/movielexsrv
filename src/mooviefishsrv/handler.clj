@@ -6,16 +6,17 @@
             [compojure.handler :as handler]
             [compojure.route :as route]
             [mooviefishsrv.routes.home :refer [home-routes]]
-            [mooviefishsrv.models.db :refer [load-movies-data store-movies-data]]))
+            [mooviefishsrv.models.db :as db]))
 
 (defn init []
   (println "mooviefishsrv is starting")
   (println "CWD: " (System/getProperty "user.dir"))
-  (load-movies-data))
+  (db/load-movies-data)
+  (db/load-users-data))
 
 (defn destroy []
-  (println "mooviefishsrv is shutting down"))
-  ;(store-movies-data))
+  (println "mooviefishsrv is shutting down")
+  (db/store-users-data))
 
 (defroutes app-routes
   (route/resources "/")

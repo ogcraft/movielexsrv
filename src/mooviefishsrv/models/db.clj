@@ -12,7 +12,7 @@
 
 ;(def db "http://192.168.10.122:5984/mvfishtest")
 ;(def db "http://olegg-linux:5984/mvfishtest")
-
+(def date-formatter (time-format/formatters :date-hour-minute-second))
 (def mvf-base "http://mooviefish.com/files")
 (def cwd (System/getProperty "user.dir"))
 
@@ -84,17 +84,14 @@
 
 (defn load-movies [fname]
 	(println "load-movies from " fname)
-	(let [ms (load-file fname)]
-		(reset! movies (into {} (for [m ms] [(:id m) m])))))
+	(if-let [ms (load-file fname)]
+		(reset! movies (into {} (for [m ms] [(:id m) m])))
+		(reset! movies {})))
 
 (defn store-movies [fname]
 	(println "Storing movies to " fname)
 	(spit fname (binding [*print-dup* true] @movies)))
 	;(spit fname (.toString (binding [*print-dup* true] @movies))))
-
-(defn store-users [fname]
-	(println "Storing users to " fname)
-	(spit fname (binding [*print-dup* true] @users)))
 
 (defn load-movies-data []
 	(load-movies movies-data)
@@ -104,15 +101,34 @@
 	(store-movies movies-data)
 	(println "Stored " (movie-count) " movies"))
 
+(defn store-users [fname]
+	(println "Storing users to " fname)
+	(spit fname (binding [*print-dup* true] @users)))
+
+(defn load-users [fname]
+	(println "load-users from " fname)
+	(if-let [us (load-file fname)]
+		(reset! users us)
+		(reset! users {})))
+
+(defn load-users-data []
+	(load-users users-data)
+	(println "Loaded " (count @users) " users"))
+
+(defn store-users-data []
+	(store-users users-data)
+	(println "Stored " (count @users) " users"))
+
 (defn add-user [did]
 	(if (not (contains? @users did))
 			(swap! users assoc did {})))
 
 ;; {11 {:mids {:dates [#<DateTime 2014-06-18T12:59:36.148Z> ]}}}
 (defn add-movie-to-user [u mid]
-	(let [ dates (get-in u [:mids mid :dates] [])]
+	(let [ 	dates (get-in u [:mids mid :dates] [])
+			t (time-format/unparse date-formatter (time/now))]
 		(prn dates)
-		(assoc-in u [:mids mid :dates] (conj dates (time/now)))))
+		(assoc-in u [:mids mid :dates] (conj dates t))))
 
 (defn update-users-with-movie [did mid]
 	(swap! users assoc did (add-movie-to-user (@users did) mid)))
