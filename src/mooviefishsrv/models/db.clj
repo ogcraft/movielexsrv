@@ -22,17 +22,17 @@
 (def users-data "data/users.data")
 (def users (atom {}))
 
-(defn serialize
-	"Print a data structure to a file so that we may read it in later."
-  	[data-structure #^String filename]
-  	(clojure.contrib.io/with-out-writer
-    	(java.io.File. filename)
-    	(binding [*print-dup* true] (prn data-structure))))
+; (defn serialize
+; 	"Print a data structure to a file so that we may read it in later."
+;   	[data-structure #^String filename]
+;   	(clojure.contrib.io/with-out-writer
+;     	(java.io.File. filename)
+;     	(binding [*print-dup* true] (prn data-structure))))
 
-;; This allows us to then read in the structure at a later time, like so:
-(defn deserialize [filename]
-  	(with-open [r (PushbackReader. (FileReader. filename))]
-    	(read r)))
+; ;; This allows us to then read in the structure at a later time, like so:
+; (defn deserialize [filename]
+;   	(with-open [r (PushbackReader. (FileReader. filename))]
+;     	(read r)))
 
 ;(def movies (parse-stream (clojure.java.io/reader "/tmp/movie_list.json")))
 
@@ -84,9 +84,11 @@
 
 (defn load-movies [fname]
 	(println "load-movies from " fname)
-	(if-let [ms (load-file fname)]
-		(reset! movies (into {} (for [m ms] [(:id m) m])))
-		(reset! movies {})))
+	(if (.exists (clojure.contrib.io/as-file fname))
+		(if-let [ms (load-file fname)]
+			(reset! movies (into {} (for [m ms] [(:id m) m])))
+			(reset! movies {}))
+		(spit "" fname)))
 
 (defn store-movies [fname]
 	(println "Storing movies to " fname)
@@ -107,9 +109,11 @@
 
 (defn load-users [fname]
 	(println "load-users from " fname)
-	(if-let [us (load-file fname)]
-		(reset! users us)
-		(reset! users {})))
+	(if (.exists (clojure.contrib.io/as-file fname))
+		(if-let [us (load-file fname)]
+			(reset! users us)
+			(reset! users {}))
+		(spit fname "")))
 
 (defn load-users-data []
 	(load-users users-data)
@@ -131,7 +135,8 @@
 		(assoc-in u [:mids mid :dates] (conj dates t))))
 
 (defn update-users-with-movie [did mid]
-	(swap! users assoc did (add-movie-to-user (@users did) mid)))
+	(swap! users assoc did (add-movie-to-user (@users did) mid))
+	(store-users-data))
 
 (defn check-permission [did mid]
 	true)
