@@ -74,6 +74,7 @@
 (defn get-movies [lang]
 	(map #(get-short-desc lang %) (vals @movies)))
 
+
 ;(defn get-movie [lang id]
 ;	(let [ mid (read-string id) ]
 ;		(get-short-desc lang (first (filter #(= (:id %) mid) movies)))))
@@ -103,6 +104,9 @@
 	(store-movies movies-data)
 	(println "Stored " (movie-count) " movies"))
 
+(defn users-count []
+	(count @users))
+
 (defn store-users [fname]
 	(println "Storing users to " fname)
 	(spit fname (binding [*print-dup* true] @users)))
@@ -117,11 +121,11 @@
 
 (defn load-users-data []
 	(load-users users-data)
-	(println "Loaded " (count @users) " users"))
+	(println "Loaded " (users-count) " users"))
 
 (defn store-users-data []
 	(store-users users-data)
-	(println "Stored " (count @users) " users"))
+	(println "Stored " (users-count) " users"))
 
 (defn add-user [did]
 	(if (not (contains? @users did))
@@ -149,3 +153,6 @@
         	(if permission
         		(update-users-with-movie did mid))
            	{:permission permission, :did did, :id mid})))
+
+(defn get-stats []
+	{:movies-num (movie-count), :users-num (users-count)})

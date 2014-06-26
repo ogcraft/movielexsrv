@@ -17,7 +17,7 @@
 (defresource get-movies [lang]
   :allowed-methods [:get]
   
-  :handle-ok (fn [ _ ] 
+  :handle-ok (fn [ ctx ] 
     (println "get-movies :handle-ok lang: " lang) 
     (generate-string (db/get-movies lang)))
 
@@ -30,7 +30,7 @@
 
 (defresource get-movie [lang id]
   :allowed-methods [:get]
-  :handle-ok (fn [ _ ] 
+  :handle-ok (fn [ ctx ] 
     (println "get-movie :handle-ok lang: " lang " id: " id) 
     (generate-string (db/get-movie lang id)))
   :available-media-types ["application/json"]
@@ -41,7 +41,7 @@
 
 (defresource acquire-movie [did id]
   :allowed-methods [:get]
-  :handle-ok (fn [ _ ] 
+  :handle-ok (fn [ ctx ] 
     (println "aquire-movie :handle-ok did: " did " id: " id) 
     (generate-string (db/acquire-movie did id)))
   :available-media-types ["application/json"]
@@ -50,6 +50,18 @@
                       (assoc-in [:headers "Access-Control-Allow-Origin"] "*")
                       (assoc-in [:headers "Access-Control-Allow-Methods"] "GET, POST"))))
 
+(defresource get-stats 
+  :allowed-methods [:get]
+  
+  :handle-ok (fn [ctx] 
+    (println "get-stats") 
+    (generate-string (db/get-stats)))
+
+  :as-response (fn [d ctx]
+                  (-> (liberator.representation/as-response d ctx)
+                      (assoc-in [:headers "Access-Control-Allow-Origin"] "*")
+                      (assoc-in [:headers "Access-Control-Allow-Methods"] "GET, POST")))
+  :available-media-types ["application/json"])
 
 (defresource get-movies-html
     :available-media-types ["text/html"]
@@ -89,7 +101,9 @@
   (context "/api" []
   (GET "/movies/:lang" [lang] (get-movies lang))
   (GET "/movie/:lang/:id" [lang id] (get-movie lang id))
-  (GET "/aquire/:did/:id" [did id] (acquire-movie did id))
+  (GET "/aquire/:did/:id" [did id] (acquire-movie did id))  ; remove late
+  (GET "/acquire/:did/:id" [did id] (acquire-movie did id))
+  (GET "/stats" [] get-stats)
   (GET "/test" request (str request))
   (GET "/" request get-movies-html)))
 
