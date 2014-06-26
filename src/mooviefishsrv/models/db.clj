@@ -145,14 +145,17 @@
 (defn check-permission [did mid]
 	true)
 
-(defn acquire-movie [did id]
+(defn acquire-movie [did mid]
 	(let [ 	did (read-string did)
-			mid (read-string id)]
+			mid (read-string mid)]
 		(add-user did)
         (let [permission (check-permission did mid)]
         	(if permission
         		(update-users-with-movie did mid))
            	{:permission permission, :did did, :id mid})))
+
+(defn translation-vote [lang did mid]
+	{:lang lang :id mid :votes 1})
 
 (defn get-stats []
 	{:movies-num (movie-count), :users-num (users-count)})

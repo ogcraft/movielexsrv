@@ -39,11 +39,22 @@
                       (assoc-in [:headers "Access-Control-Allow-Origin"] "*")
                       (assoc-in [:headers "Access-Control-Allow-Methods"] "GET, POST"))))
 
-(defresource acquire-movie [did id]
+(defresource acquire-movie [did mid]
   :allowed-methods [:get]
   :handle-ok (fn [ ctx ] 
-    (println "aquire-movie :handle-ok did: " did " id: " id) 
-    (generate-string (db/acquire-movie did id)))
+    (println "acquire-movie :handle-ok did: " did " id: " mid) 
+    (generate-string (db/acquire-movie did mid)))
+  :available-media-types ["application/json"]
+  :as-response (fn [d ctx]
+                  (-> (liberator.representation/as-response d ctx)
+                      (assoc-in [:headers "Access-Control-Allow-Origin"] "*")
+                      (assoc-in [:headers "Access-Control-Allow-Methods"] "GET, POST"))))
+
+(defresource translation-vote [lang did mid]
+  :allowed-methods [:get]
+  :handle-ok (fn [ ctx ] 
+    (println "translation-vote :handle-ok lang:" lang " did: " did " id: " mid) 
+    (generate-string (db/translation-vote lang did mid)))
   :available-media-types ["application/json"]
   :as-response (fn [d ctx]
                   (-> (liberator.representation/as-response d ctx)
@@ -100,9 +111,10 @@
   ;(ANY "/add-movie" request add-movie)
   (context "/api" []
   (GET "/movies/:lang" [lang] (get-movies lang))
-  (GET "/movie/:lang/:id" [lang id] (get-movie lang id))
-  (GET "/aquire/:did/:id" [did id] (acquire-movie did id))  ; remove late
-  (GET "/acquire/:did/:id" [did id] (acquire-movie did id))
+  (GET "/movie/:lang/:mid" [lang mid] (get-movie lang mid))
+  (GET "/aquire/:did/:mid" [did mid] (acquire-movie did mid))  ; remove late
+  (GET "/acquire/:did/:mid" [did mid] (acquire-movie did mid))
+  (GET "/translation-vote/:lang/:did/:mid" [lang did mid] (translation-vote lang did mid))
   (GET "/stats" [] get-stats)
   (GET "/test" request (str request))
   (GET "/" request get-movies-html)))
