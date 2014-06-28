@@ -1,15 +1,3 @@
-{a: #{}}
-(def aa {a: #{}})
-(quit)
-(use 'mooviefishsrv.models.db :reload-all)
-(prn "aaaaa")
-(aquire-movie "114" "1001")
-(aquire-movie "113" "1001")
-(aquire-movie "112" "1001")
-(prn @users)
-(assoc-in @users [112 :mids] 1001)
-(assoc-in @users [112 :mids] 1002)
-(assoc-in @users [112 :mids] 1003)
 (assoc-in @users [112 :mids] (conj 1003))
 (swap! users assoc-in [112 :mids] 1001)
 (swap! users assoc-in [112 :mids] 1002)
@@ -497,4 +485,16 @@ time/naow
 (use 'mooviefishsrv.models.db :reload-all)
 (load-movies-data)
 (prn @movies)
+(quit)
+(use 'clojurewerkz.welle.core :as wc)
+(use 'clojurewerkz.welle.core)
+(connect)
+(let [conn (wc/connect)]
+  ;; creates a new bucket with default properties
+  (wb/create conn "things"))
+(def conn (connect))
+(create conn "things")
+(quit)
+)/וןא(
+()
 (quit)

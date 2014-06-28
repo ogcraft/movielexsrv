@@ -5,6 +5,9 @@
   		[com.ashafa.clutch :as couch]
   		[clj-time.core :as time]
 		[clj-time.format :as time-format]
+		[clojurewerkz.welle.core    :as wc]
+        [clojurewerkz.welle.buckets :as wb]
+        [clojurewerkz.welle.kv      :as kv]
   		[cheshire.core :refer [generate-string parse-stream]])
    	(:import java.io.PushbackReader)
    	(:import java.io.FileReader))
