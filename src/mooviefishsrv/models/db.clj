@@ -5,10 +5,12 @@
   		[com.ashafa.clutch :as couch]
   		[clj-time.core :as time]
 		[clj-time.format :as time-format]
+		;[clj-time.coerce :as time-coerce :exclude [extend second]]
 		[clojurewerkz.welle.core    :as wc]
         [clojurewerkz.welle.buckets :as wb]
         [clojurewerkz.welle.kv      :as kv]
   		[cheshire.core :refer [generate-string parse-stream]])
+  	;(:use clj-time.coerce)
    	(:import java.io.PushbackReader)
    	(:import java.io.FileReader))
  
@@ -20,6 +22,9 @@
 (def conn (wc/connect riak_url))
 ;(def votes-bucket (wb/update conn "votes.backet" {:last-write-wins true}))
 (def votes-bucket "votes.backet")
+(def users-bucket "users.backet")
+
+;(def data-types #{"user" "movie"})
 
 (def date-formatter (time-format/formatters :date-hour-minute-second))
 (def mvf-base "http://mooviefish.com/files")
@@ -140,6 +145,21 @@
 	(if (not (contains? @users did))
 			(swap! users assoc did {})))
 
+(defn users-bucket-create [] 
+	(wb/update conn users-bucket {:last-write-wins true}))
+
+(defn add-user-db [did]
+	(let [{:keys [has-value? result]} (kv/fetch conn users-bucket did)]
+		(prn "add-user-db: result: " result)
+		(if (not has-value?) 
+			(kv/store conn users-bucket did {} 
+				{:content-type "application/clojure"
+				:indexes {:data-type "user"}}))))
+				;:indexes {:data-type "user" :created-at #{(time-coerce/to-timestamp (time/now))}}}))))
+
+(defn query-users-db []
+	(kv/index-query conn users-bucket :data-type "user"))
+
 ;; {11 {:mids {:dates [#<DateTime 2014-06-18T12:59:36.148Z> ]}}}
 (defn add-movie-to-user [u mid]
 	(let [ 	dates (get-in u [:mids mid :dates] [])
@@ -163,6 +183,7 @@
         		(update-users-with-movie did mid))
            	{:permission permission, :did did, :id mid})))
 
+;;;;;;;;;;;;;;;;;;; Votes 
 (defn votes-bucket-create [] 
 	(wb/update conn votes-bucket {:last-write-wins true}))
 
