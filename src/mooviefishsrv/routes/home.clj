@@ -61,6 +61,17 @@
                       (assoc-in [:headers "Access-Control-Allow-Origin"] "*")
                       (assoc-in [:headers "Access-Control-Allow-Methods"] "GET, POST"))))
 
+(defresource get-translation-vote [mid]
+  :allowed-methods [:get]
+  :handle-ok (fn [ ctx ] 
+    (println "get-translation-vote :handle-ok id: " mid) 
+    (generate-string (db/get-translation-vote mid)))
+  :available-media-types ["application/json"]
+  :as-response (fn [d ctx]
+                  (-> (liberator.representation/as-response d ctx)
+                      (assoc-in [:headers "Access-Control-Allow-Origin"] "*")
+                      (assoc-in [:headers "Access-Control-Allow-Methods"] "GET, POST"))))
+
 (defresource get-stats 
   :allowed-methods [:get]
   
@@ -115,6 +126,7 @@
   (GET "/aquire/:did/:mid" [did mid] (acquire-movie did mid))  ; remove late
   (GET "/acquire/:did/:mid" [did mid] (acquire-movie did mid))
   (GET "/translation-vote/:lang/:did/:mid" [lang did mid] (translation-vote lang did mid))
+  (GET "/get-translation-vote/:mid" [mid] (get-translation-vote mid))
   (GET "/stats" [] get-stats)
   (GET "/test" request (str request))
   (GET "/" request get-movies-html)))

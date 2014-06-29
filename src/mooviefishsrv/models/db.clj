@@ -11,10 +11,16 @@
   		[cheshire.core :refer [generate-string parse-stream]])
    	(:import java.io.PushbackReader)
    	(:import java.io.FileReader))
-  ;(:use mooviefishsrv.models.movies))
-
+ 
 ;(def db "http://192.168.10.122:5984/mvfishtest")
 ;(def db "http://olegg-linux:5984/mvfishtest")
+
+(def riak_url "http://192.168.14.101:8098/riak")
+;(def riak_url "http://127.0.0.1:8098/riak")
+(def conn (wc/connect riak_url))
+;(def votes-bucket (wb/update conn "votes.backet" {:last-write-wins true}))
+(def votes-bucket "votes.backet")
+
 (def date-formatter (time-format/formatters :date-hour-minute-second))
 (def mvf-base "http://mooviefish.com/files")
 (def cwd (System/getProperty "user.dir"))
@@ -157,8 +163,31 @@
         		(update-users-with-movie did mid))
            	{:permission permission, :did did, :id mid})))
 
+(defn votes-bucket-create [] 
+	(wb/update conn votes-bucket {:last-write-wins true}))
+
+(defn inc-vote [lang did vote] 
+	(let [old-vote (get vote lang 0)] 
+		(assoc vote lang (inc old-vote))))
+
 (defn translation-vote [lang did mid]
-	{:lang lang :id mid :votes 1})
+	(let [{:keys [has-value? result]} (kv/fetch conn votes-bucket mid)
+		  initial_vote {lang 1}]
+		;(prn "result: " result " has-value?: " has-value?)
+  		(if has-value? 
+  			(let [ new_vote (inc-vote lang did (:value (first result)))] 
+  				(kv/store conn votes-bucket mid new_vote {:content-type "application/clojure"})
+  				{:id mid :vote new_vote})
+  			(do (kv/store conn votes-bucket mid initial_vote {:content-type "application/clojure"})
+				{:id mid :vote initial_vote}))))
+
+(defn get-translation-vote [mid]
+	(let [{:keys [has-value? result]} (kv/fetch conn votes-bucket mid)]
+		;(prn "result: " result " has-value?: " has-value?)
+  		(if has-value? 
+  			(let [ vote (:value (first result))] 
+  				{:id mid :vote vote})
+  			{:id mid :vote {}})))
 
 (defn get-stats []
 	{:movies-num (movie-count), :users-num (users-count)})
