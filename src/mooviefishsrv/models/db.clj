@@ -52,11 +52,12 @@
 		(assoc t :file (make-abs-url id f) :img  (make-abs-url id i))))
 
 (defn get-short-desc [lang movie]
-	(let [{:keys [shortname descriptions id fpkeys-file translations]} movie] 
+	(let [{:keys [shortname movie-state descriptions id fpkeys-file translations]} movie] 
 		(let [ 	desc (select-desc-by-lang lang descriptions)
 				update-url-in-translation-with-id (partial update-url-in-translation id)]
 			{   :id id
 				:shortname shortname,
+				:movie-state movie-state,
 				:title (:title desc)
 				:fpkeys-file (make-abs-url id (:en fpkeys-file))
 				:img (make-abs-url id (:img desc))
