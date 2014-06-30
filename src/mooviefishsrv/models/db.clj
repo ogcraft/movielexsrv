@@ -34,21 +34,6 @@
 (def movies (atom {}))
 
 (def users-data "data/users.data")
-(def users (atom {}))
-
-; (defn serialize
-; 	"Print a data structure to a file so that we may read it in later."
-;   	[data-structure #^String filename]
-;   	(clojure.contrib.io/with-out-writer
-;     	(java.io.File. filename)
-;     	(binding [*print-dup* true] (prn data-structure))))
-
-; ;; This allows us to then read in the structure at a later time, like so:
-; (defn deserialize [filename]
-;   	(with-open [r (PushbackReader. (FileReader. filename))]
-;     	(read r)))
-
-;(def movies (parse-stream (clojure.java.io/reader "/tmp/movie_list.json")))
 
 (defn make-abs-url [id u]
 	(if (nil? u) 
@@ -78,20 +63,11 @@
 				:desc (:desc desc)
 				:translations (map update-url-in-translation-with-id translations)})))
 
-;(defn movie-list [] 
-;	(map :doc (filter :doc 
-;		(couch/all-documents db {:include_docs true}))))
-
 (defn movie-count []
 	(count @movies))
 
 (defn get-movies [lang]
 	(map #(get-short-desc lang %) (vals @movies)))
-
-
-;(defn get-movie [lang id]
-;	(let [ mid (read-string id) ]
-;		(get-short-desc lang (first (filter #(= (:id %) mid) movies)))))
 
 (defn get-movie [lang id]
 	(let [ mid (read-string id) ]
@@ -118,70 +94,48 @@
 	(store-movies movies-data)
 	(println "Stored " (movie-count) " movies"))
 
-(defn users-count []
-	(count @users))
-
-(defn store-users [fname]
-	(println "Storing users to " fname)
-	(spit fname (binding [*print-dup* true] @users)))
-
-(defn load-users [fname]
-	(println "load-users from " fname)
-	(if (.exists (clojure.contrib.io/as-file fname))
-		(if-let [us (load-file fname)]
-			(reset! users us)
-			(reset! users {}))
-		(spit fname "")))
-
-(defn load-users-data []
-	(load-users users-data)
-	(println "Loaded " (users-count) " users"))
-
-(defn store-users-data []
-	(store-users users-data)
-	(println "Stored " (users-count) " users"))
-
-(defn add-user [did]
-	(if (not (contains? @users did))
-			(swap! users assoc did {})))
 
 (defn users-bucket-create [] 
 	(wb/update conn users-bucket {:last-write-wins true}))
 
-(defn add-user-db [did]
+(defn store-user [did u]
+	(kv/store conn users-bucket did u {:content-type "application/clojure" :indexes {:data-type "user"}}))
+
+(defn add-user [did]
 	(let [{:keys [has-value? result]} (kv/fetch conn users-bucket did)]
-		(prn "add-user-db: result: " result)
 		(if (not has-value?) 
-			(kv/store conn users-bucket did {} 
-				{:content-type "application/clojure"
-				:indexes {:data-type "user"}}))))
+			(do 
+				(prn "add-user: Creating new user " did)
+				(store-user did {})))))
 				;:indexes {:data-type "user" :created-at #{(time-coerce/to-timestamp (time/now))}}}))))
 
-(defn query-users-db []
+(defn query-users []
 	(kv/index-query conn users-bucket :data-type "user"))
 
 ;; {11 {:mids {:dates [#<DateTime 2014-06-18T12:59:36.148Z> ]}}}
 (defn add-movie-to-user [u mid]
 	(let [ 	dates (get-in u [:mids mid :dates] [])
 			t (time-format/unparse date-formatter (time/now))]
-		(prn dates)
+		;(prn "add-movie-to-user: dates" dates)
 		(assoc-in u [:mids mid :dates] (conj dates t))))
 
+
 (defn update-users-with-movie [did mid]
-	(swap! users assoc did (add-movie-to-user (@users did) mid))
-	(store-users-data))
+	(let [{:keys [has-value? result]} (kv/fetch conn users-bucket did)
+		   user (:value (first result))]
+	(if has-value?
+		(store-user did 
+			(add-movie-to-user user mid)))))
 
 (defn check-permission [did mid]
 	true)
 
 (defn acquire-movie [did mid]
-	(let [ 	did (read-string did)
-			mid (read-string mid)]
-		(add-user did)
-        (let [permission (check-permission did mid)]
-        	(if permission
-        		(update-users-with-movie did mid))
-           	{:permission permission, :did did, :id mid})))
+	(add-user did)
+    (let [permission (check-permission did mid)]
+        (if permission
+        	(update-users-with-movie did mid))
+        {:permission permission, :did did, :id mid}))
 
 ;;;;;;;;;;;;;;;;;;; Votes 
 (defn votes-bucket-create [] 
@@ -211,4 +165,36 @@
   			{:id mid :vote {}})))
 
 (defn get-stats []
-	{:movies-num (movie-count), :users-num (users-count)})
+	{:movies-num (movie-count), :users-num (count (query-users))})
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;(defn users-count-file []
+;	(count @users))
+
+;(defn store-users-file [fname]
+;	(println "Storing users to " fname)
+;	(spit fname (binding [*print-dup* true] @users)))
+
+;(defn load-users-file [fname]
+;	(println "load-users from " fname)
+;	(if (.exists (clojure.contrib.io/as-file fname))
+;		(if-let [us (load-file fname)]
+;			(reset! users us)
+;			(reset! users {}))
+;		(spit fname "")))
+
+;(defn load-users-data []
+;	(load-users users-data)
+;	(println "Loaded " (users-count) " users"))
+
+;(defn store-users-data []
+;	(store-users users-data)
+;	(println "Stored " (users-count) " users"))
+
+;(defn add-user-file [did]
+;	(if (not (contains? @users did))
+;			(swap! users assoc did {})))
+
+;(defn update-users-with-movie [did mid]
+;	(swap! users assoc did (add-movie-to-user (@users did) mid))
+;	(store-users-data))

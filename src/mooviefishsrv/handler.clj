@@ -11,13 +11,11 @@
 (defn init []
   (println "mooviefishsrv is starting")
   (println "CWD: " (System/getProperty "user.dir"))
-  (db/load-movies-data)
-  (db/load-users-data))
-
+  (db/load-movies-data))
+  
 (defn destroy []
-  (println "mooviefishsrv is shutting down")
-  (db/store-users-data))
-
+  (println "mooviefishsrv is shutting down"))
+  
 (defroutes app-routes
   (route/resources "/")
   (route/not-found "Not Found"))
