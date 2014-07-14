@@ -59,6 +59,7 @@
 				:shortname shortname,
 				:movie-state movie-state,
 				:title (:title desc)
+				:year-released (:year-released desc)
 				:fpkeys-file (make-abs-url id (:en fpkeys-file))
 				:img (make-abs-url id (:img desc))
 				:desc (:desc desc)
