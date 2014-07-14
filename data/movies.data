@@ -1,29 +1,5 @@
 [
 {
-	:fpkeys-file {:en "despicableme2-en.fpkeys"}, 
-	:id 1003, 
-	:shortname "despicableme2",
-	:movie-state "active", 
-	:descriptions [
-		{
-			:desc "Gru is recruited by the Anti-Villain League to help deal with a powerful new super criminal.", 
-			:year-released "2013", 
-			:title "Despicable Me 2", 
-			:lang "en", 
-			:img "despicableme2.jpg"
-		},
-		{
-			:desc "В то время как Грю, бывший суперзлодей, приспосабливается к семейной жизни и пытается честным трудом зарабатывать в сфере бизнеса, тайные лаборатории Арктики оказываются украденными. Анти-Злодейская лига решает, что она нуждается в помощи Грю и его новобранцев в расследовании", 
-			:year-released "2013", 
-			:title "Гадкий я 2", 
-			:lang "ru", 
-			:img "despicableme2.jpg"
-		}], 
-	:translations [
-		{:desc "From original dvd", :file "despicableme2-ru.mp3", :title "Русский", :lang "ru", :img "flag-ru.png"} 
-		]
-}
-{
 	:fpkeys-file {:en "spiderman2-en.fpkeys"}, 
 	:id 1004, 
 	:shortname "spiderman2",
