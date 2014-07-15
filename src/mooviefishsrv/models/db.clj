@@ -63,6 +63,7 @@
 				:fpkeys-file (make-abs-url id (:en fpkeys-file))
 				:img (make-abs-url id (:img desc))
 				:desc (:desc desc)
+				:desc-short (:desc-short desc)
 				:translations (map update-url-in-translation-with-id translations)})))
 
 (defn movie-count []

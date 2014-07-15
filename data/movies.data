@@ -7,6 +7,7 @@
 	:descriptions [
 		{
 			:desc "Peter Parker runs the gauntlet as the mysterious company Oscorp sends up a slew of super villains against him, impacting his life.", 
+			:desc-short "Peter Parker runs the gauntlet as the mysterious company Oscorp sends up a slew of super villains against him, impacting his life."
 			:year-released "2014", 
 			:title "The Amazing Spider-Man 2", 
 			:lang "en", 
@@ -14,6 +15,7 @@
 		},
 		{
 			:desc "Питер Паркер под маской Человека-паука по-прежнему спасает мир от злодеев и преступников, а свободное время проводит со своей возлюбленной Гвен, но школьная пора близится к концу, и впереди героев ждет взрослая жизнь. Питер помнит о том, что дал отцу Гвен слово навсегда уйти из жизни девушки, тем самым больше не подвергая ее опасности. Однако сдержать это обещание не так просто. Судьба готовит Питеру сюрпризы: на его пути появится новый противник — Электро, а также ему будет суждено вновь встретиться с давним приятелем Гарри Озборном и узнать много нового о прошлом своей семьи.", 
+			:desc-short "Питер Паркер под маской Человека-паука по-прежнему спасает мир от злодеев и преступников"
 			:year-released "2014", 
 			:title "Новый Человек-паук: Высокое напряжение", 
 			:lang "ru", 
@@ -30,7 +32,8 @@
 	:movie-state "active", 
 	:descriptions [
 		{
-			:desc "A vengeful fairy is driven to curse an infant princess, only to discover that the child may be the one person who can restore peace to their troubled land.", 
+			:desc "A vengeful fairy is driven to curse an infant princess, only to discover that the child may be the one person who can restore peace to their troubled land.",
+			:desc-short "A vengeful fairy is driven to curse an infant princess, only to discover that the child may be the one person who can restore peace to their troubled land." 
 			:year-released "2014", 
 			:title "Maleficent", 
 			:lang "en", 
@@ -38,6 +41,7 @@
 		},
 		{
 			:desc "Юная волшебница Малефисента вела уединенную жизнь в зачарованном лесу, окруженная сказочными существами, но однажды все изменилось… В её мир вторглись люди, которые принесли с собой разрушение и хаос, и Малефисенте пришлось встать на защиту своих подданных, призвав на помощь могущественные тёмные силы. В пылу борьбы Малефисента наложила страшное заклятие на новорожденную дочь короля, прекрасную Аврору. Но, наблюдая за тем, как растет маленькая принцесса, Малефисента начинает сомневаться в правильности своего поступка — ведь, возможно, именно Аврора может вдохнуть новую жизнь в волшебное лесное царство.", 
+			:desc-short "Юная волшебница Малефисента вела уединенную жизнь в зачарованном лесу, окруженная сказочными существами, но однажды все изменилось…"
 			:year-released "2014", 
 			:title "Малефисента", 
 			:lang "ru", 
