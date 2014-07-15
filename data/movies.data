@@ -22,7 +22,7 @@
 			:title "Новый Человек-паук: Высокое напряжение", 
 			:lang "ru", 
 			:img "spiderman2.jpg"
-			:src-url "http://m.kinopoisk.ru/film/602409/"
+			:src-url "http://m.kinopoisk.ru/movie/602409/"
 			:duration "02:22"
 		}], 
 	:translations [
@@ -52,7 +52,7 @@
 			:title "Малефисента", 
 			:lang "ru", 
 			:img "maleficent.jpg"
-			:src-url "http://m.kinopoisk.ru/film/496849/"
+			:src-url "http://m.kinopoisk.ru/movie/496849/"
 			:duration "01:37"
 		}], 
 	:translations [
