@@ -21,6 +21,7 @@
   :plugins [[lein-ring "0.8.10"] 
             [lein-cljsbuild "1.0.3"]]
   :ring {:handler mooviefishsrv.handler/app
+    :nrepl {:start? true :port 9998}
     :init mooviefishsrv.handler/init
     :destroy mooviefishsrv.handler/destroy}
     :aot :all

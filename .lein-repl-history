@@ -1,5 +1,3 @@
-(use 'mooviefishsrv.models.db :reload-all)
-(add-user 11)
 (@users 11)
 (:mids (@users 11))
 (use 'mooviefishsrv.models.db :reload-all)
@@ -498,3 +496,5 @@ votes-bucket
 (get-movies "en")
 (get-movie "en" "1001")
 (quit)
+(use 'mooviefishsrv.models.db :reload-all)
+(prn @movies)
