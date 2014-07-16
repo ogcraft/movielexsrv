@@ -26,7 +26,7 @@
 			:duration "02:22"
 		}], 
 	:translations [
-		{:desc "From original dvd", :file "spiderman2-ru.mp3", :title "Русский", :lang "ru", :img "flag-ru.png"}
+		{:desc "From original dvd", :file "spiderman2-ru.trans", :title "Русский", :lang "ru", :img "flag-ru.png"}
 		]
 }
 {
@@ -56,7 +56,7 @@
 			:duration "01:37"
 		}], 
 	:translations [
-		{:desc "From original dvd", :file "maleficent-ru.mp3", :title "Русский", :lang "ru", :img "flag-ru.png"}
+		{:desc "From original dvd", :file "maleficent-ru.trans", :title "Русский", :lang "ru", :img "flag-ru.png"}
 		]
 }
 ]
