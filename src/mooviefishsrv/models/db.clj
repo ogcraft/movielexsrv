@@ -14,8 +14,6 @@
    	(:import java.io.PushbackReader)
    	(:import java.io.FileReader))
  
-;(def db "http://192.168.10.122:5984/mvfishtest")
-;(def db "http://olegg-linux:5984/mvfishtest")
 
 ;(def riak_url "http://192.168.14.101:8098/riak")
 (def riak_url "http://127.0.0.1:8098/riak")

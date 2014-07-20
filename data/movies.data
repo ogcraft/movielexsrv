@@ -2,6 +2,8 @@
 {
 	:fpkeys-file {:en "spiderman2-en.fpkeys"}, 
 	:id 1004, 
+	:id-kp "602409";
+	:id-imdb "tt1872181"; 
 	:shortname "spiderman2",
 	:movie-state "active", 
 	:descriptions [
@@ -32,6 +34,8 @@
 {
 	:fpkeys-file {:en "maleficent-en.fpkeys"}, 
 	:id 1005, 
+	:id-kp "496849";
+	:id-imdb "tt1587310"; 
 	:shortname "maleficent",
 	:movie-state "active", 
 	:descriptions [
@@ -47,16 +51,140 @@
 		},
 		{
 			:desc "Юная волшебница Малефисента вела уединенную жизнь в зачарованном лесу, окруженная сказочными существами, но однажды все изменилось… В её мир вторглись люди, которые принесли с собой разрушение и хаос, и Малефисенте пришлось встать на защиту своих подданных, призвав на помощь могущественные тёмные силы. В пылу борьбы Малефисента наложила страшное заклятие на новорожденную дочь короля, прекрасную Аврору. Но, наблюдая за тем, как растет маленькая принцесса, Малефисента начинает сомневаться в правильности своего поступка — ведь, возможно, именно Аврора может вдохнуть новую жизнь в волшебное лесное царство.", 
-			:desc-short "Юная волшебница Малефисента вела уединенную жизнь в зачарованном лесу, окруженная сказочными существами, но однажды все изменилось…"
+			:desc-short "Юная волшебница Малефисента вела уединенную жизнь в зачарованном лесу, окруженная сказочными существами, но однажды все изменилось…",
 			:year-released "2014", 
 			:title "Малефисента", 
 			:lang "ru", 
-			:img "maleficent.jpg"
-			:src-url "http://m.kinopoisk.ru/movie/496849/"
+			:img "maleficent.jpg",
+			:src-url "http://m.kinopoisk.ru/movie/496849/",
 			:duration "01:37"
 		}], 
 	:translations [
 		{:desc "From original dvd", :file "maleficent-ru.trans", :title "Русский", :lang "ru", :img "flag-ru.png"}
+		]
+}
+{
+	:fpkeys-file {:en "22_jump_street-en.fpkeys"}, 
+	:id 		1006,
+	:id-kp 		"672899";
+	:id-imdb 	"tt2294449"; 
+	:shortname 	"22_jump_street",
+	:movie-state "new", 
+	:descriptions [
+		{
+			:title "22 Jump Street",
+			:desc-short "After making their way through high school (twice), big changes are in store for officers Schmidt and Jenko when they go deep undercover at a local college.",
+			:desc "After making their way through high school (twice), big changes are in store for officers Schmidt and Jenko when they go deep undercover at a local college." 
+			:year-released "2014", 
+			:lang "en", 
+			:img "22_jump_street.jpg",
+			:src-url "http://www.imdb.com/title/tt2294449/",
+			:duration "01:52"
+		},
+		{
+			:title "Мачо и ботан 2",
+			:desc-short "Офицерам Шмидту и Дженко теперь предстоит работать под прикрытием в местном колледже.",
+			:desc "Офицерам Шмидту и Дженко теперь предстоит работать под прикрытием в местном колледже. Однако когда Дженко встречает родственную душу в футбольной команде, а Шмидт проникает в богемную среду, они начинают сомневаться в их товариществе...",
+			:year-released "2014", 
+			:lang "ru", 
+			:img "macho_botan2.jpg",
+			:src-url "http://m.kinopoisk.ru/movie/672899/",
+			:duration " 01:52"
+		}], 
+	:translations [
+		]
+}
+{
+	:fpkeys-file {:en "sin_city2-en.fpkeys"}, 
+	:id 		1007,
+	:id-kp 		"103391";
+	:id-imdb 	"tt0458481"; 
+	:shortname 	"sin_city2",
+	:movie-state "new", 
+	:descriptions [
+		{
+			:title "Sin City: A Dame to Kill For",
+			:desc-short "The town's most hard-boiled citizens cross paths with some of its more reviled inhabitants." 
+			:desc "The town's most hard-boiled citizens cross paths with some of its more reviled inhabitants.",
+			:year-released "2014", 
+			:lang "en", 
+			:img "tt0458481.jpg",
+			:src-url "http://www.imdb.com/title/tt0458481/",
+			:duration "-"
+		},
+		{
+			:title "Город грехов 2: Женщина, ради которой стоит убивать",
+			:desc-short "В темных переулках Города Грехов Дуайт планирует жестоко отомстить женщине, которая его предала.",
+			:desc "В темных переулках Города Грехов Дуайт планирует жестоко отомстить женщине по имени Ава Лорд, которая его предала, в то время как Нэнси пытается смириться со смертью детектива Хартигана.",
+			:year-released "2014", 
+			:lang "ru", 
+			:img "103391.jpg",
+			:src-url "http://m.kinopoisk.ru/movie/103391/",
+			:duration "-"
+		}], 
+	:translations [
+		]
+}
+{
+	:fpkeys-file {:en "dawn_planet_apes2-en.fpkeys"}, 
+	:id 		1008,
+	:id-kp 		"646674";
+	:id-imdb 	"tt2103281"; 
+	:shortname 	"dawn_planet_apes2",
+	:movie-state "new", 
+	:descriptions [
+		{
+			:title "Dawn of the Planet of the Apes",
+			:desc-short "The growing and genetically evolving apes find themselves at a critical point with the human race." 
+			:desc "In the wake of a disaster that changed the world, the growing and genetically evolving apes find themselves at a critical point with the human race.",
+			:year-released "2014", 
+			:lang "en", 
+			:img "tt2103281.jpg",
+			:src-url "http://www.imdb.com/title/tt2103281/",
+			:duration "-"
+		},
+		{
+			:title "Планета обезьян: Революция",
+			:desc-short "Численность генетически модифицированных обезьян продолжает увеличиваться. Обезьяны и люди находятся на грани войны",
+			:desc "Численность генетически модифицированных обезьян, возглавляемых Цезарем, продолжает увеличиваться, но обезьянам угрожают люди, которым удалось выжить во время ужасной эпидемии десятилетней давности. Поначалу между соперниками устанавливается хрупкий мир, но он оказывается недолговечным. Обезьяны и люди находятся на грани войны, в ходе которой станет понятно, кто из них в будущем станет безраздельно править планетой.",
+			:year-released "2014", 
+			:lang "ru", 
+			:img "646674.jpg",
+			:src-url "http://m.kinopoisk.ru/movie/646674/",
+			:duration "-"
+		}], 
+	:translations [
+		]
+}
+{
+	:fpkeys-file {:en "vot_i_ona-en.fpkeys"}, 
+	:id 		1009,
+	:id-kp 		"713260";
+	:id-imdb 	"tt2465146"; 
+	:shortname 	"vot_i_ona",
+	:movie-state "new", 
+	:descriptions [
+		{
+			:title "And So It Goes",
+			:desc-short "A self-centered realtor enlists the help of his neighbor when he's suddenly left in charge of the granddaughter he never knew existed until his estranged son drops her off at his home." 
+			:desc "A self-centered realtor enlists the help of his neighbor when he's suddenly left in charge of the granddaughter he never knew existed until his estranged son drops her off at his home.",
+			:year-released "2014", 
+			:lang "en", 
+			:img "tt2465146.jpg",
+			:src-url "http://www.imdb.com/title/tt2465146/",
+			:duration "01:34"
+		},
+		{
+			:title "А вот и она",
+			:desc-short "Жизнь закоренелого эгоиста в одночасье меняется, когда он вдруг знакомится со своей внучкой, о существовании которой даже не подозревал.",
+			:desc "Жизнь закоренелого эгоиста в одночасье меняется, когда он вдруг знакомится со своей внучкой, о существовании которой даже не подозревал.",
+			:year-released "2014", 
+			:lang "ru", 
+			:img "713260.jpg",
+			:src-url "http://m.kinopoisk.ru/movie/713260/",
+			:duration "01:34"
+		}], 
+	:translations [
 		]
 }
 ]
