@@ -65,7 +65,7 @@
 }
 {
 	:fpkeys-file {:en "22_jump_street-en.fpkeys"}, 
-	:id 		1006,
+	:id 		"kp672899",
 	:id-kp 		"672899";
 	:id-imdb 	"tt2294449"; 
 	:shortname 	"22_jump_street",
@@ -77,7 +77,7 @@
 			:desc "After making their way through high school (twice), big changes are in store for officers Schmidt and Jenko when they go deep undercover at a local college." 
 			:year-released "2014", 
 			:lang "en", 
-			:img "22_jump_street.jpg",
+			:img "tt2294449.jpg",
 			:src-url "http://www.imdb.com/title/tt2294449/",
 			:duration "01:52"
 		},
@@ -87,7 +87,7 @@
 			:desc "Офицерам Шмидту и Дженко теперь предстоит работать под прикрытием в местном колледже. Однако когда Дженко встречает родственную душу в футбольной команде, а Шмидт проникает в богемную среду, они начинают сомневаться в их товариществе...",
 			:year-released "2014", 
 			:lang "ru", 
-			:img "macho_botan2.jpg",
+			:img "672899.jpg",
 			:src-url "http://m.kinopoisk.ru/movie/672899/",
 			:duration " 01:52"
 		}], 
@@ -96,7 +96,7 @@
 }
 {
 	:fpkeys-file {:en "sin_city2-en.fpkeys"}, 
-	:id 		1007,
+	:id 		"kp103391",
 	:id-kp 		"103391";
 	:id-imdb 	"tt0458481"; 
 	:shortname 	"sin_city2",
@@ -127,7 +127,7 @@
 }
 {
 	:fpkeys-file {:en "dawn_planet_apes2-en.fpkeys"}, 
-	:id 		1008,
+	:id 		"kp646674",
 	:id-kp 		"646674";
 	:id-imdb 	"tt2103281"; 
 	:shortname 	"dawn_planet_apes2",
@@ -158,7 +158,7 @@
 }
 {
 	:fpkeys-file {:en "vot_i_ona-en.fpkeys"}, 
-	:id 		1009,
+	:id 		"kp713260",
 	:id-kp 		"713260";
 	:id-imdb 	"tt2465146"; 
 	:shortname 	"vot_i_ona",
