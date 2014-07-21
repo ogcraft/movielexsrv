@@ -14,12 +14,26 @@
   :etag "fixed-etag" 
   :available-media-types ["text/plain"])
 
-(defresource get-movies [lang]
+(defresource get-movies-active [lang]
   :allowed-methods [:get]
   
   :handle-ok (fn [ ctx ] 
-    (println "get-movies :handle-ok lang: " lang) 
-    (generate-string (db/get-movies lang)))
+    (println "get-movies-active :handle-ok lang: " lang) 
+    (generate-string (db/get-movies-active lang)))
+
+  :as-response (fn [d ctx]
+                  (-> (liberator.representation/as-response d ctx)
+                      (assoc-in [:headers "Access-Control-Allow-Origin"] "*")
+                      (assoc-in [:headers "Access-Control-Allow-Methods"] "GET, POST")))
+  
+  :available-media-types ["application/json"])
+
+(defresource get-movies-new [lang]
+  :allowed-methods [:get]
+  
+  :handle-ok (fn [ ctx ] 
+    (println "get-movies-new :handle-ok lang: " lang) 
+    (generate-string (db/get-movies-new lang)))
 
   :as-response (fn [d ctx]
                   (-> (liberator.representation/as-response d ctx)
@@ -121,7 +135,8 @@
   (ANY "/" request home-txt)
   ;(ANY "/add-movie" request add-movie)
   (context "/api" []
-  (GET "/movies/:lang" [lang] (get-movies lang))
+  (GET "/movies/:lang" [lang] (get-movies-active lang))
+  (GET "/movies-new/:lang" [lang] (get-movies-new lang))
   (GET "/movie/:lang/:mid" [lang mid] (get-movie lang mid))
   (GET "/aquire/:did/:mid" [did mid] (acquire-movie did mid))  ; remove late
   (GET "/acquire/:did/:mid" [did mid] (acquire-movie did mid))

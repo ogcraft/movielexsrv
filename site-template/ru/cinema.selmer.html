@@ -43,20 +43,20 @@
 
         <div class="after_header">
         </div>
-
               
         <div class="columnContainer">
                 <div class="column" id="left" >
                     <h1>Наш кинозал</h1>
                     <ul class="left-movies">
+                        {% for m in active-movies %}
                         <li>
                             <div class="movie-entry"> 
-                                <div class="title">Title Here</div>
-                                <img src="images/spiderman2.jpg">
-                                <div class="year-released">год: 2014</div>
-                                <div class="duration">время: 02:22</div>
+                                <div class="title">{{m.title}}</div>
+                                <img src="{{m.img}}">
+                                <div class="year-released">год: {{m.year-released}}</div>
+                                <div class="duration">время: {{m.duration}}</div>
                                 <br/>
-                                <div class="desc">Desc here</div>
+                                <div class="desc">{{m.desc-short}}</div>
                                 <div class="translation">
                                     <!--<a href="/">-->
                                         <img src="images/flag-ru.png" />Русский
@@ -64,23 +64,25 @@
                                 </div>
                             </div>
                         </li>
+                        {% endfor %}
                     </ul>
                 </div>
                 <div class="column" id="right">
-                    <h1>Скоро в кино</h1>
-                 
+                    <h1>Скоро в кино</h1> 
                     <ul class="right-movies">
+                        {% for n in new-movies %}
                         <li>
-                            <div class="movie-entry">
-                                <div class="title">Title here</div>
-                                <img src="images/macho_botan2.jpg">
-                                <div class="year-released">год: 2014</div>
-                                <div class="duration">время: 01:52</div>
+                            <div class="movie-entry"> 
+                                <div class="title">{{n.title}}</div>
+                                <img src={{n.img}}>
+                                <div class="year-released">год: {{n.year-released}}</div>
+                                <div class="duration">время: {{n.duration}}</div>
                                 <br/>
-                                <div class="desc">desc here</div>
+                                <div class="desc">{{n.desc-short}}</div>
                                 <!--<div class="iwant"><a href="">Хочу перевод!</a></div>-->
                             </div>
                         </li>
+                        {% endfor %}
                     </ul> 
 <!-- 
                     <div class="polls">

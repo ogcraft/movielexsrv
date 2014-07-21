@@ -1,6 +1,6 @@
-(defproject mooviefishsrv "0.1.1-alpha"
+(defproject mooviefishsrv "0.1.2-beta"
   :description "MoovieFish site backend"
-  :url "http://example.com/FIXME"
+  :url "http://mooviefish.com/"
   ;; CLJ AND CLJS source code path
   :source-paths ["src" "src-cljs"]
   
@@ -16,6 +16,7 @@
   [ring-server "0.3.1"]
   [domina "1.0.2"]
   [enlive "1.1.5"]
+  [selmer "0.6.9"]
   [com.novemberain/welle "3.0.0"]
   [org.clojure/clojurescript "0.0-2197"]]
 

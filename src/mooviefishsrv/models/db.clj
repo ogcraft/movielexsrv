@@ -69,8 +69,18 @@
 (defn movie-count []
 	(count @movies))
 
-(defn get-movies [lang]
-	(map #(get-short-desc lang %) (vals @movies)))
+(defn get-movies [lang state]
+	(map #(get-short-desc lang %) 
+		(filter #(= (:movie-state %) state) (vals @movies))))
+
+(defn get-movies-active [lang]
+	(get-movies lang "active"))
+
+(defn get-movies-new [lang]
+	(get-movies lang "new"))
+
+(defn get-movies-full [state]
+	(filter #(= (:movie-state %) state) (vals @movies)))
 
 (defn get-movie [lang id]
 	(let [ mid (read-string id) ]
