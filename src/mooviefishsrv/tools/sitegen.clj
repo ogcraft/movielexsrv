@@ -9,18 +9,19 @@
 		[clj-time.format :as time-format]
 		[net.cgrand.enlive-html :as html]))
 
-(def index-html-ru "site-template/ru/index.selmer.html")
-(def cinema-html-ru "site-template/ru/cinema.selmer.html")
+(def index-template 	{:ru "site-template/ru/index.selmer.html" })
+(def cinema-template  	{:ru "site-template/ru/cinema.selmer.html"})
 
 (defn file-exists? [fn] 
 	(.exists (clojure.java.io/as-file fn)))
 
-(def cinema-page-ru (slurp cinema-html))
+;(def cinema-page-ru (slurp cinema-html-ru))
 
 (defn generate-cinema-page [lang]
 	(let [	active-movies 	(db/get-movies-active lang)
-			new-movies 		(db/get-movies-new lang)]
-		(selmer.parser/render cinema-page-ru 
+			new-movies 		(db/get-movies-new lang)
+			p 				(slurp ((keyword lang) cinema-template))]
+		(selmer.parser/render p 
 			{:active-movies active-movies :new-movies new-movies})))
 
 (defn ttt []
