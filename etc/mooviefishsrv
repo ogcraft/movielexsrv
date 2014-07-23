@@ -1,8 +1,9 @@
 #!/bin/sh
  
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
-DAEMON=/var/www/mooviefish.com/app/run.sh
-PIDDIR=/var/www/mooviefish.com/app/tmp/pids
+WCD=/var/www/mooviefish.com/app
+DAEMON=$WCD/run.sh
+PIDDIR=$WCD/tmp/pids
 PIDFILE="$PIDDIR/mooviefishsrv.pid"
 USER="www-data"
  
@@ -15,7 +16,7 @@ fi
  
 case "$1" in
   start)
-    start-stop-daemon --start --quiet --oknodo --background --pidfile $PIDFILE --exec $DAEMON --chuid $USER -- $SERVICES_OPTS
+    start-stop-daemon --start --quiet --chdir $WCD --oknodo --background --pidfile $PIDFILE --exec $DAEMON --chuid $USER -- $SERVICES_OPTS
     sleep 5
     $0 status
   ;;
