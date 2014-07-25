@@ -1,5 +1,37 @@
 [
 {
+	:fpkeys-file {:en "somelikemooviefish-en.fpkeys"}, 
+	:id 1, 
+	:id-kp "1";
+	:id-imdb "1"; 
+	:shortname "mooviefishdemo",
+	:movie-state "active", 
+	:descriptions [
+		{
+			:desc "MoovieFish Demo", 
+			:desc-short "MoovieFish demo"
+			:year-released "2014", 
+			:title "MoovieFish: Some like it hot", 
+			:lang "en", 
+			:img "somelikemooviefish.jpg"
+			:src-url ""
+			:duration "3 min 35 sec"
+		},
+		{
+			:desc "MoovieFish демонстрационный фильм", 
+			:desc-short "MoovieFish демонстрационный фильм"
+			:year-released "2014", 
+			:title "В джазе только MoovieFish", 
+			:lang "ru", 
+			:img "somelikemooviefish.jpg"
+			:src-url ""
+			:duration "3 мин 35 сек"
+		}], 
+	:translations [
+		{:desc "From original dvd", :file "somelikemooviefish-ru.trans", :title "Русский", :lang "ru", :img "flag-ru.png"}
+		]
+}
+{
 	:fpkeys-file {:en "spiderman2-en.fpkeys"}, 
 	:id 1004, 
 	:id-kp "602409";
