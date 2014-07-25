@@ -15,7 +15,8 @@
 	(.exists (clojure.java.io/as-file fn)))
 
 (defn generate-cinema-page [lang]
-	(let [	active-movies 	(db/get-movies-active lang)
+	(let [	active-movies 	(filter #(not (= (:shortname %) "mooviefishdemo")) 
+								(db/get-movies-active lang))
 			new-movies 		(db/get-movies-new lang)
 			p 				(slurp ((keyword lang) cinema-template))]
 		(selmer.parser/render p 
