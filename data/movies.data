@@ -10,7 +10,7 @@
 		{
 			:desc "MoovieFish Demo", 
 			:desc-short "MoovieFish demo"
-			:year-released "2014", 
+			:year-released "1959", 
 			:title "MoovieFish: Some like it hot", 
 			:lang "en", 
 			:img "somelikemooviefish.jpg"
@@ -20,7 +20,7 @@
 		{
 			:desc "MoovieFish демонстрационный фильм", 
 			:desc-short "MoovieFish демонстрационный фильм"
-			:year-released "2014", 
+			:year-released "1959", 
 			:title "В джазе только MoovieFish", 
 			:lang "ru", 
 			:img "somelikemooviefish.jpg"
