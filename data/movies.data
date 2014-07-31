@@ -1,10 +1,10 @@
 [
 {
-	:fpkeys-file {:en "somelikemooviefish-en.fpkeys"}, 
+	:fpkeys-file {:en "somelikemovielex-en.fpkeys"}, 
 	:id 1, 
 	:id-kp "1";
 	:id-imdb "1"; 
-	:shortname "mooviefishdemo",
+	:shortname "movielexdemo",
 	:movie-state "active", 
 	:descriptions [
 		{
@@ -13,7 +13,7 @@
 			:year-released "1959", 
 			:title "Some like it hot", 
 			:lang "en", 
-			:img "somelikemooviefish.jpg"
+			:img "somelikemovielex.jpg"
 			:src-url ""
 			:duration "3 min 35 sec"
 		},
@@ -23,12 +23,12 @@
 			:year-released "1959", 
 			:title "В джазе только девушки", 
 			:lang "ru", 
-			:img "somelikemooviefish.jpg"
+			:img "somelikemovielex.jpg"
 			:src-url ""
 			:duration "3 мин 35 сек"
 		}], 
 	:translations [
-		{:desc "From original dvd", :file "somelikemooviefish-ru.trans", :title "Русский", :lang "ru", :img "flag-ru.png"}
+		{:desc "From original dvd", :file "somelikemovielex-ru.trans", :title "Русский", :lang "ru", :img "flag-ru.png"}
 		]
 }
 {

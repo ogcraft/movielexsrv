@@ -1,6 +1,6 @@
 (defproject movielexsrv "0.1.2-beta"
-  :description "MoovieFish site backend"
-  :url "http://mooviefish.com/"
+  :description "MovieLex site back-end"
+  :url "http://movielex.com/"
   ;; CLJ AND CLJS source code path
   :source-paths ["src" "src-cljs"]
   
