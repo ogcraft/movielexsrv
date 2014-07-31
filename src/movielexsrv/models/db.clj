@@ -15,8 +15,8 @@
    	(:import java.io.FileReader))
  
 
-(def riak_url "http://192.168.14.101:8098/riak")
-;(def riak_url "http://127.0.0.1:8098/riak")
+;(def riak_url "http://192.168.14.101:8098/riak")
+(def riak_url "http://127.0.0.1:8098/riak")
 (def conn (wc/connect riak_url))
 ;(def votes-bucket (wb/update conn "votes.backet" {:last-write-wins true}))
 (def votes-bucket "votes.backet")
@@ -113,22 +113,27 @@
 	(let [{:keys [has-value? result]} (kv/fetch conn users-bucket did)]
 		has-value?)) 
 
-(defn fetch-user [did]
-	(let [{:keys [has-value? result]} (kv/fetch conn users-bucket did)
+(defn fetch-user [uid]
+	(let [{:keys [has-value? result]} (kv/fetch conn users-bucket uid)
 		  user (:value (first result))]
 		user))
 
 (defn store-user [did u]
+	(prn "store-user: " u)
 	(kv/store conn users-bucket did u {:content-type "application/clojure" :indexes {:data-type "user"}}))
 
-(defn add-user [did user-data]
-	(let [{:keys [has-value? result]} (kv/fetch conn users-bucket did)]
-		(if (not has-value?) 
-			(do 
-				(prn "add-user: Creating new user " did)
-				(store-user did user-data)))))
-				;:indexes {:data-type "user" :created-at #{(time-coerce/to-timestamp (time/now))}}}))))
+;(defn add-user [did user-data]
+;	(let [{:keys [has-value? result]} (kv/fetch conn users-bucket did)]
+;		(if (not has-value?) 
+;			(do 
+;				(prn "add-user: Creating new user " did)
+;				(store-user did user-data)))))
+;				;:indexes {:data-type "user" :created-at #{(time-coerce/to-timestamp (time/now))}}}))))
 
+(defn put-user [uid user-data]
+	(let [ u (json/parse-string user-data true) ]
+		(store-user uid (assoc u :uid uid))))
+			
 (defn query-users []
 	(kv/index-query conn users-bucket :data-type "user"))
 
@@ -144,6 +149,7 @@
 ;				(add-user did u)
 ;				{:result true, :userid (:device_id user)}))))
 ;;;;;; http://clojure-liberator.github.io/liberator/tutorial/all-together.html
+
 (defn make-user [user-data]
 	(let [	u (json/parse-string user-data true)
 			did (:device_id u)]

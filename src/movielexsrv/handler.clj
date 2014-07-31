@@ -11,6 +11,9 @@
 (defn init []
   (println "movielexsrv is starting")
   (println "CWD: " (System/getProperty "user.dir"))
+  (db/users-bucket-create)
+  (println "users-bucket-create")
+  (db/votes-bucket-create)
   (db/load-movies-data))
   
 (defn destroy []
