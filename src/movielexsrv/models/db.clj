@@ -15,8 +15,8 @@
    	(:import java.io.FileReader))
  
 
-;(def riak_url "http://192.168.14.101:8098/riak")
-(def riak_url "http://127.0.0.1:8098/riak")
+(def riak_url "http://192.168.14.101:8098/riak")
+;(def riak_url "http://127.0.0.1:8098/riak")
 (def conn (wc/connect riak_url))
 ;(def votes-bucket (wb/update conn "votes.backet" {:last-write-wins true}))
 (def votes-bucket "votes.backet")

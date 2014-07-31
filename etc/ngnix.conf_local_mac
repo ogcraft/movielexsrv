@@ -43,7 +43,7 @@ http {
         }
 
         location /files/ {
-            root /Volumes/p4client/mooviefish.com/files;
+            root /Volumes/p4client/movielex.com/files;
         }
 
         location /api/ {
