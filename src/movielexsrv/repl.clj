@@ -1,5 +1,5 @@
-(ns mooviefishsrv.repl
-  (:use mooviefishsrv.handler
+(ns movielexsrv.repl
+  (:use movielexsrv.handler
         ring.server.standalone
         [ring.middleware file-info file]))
 

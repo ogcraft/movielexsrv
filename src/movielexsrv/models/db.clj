@@ -1,4 +1,4 @@
-(ns mooviefishsrv.models.db
+(ns movielexsrv.models.db
   	(:require 
     	clojure.contrib.io 
     	clojure.java.io

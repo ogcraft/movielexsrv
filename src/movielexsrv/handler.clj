@@ -1,20 +1,20 @@
-(ns mooviefishsrv.handler
+(ns movielexsrv.handler
   (:require [compojure.core :refer [defroutes routes]]
             [ring.middleware.resource :refer [wrap-resource]]
             [ring.middleware.file-info :refer [wrap-file-info]]
             [hiccup.middleware :refer [wrap-base-url]]
             [compojure.handler :as handler]
             [compojure.route :as route]
-            [mooviefishsrv.routes.home :refer [home-routes]]
-            [mooviefishsrv.models.db :as db]))
+            [movielexsrv.routes.home :refer [home-routes]]
+            [movielexsrv.models.db :as db]))
 
 (defn init []
-  (println "mooviefishsrv is starting")
+  (println "movielexsrv is starting")
   (println "CWD: " (System/getProperty "user.dir"))
   (db/load-movies-data))
   
 (defn destroy []
-  (println "mooviefishsrv is shutting down"))
+  (println "movielexsrv is shutting down"))
   
 (defroutes app-routes
   (route/resources "/")

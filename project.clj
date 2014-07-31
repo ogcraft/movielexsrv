@@ -1,4 +1,4 @@
-(defproject mooviefishsrv "0.1.2-beta"
+(defproject movielexsrv "0.1.2-beta"
   :description "MoovieFish site backend"
   :url "http://mooviefish.com/"
   ;; CLJ AND CLJS source code path
@@ -22,10 +22,10 @@
 
   :plugins [[lein-ring "0.8.10"] 
             [lein-cljsbuild "1.0.3"]]
-  :ring {:handler mooviefishsrv.handler/app
+  :ring {:handler movielexsrv.handler/app
     :nrepl {:start? true :port 9998}
-    :init mooviefishsrv.handler/init
-    :destroy mooviefishsrv.handler/destroy}
+    :init movielexsrv.handler/init
+    :destroy movielexsrv.handler/destroy}
     :aot :all
     :profiles
     {:production
@@ -39,7 +39,7 @@
                 :source-paths ["src-cljs"]
                 ;; Google Closure (CLS) options configuration
                 :compiler {;; CLS generated JS script filename
-                           :output-to "resources/public/js/mooviefishsrv.js"
+                           :output-to "resources/public/js/movielexsrv.js"
                            ;; minimal JS optimization directive
                            :optimizations :whitespace
                            ;; generated JS code prettyfication

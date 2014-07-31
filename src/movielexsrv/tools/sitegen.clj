@@ -1,10 +1,10 @@
-(ns mooviefishsrv.tools.sitegen
+(ns movielexsrv.tools.sitegen
 	(:require 
     	clojure.contrib.io 
     	clojure.java.io
     	[clojure.pprint :refer [pprint]]
     	selmer.parser
-    	[mooviefishsrv.models.db :as db]
+    	[movielexsrv.models.db :as db]
   		[clj-time.core :as time]
 		[clj-time.format :as time-format]
 		[net.cgrand.enlive-html :as html]))

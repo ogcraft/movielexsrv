@@ -1,10 +1,10 @@
-(ns mooviefishsrv.routes.home  
+(ns movielexsrv.routes.home  
   (:require [compojure.core :refer :all]
             [liberator.core :refer [defresource resource]]
             [cheshire.core :refer [generate-string]]
             [noir.io :as io]
             [clojure.java.io :refer [file]]
-            [mooviefishsrv.models.db :as db]))
+            [movielexsrv.models.db :as db]))
 
 (def start-html "/index.html")
 

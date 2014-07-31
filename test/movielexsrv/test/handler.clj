@@ -1,7 +1,7 @@
-(ns mooviefishsrv.test.handler
+(ns movielexsrv.test.handler
   (:use clojure.test
         ring.mock.request
-        mooviefishsrv.handler))
+        movielexsrv.handler))
 
 (deftest test-app
   (testing "main route"
