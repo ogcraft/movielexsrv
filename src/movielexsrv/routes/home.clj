@@ -10,7 +10,7 @@
 
 (defresource home-txt
   :service-available? true
-  :handle-ok "Welcome to MoovieFish!"
+  :handle-ok "Welcome to MovieLex!"
   :etag "fixed-etag" 
   :available-media-types ["text/plain"])
 
