@@ -9,7 +9,7 @@
 		[clojurewerkz.welle.core    :as wc]
         [clojurewerkz.welle.buckets :as wb]
         [clojurewerkz.welle.kv      :as kv]
-  		[cheshire.core :refer [generate-string parse-stream]])
+  		[cheshire.core :as json])
   	;(:use clj-time.coerce)
    	(:import java.io.PushbackReader)
    	(:import java.io.FileReader))
@@ -31,7 +31,6 @@
 (def movies-data "data/movies.data")
 (def movies (atom {}))
 
-(def users-data "data/users.data")
 
 (defn make-abs-url [id u]
 	(if (nil? u) 
@@ -107,23 +106,48 @@
 	(store-movies movies-data)
 	(println "Stored " (movie-count) " movies"))
 
-
 (defn users-bucket-create [] 
 	(wb/update conn users-bucket {:last-write-wins true}))
+
+(defn user-exists? [did]
+	(let [{:keys [has-value? result]} (kv/fetch conn users-bucket did)]
+		has-value?)) 
+
+(defn fetch-user [did]
+	(let [{:keys [has-value? result]} (kv/fetch conn users-bucket did)
+		  user (:value (first result))]
+		user))
 
 (defn store-user [did u]
 	(kv/store conn users-bucket did u {:content-type "application/clojure" :indexes {:data-type "user"}}))
 
-(defn add-user [did]
+(defn add-user [did user-data]
 	(let [{:keys [has-value? result]} (kv/fetch conn users-bucket did)]
 		(if (not has-value?) 
 			(do 
 				(prn "add-user: Creating new user " did)
-				(store-user did {})))))
+				(store-user did user-data)))))
 				;:indexes {:data-type "user" :created-at #{(time-coerce/to-timestamp (time/now))}}}))))
 
 (defn query-users []
 	(kv/index-query conn users-bucket :data-type "user"))
+
+;(defn make-user [user-data]
+;	(let [	u (json/parse-string user-data true)
+;			did (:device_id u)
+;			{:keys [has-value? result]} (kv/fetch conn users-bucket did)
+;			user (:value (first result))]
+;		(prn "make-user: " u)
+;		(if has-value?
+;			{:result true, :userid (:device_id u)}
+;			(do 
+;				(add-user did u)
+;				{:result true, :userid (:device_id user)}))))
+;;;;;; http://clojure-liberator.github.io/liberator/tutorial/all-together.html
+(defn make-user [user-data]
+	(let [	u (json/parse-string user-data true)
+			did (:device_id u)]
+			(store-user did u)))
 
 ;; {11 {:mids {:dates [#<DateTime 2014-06-18T12:59:36.148Z> ]}}}
 (defn add-movie-to-user [u mid]
@@ -144,11 +168,12 @@
 	true)
 
 (defn acquire-movie [did mid]
-	(add-user did)
-    (let [permission (check-permission did mid)]
-        (if permission
-        	(update-users-with-movie did mid))
-        {:permission permission, :did did, :id mid}))
+	(if (user-exists? did)
+    	(let [permission (check-permission did mid)]
+        	(if permission
+        		(update-users-with-movie did mid))
+        	{:permission permission, :did did, :id mid})
+		({:permission false, :did did, :id mid})))
 
 ;;;;;;;;;;;;;;;;;;; Votes 
 (defn votes-bucket-create [] 
@@ -181,6 +206,7 @@
 	{:movies-num (movie-count), :users-num (count (query-users))})
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;(def users-data "data/users.data")
 ;(defn users-count-file []
 ;	(count @users))
 

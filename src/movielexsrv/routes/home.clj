@@ -24,7 +24,7 @@
   :as-response (fn [d ctx]
                   (-> (liberator.representation/as-response d ctx)
                       (assoc-in [:headers "Access-Control-Allow-Origin"] "*")
-                      (assoc-in [:headers "Access-Control-Allow-Methods"] "GET, POST")))
+                      (assoc-in [:headers "Access-Control-Allow-Methods"] "GET")))
   
   :available-media-types ["application/json"])
 
@@ -38,7 +38,7 @@
   :as-response (fn [d ctx]
                   (-> (liberator.representation/as-response d ctx)
                       (assoc-in [:headers "Access-Control-Allow-Origin"] "*")
-                      (assoc-in [:headers "Access-Control-Allow-Methods"] "GET, POST")))
+                      (assoc-in [:headers "Access-Control-Allow-Methods"] "GET")))
   
   :available-media-types ["application/json"])
 
@@ -51,7 +51,7 @@
   :as-response (fn [d ctx]
                   (-> (liberator.representation/as-response d ctx)
                       (assoc-in [:headers "Access-Control-Allow-Origin"] "*")
-                      (assoc-in [:headers "Access-Control-Allow-Methods"] "GET, POST"))))
+                      (assoc-in [:headers "Access-Control-Allow-Methods"] "GET"))))
 
 (defresource acquire-movie [did mid]
   :allowed-methods [:get]
@@ -62,7 +62,7 @@
   :as-response (fn [d ctx]
                   (-> (liberator.representation/as-response d ctx)
                       (assoc-in [:headers "Access-Control-Allow-Origin"] "*")
-                      (assoc-in [:headers "Access-Control-Allow-Methods"] "GET, POST"))))
+                      (assoc-in [:headers "Access-Control-Allow-Methods"] "GET"))))
 
 (defresource translation-vote [lang did mid]
   :allowed-methods [:get]
@@ -85,6 +85,20 @@
                   (-> (liberator.representation/as-response d ctx)
                       (assoc-in [:headers "Access-Control-Allow-Origin"] "*")
                       (assoc-in [:headers "Access-Control-Allow-Methods"] "GET, POST"))))
+
+(defresource make-user 
+  :allowed-methods [:put]
+  :handle-ok (fn [ ctx ] 
+                (println "make-user :handle-ok")
+                (generate-string "::data"))
+  :available-media-types ["application/json"]
+  :put! (fn [ctx]
+            (let [body (slurp (get-in ctx [:request :body]))] 
+              {::data (db/make-user body)}))
+  :as-response (fn [d ctx]
+                  (-> (liberator.representation/as-response d ctx)
+                      (assoc-in [:headers "Access-Control-Allow-Origin"] "*")
+                      (assoc-in [:headers "Access-Control-Allow-Methods"] "PUT"))))
 
 (defresource get-stats 
   :allowed-methods [:get]
@@ -142,6 +156,8 @@
   (GET "/acquire/:did/:mid" [did mid] (acquire-movie did mid))
   (GET "/translation-vote/:lang/:did/:mid" [lang did mid] (translation-vote lang did mid))
   (GET "/get-translation-vote/:mid" [mid] (get-translation-vote mid))
+  (PUT "/user" [] make-user)
+  ;(PUT  "/user/:uid" [uid] (put-user))
   (GET "/stats" [] get-stats)
   (GET "/test" request (str request))
   (GET "/" request get-movies-html)))
