@@ -1,6 +1,6 @@
 (ns movielexsrv.models.db
-  	(:require 
-    	clojure.contrib.io 
+  	(:require
+    	clojure.contrib.io
     	clojure.java.io
   		[com.ashafa.clutch :as couch]
   		[clj-time.core :as time]
@@ -13,7 +13,7 @@
   	;(:use clj-time.coerce)
    	(:import java.io.PushbackReader)
    	(:import java.io.FileReader))
- 
+
 
 ;(def riak_url "http://192.168.14.101:8098/riak")
 (def riak_url "http://127.0.0.1:8098/riak")
@@ -25,7 +25,7 @@
 ;(def data-types #{"user" "movie"})
 
 (def date-formatter (time-format/formatters :date-hour-minute-second))
-(def mvf-base "http://mooviefish.com/files")
+(def mvf-base "http://movielex.com/files")
 (def cwd (System/getProperty "user.dir"))
 
 (def movies-data "data/movies.data")
@@ -33,23 +33,23 @@
 
 
 (defn make-abs-url [id u]
-	(if (nil? u) 
-		u 
+	(if (nil? u)
+		u
 		(str mvf-base "/" id "/" u)))
 
-(defn select-desc-by-lang [lang desc] 
+(defn select-desc-by-lang [lang desc]
 	(let [ d (first (for [ e desc :when (= (:lang e) lang)] e))]
-		(if (nil? d) 
+		(if (nil? d)
 			(first (for [ e desc :when (= (:lang e) "en")] e))
 			d)))
 
 (defn update-url-in-translation [id t]
-	(let [	f (:file t) 
+	(let [	f (:file t)
 			i (:img  t)]
 		(assoc t :file (make-abs-url id f) :img  (make-abs-url id i))))
 
 (defn get-short-desc [lang movie]
-	(let [{:keys [shortname movie-state descriptions id fpkeys-file src-url duration translations]} movie] 
+	(let [{:keys [shortname movie-state descriptions id fpkeys-file src-url duration translations]} movie]
 		(let [ 	desc (select-desc-by-lang lang descriptions)
 				update-url-in-translation-with-id (partial update-url-in-translation id)]
 			{   :id id
@@ -69,7 +69,7 @@
 	(count @movies))
 
 (defn get-movies [lang state]
-	(map #(get-short-desc lang %) 
+	(map #(get-short-desc lang %)
 		(filter #(= (:movie-state %) state) (vals @movies))))
 
 (defn get-movies-active [lang]
@@ -106,12 +106,12 @@
 	(store-movies movies-data)
 	(println "Stored " (movie-count) " movies"))
 
-(defn users-bucket-create [] 
+(defn users-bucket-create []
 	(wb/update conn users-bucket {:last-write-wins true}))
 
 (defn user-exists? [did]
 	(let [{:keys [has-value? result]} (kv/fetch conn users-bucket did)]
-		has-value?)) 
+		has-value?))
 
 (defn fetch-user [uid]
 	(let [{:keys [has-value? result]} (kv/fetch conn users-bucket uid)
@@ -124,8 +124,8 @@
 
 ;(defn add-user [did user-data]
 ;	(let [{:keys [has-value? result]} (kv/fetch conn users-bucket did)]
-;		(if (not has-value?) 
-;			(do 
+;		(if (not has-value?)
+;			(do
 ;				(prn "add-user: Creating new user " did)
 ;				(store-user did user-data)))))
 ;				;:indexes {:data-type "user" :created-at #{(time-coerce/to-timestamp (time/now))}}}))))
@@ -133,7 +133,7 @@
 (defn put-user [uid user-data]
 	(let [ u (json/parse-string user-data true) ]
 		(store-user uid (assoc u :uid uid))))
-			
+
 (defn query-users []
 	(kv/index-query conn users-bucket :data-type "user"))
 
@@ -145,7 +145,7 @@
 ;		(prn "make-user: " u)
 ;		(if has-value?
 ;			{:result true, :userid (:device_id u)}
-;			(do 
+;			(do
 ;				(add-user did u)
 ;				{:result true, :userid (:device_id user)}))))
 ;;;;;; http://clojure-liberator.github.io/liberator/tutorial/all-together.html
@@ -167,7 +167,7 @@
 	(let [{:keys [has-value? result]} (kv/fetch conn users-bucket did)
 		   user (:value (first result))]
 	(if has-value?
-		(store-user did 
+		(store-user did
 			(add-movie-to-user user mid)))))
 
 (defn check-permission [did mid]
@@ -181,20 +181,20 @@
         	{:permission permission, :did did, :id mid})
 		({:permission false, :did did, :id mid})))
 
-;;;;;;;;;;;;;;;;;;; Votes 
-(defn votes-bucket-create [] 
+;;;;;;;;;;;;;;;;;;; Votes
+(defn votes-bucket-create []
 	(wb/update conn votes-bucket {:last-write-wins true}))
 
-(defn inc-vote [lang did vote] 
-	(let [old-vote (get vote lang 0)] 
+(defn inc-vote [lang did vote]
+	(let [old-vote (get vote lang 0)]
 		(assoc vote lang (inc old-vote))))
 
 (defn translation-vote [lang did mid]
 	(let [{:keys [has-value? result]} (kv/fetch conn votes-bucket mid)
 		  initial_vote {lang 1}]
 		;(prn "result: " result " has-value?: " has-value?)
-  		(if has-value? 
-  			(let [ new_vote (inc-vote lang did (:value (first result)))] 
+  		(if has-value?
+  			(let [ new_vote (inc-vote lang did (:value (first result)))]
   				(kv/store conn votes-bucket mid new_vote {:content-type "application/clojure"})
   				{:id mid :vote new_vote})
   			(do (kv/store conn votes-bucket mid initial_vote {:content-type "application/clojure"})
@@ -203,8 +203,8 @@
 (defn get-translation-vote [mid]
 	(let [{:keys [has-value? result]} (kv/fetch conn votes-bucket mid)]
 		;(prn "result: " result " has-value?: " has-value?)
-  		(if has-value? 
-  			(let [ vote (:value (first result))] 
+  		(if has-value?
+  			(let [ vote (:value (first result))]
   				{:id mid :vote vote})
   			{:id mid :vote {}})))
 
