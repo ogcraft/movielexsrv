@@ -1,4 +1,6 @@
-$ curl -X POST -H "Content-Type: application/json" -d '{"main-account":"xyz","device_id":"1111111","os":"android","os-ver":"4.2.2","app-ver":"1.0.0","amatch-ver":"1.35"}' http://localhost:3000/api/user
+
+curl -X PUT -H "Content-Type: application/json" -d '{"account":"xyz","device_id":"11","os":"android","osver":"4.2.2","appver":"1.0.0","amatchver":"1.35"}' http://localhost:3000/api/user/11
 
 -----------
+
 
