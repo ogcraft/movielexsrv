@@ -8,8 +8,8 @@
 	:movie-state "active", 
 	:descriptions [
 		{
-			:desc "MoovieFish Demo", 
-			:desc-short "MoovieFish demo"
+			:desc "MovieLex Demo", 
+			:desc-short "MovieLex demo"
 			:year-released "1959", 
 			:title "Some like it hot", 
 			:lang "en", 
@@ -18,8 +18,8 @@
 			:duration "3 min 35 sec"
 		},
 		{
-			:desc "MoovieFish демонстрационный фрагмент", 
-			:desc-short "MoovieFish демонстрационный фрагмент"
+			:desc "MovieLex демонстрационный фрагмент", 
+			:desc-short "MovieLex демонстрационный фрагмент"
 			:year-released "1959", 
 			:title "В джазе только девушки", 
 			:lang "ru", 
