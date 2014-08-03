@@ -9,15 +9,23 @@
 		[clojurewerkz.welle.core    :as wc]
         [clojurewerkz.welle.buckets :as wb]
         [clojurewerkz.welle.kv      :as kv]
-  		[cheshire.core :as json])
+  		[cheshire.core :as json]
+  		[movielexsrv.tools.utils :as utils])
   	;(:use clj-time.coerce)
    	(:import java.io.PushbackReader)
    	(:import java.io.FileReader))
 
-
 ;(def riak_url "http://192.168.14.101:8098/riak")
-(def riak_url "http://127.0.0.1:8098/riak")
-(def conn (wc/connect riak_url))
+;(def riak_url "http://127.0.0.1:8098/riak")
+
+(def state (atom {}))
+
+(defn get-state [key]
+  (@state key))
+
+(defn update-state [key val]
+  (swap! state assoc key val))
+
 ;(def votes-bucket (wb/update conn "votes.backet" {:last-write-wins true}))
 (def votes-bucket "votes.backet")
 (def users-bucket "users.backet")
@@ -31,6 +39,13 @@
 (def movies-data "data/movies.data")
 (def movies (atom {}))
 
+(def config (atom {}))
+
+(defn get-config [key]
+  (@config key))
+
+(defn connect-riak []
+	(update-state :conn (wc/connect riak_url)))
 
 (defn make-abs-url [id u]
 	(if (nil? u)
@@ -106,21 +121,35 @@
 	(store-movies movies-data)
 	(println "Stored " (movie-count) " movies"))
 
+(defn load-config [fname]
+  (if (.exists (clojure.contrib.io/as-file fname))
+    (if-let [cfg (load-file fname)]
+      (reset! config cfg)
+      (reset! config {}))
+    (spit "" fname)))
+
+(defn load-host-config []
+  (let [host (utils/gethostname)
+        fname (str "data/" host ".config")]
+    (println "Loading configuration: " fname)
+    (load-config fname)))
+
+
 (defn users-bucket-create []
-	(wb/update conn users-bucket {:last-write-wins true}))
+	(wb/update (get-state :conn) users-bucket {:last-write-wins true}))
 
 (defn user-exists? [did]
-	(let [{:keys [has-value? result]} (kv/fetch conn users-bucket did)]
+	(let [{:keys [has-value? result]} (kv/fetch (get-state :conn) users-bucket did)]
 		has-value?))
 
 (defn fetch-user [uid]
-	(let [{:keys [has-value? result]} (kv/fetch conn users-bucket uid)
+	(let [{:keys [has-value? result]} (kv/fetch (get-state :conn) users-bucket uid)
 		  user (:value (first result))]
 		user))
 
 (defn store-user [did u]
 	(prn "store-user: " u)
-	(kv/store conn users-bucket did u {:content-type "application/clojure" :indexes {:data-type "user"}}))
+	(kv/store (get-state :conn) users-bucket did u {:content-type "application/clojure" :indexes {:data-type "user"}}))
 
 ;(defn add-user [did user-data]
 ;	(let [{:keys [has-value? result]} (kv/fetch conn users-bucket did)]
@@ -135,7 +164,7 @@
 		(store-user uid (assoc u :uid uid))))
 
 (defn query-users []
-	(kv/index-query conn users-bucket :data-type "user"))
+	(kv/index-query (get-state :conn) users-bucket :data-type "user"))
 
 ;(defn make-user [user-data]
 ;	(let [	u (json/parse-string user-data true)
@@ -164,7 +193,7 @@
 
 
 (defn update-users-with-movie [did mid]
-	(let [{:keys [has-value? result]} (kv/fetch conn users-bucket did)
+	(let [{:keys [has-value? result]} (kv/fetch (get-state :conn) users-bucket did)
 		   user (:value (first result))]
 	(if has-value?
 		(store-user did
@@ -190,18 +219,18 @@
 		(assoc vote lang (inc old-vote))))
 
 (defn translation-vote [lang did mid]
-	(let [{:keys [has-value? result]} (kv/fetch conn votes-bucket mid)
+	(let [{:keys [has-value? result]} (kv/fetch (get-state :conn) votes-bucket mid)
 		  initial_vote {lang 1}]
 		;(prn "result: " result " has-value?: " has-value?)
   		(if has-value?
   			(let [ new_vote (inc-vote lang did (:value (first result)))]
-  				(kv/store conn votes-bucket mid new_vote {:content-type "application/clojure"})
+  				(kv/store (get-state :conn) votes-bucket mid new_vote {:content-type "application/clojure"})
   				{:id mid :vote new_vote})
-  			(do (kv/store conn votes-bucket mid initial_vote {:content-type "application/clojure"})
+  			(do (kv/store (get-state :conn) votes-bucket mid initial_vote {:content-type "application/clojure"})
 				{:id mid :vote initial_vote}))))
 
 (defn get-translation-vote [mid]
-	(let [{:keys [has-value? result]} (kv/fetch conn votes-bucket mid)]
+	(let [{:keys [has-value? result]} (kv/fetch (get-state :conn) votes-bucket mid)]
 		;(prn "result: " result " has-value?: " has-value?)
   		(if has-value?
   			(let [ vote (:value (first result))]
