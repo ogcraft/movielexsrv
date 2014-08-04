@@ -2,6 +2,7 @@
   	(:require
     	clojure.contrib.io
     	clojure.java.io
+        clojure.java.shell
       clojure.string
   		[clj-time.core :as time]
 		  [clj-time.format :as time-format]
@@ -11,8 +12,12 @@
       (:import java.net.InetAddress)
    	  (:import java.io.FileReader))
 
+;(defn gethostname []
+;	(let [full-name (.getCanonicalHostName (java.net.InetAddress/getLocalHost))]
+;    (first (clojure.string/split full-name #"\."))))
+
 (defn gethostname []
-	(let [full-name (.getCanonicalHostName (java.net.InetAddress/getLocalHost))]
+	(let [full-name (:out (clojure.java.shell/sh "hostname"))]
     (first (clojure.string/split full-name #"\."))))
 
 

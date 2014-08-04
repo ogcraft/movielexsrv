@@ -156,8 +156,14 @@
 	(kv/delete (get-state :conn) users-bucket did))
 
 (defn put-user [uid user-data]
-	(let [ u (json/parse-string user-data true) ]
-		(store-user uid (assoc u :uid uid))))
+	(let [ data           (json/parse-string user-data true) 
+           u              (fetch-user uid)
+           data-with-uid  (assoc data :uid uid)]
+     (if u 
+       (do 
+         (prn "Existing user: " u " data:" data)
+         (store-user uid (assoc u :user-data data-with-uid)))
+	   (store-user uid {:user-data data-with-uid}))))
 
 (defn query-users []
 	(kv/index-query (get-state :conn) users-bucket :data-type "user"))
