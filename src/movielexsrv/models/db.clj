@@ -151,6 +151,10 @@
 	(prn "store-user: " u)
 	(kv/store (get-state :conn) users-bucket did u {:content-type "application/clojure" :indexes {:data-type "user"}}))
 
+(defn delete-user [did]
+	(prn "delete-user: " did)
+	(kv/delete (get-state :conn) users-bucket did))
+
 ;(defn add-user [did user-data]
 ;	(let [{:keys [has-value? result]} (kv/fetch conn users-bucket did)]
 ;		(if (not has-value?)
@@ -208,7 +212,7 @@
         	(if permission
         		(update-users-with-movie did mid))
         	{:permission permission, :did did, :id mid})
-		({:permission false, :did did, :id mid})))
+		{:permission false, :did did, :id mid}))
 
 ;;;;;;;;;;;;;;;;;;; Votes
 (defn votes-bucket-create []
@@ -239,6 +243,11 @@
 
 (defn get-stats []
 	{:movies-num (movie-count), :users-num (count (query-users))})
+
+(defn init-local-repl []
+	(load-host-config)
+	(connect-riak)
+	(get-stats))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;(def users-data "data/users.data")
