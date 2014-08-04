@@ -14,7 +14,6 @@
   (db/load-host-config)
   (db/connect-riak)
   (db/users-bucket-create)
-  (println "users-bucket-create")
   (db/votes-bucket-create)
   (db/load-movies-data))
   

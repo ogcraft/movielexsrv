@@ -155,33 +155,12 @@
 	(prn "delete-user: " did)
 	(kv/delete (get-state :conn) users-bucket did))
 
-;(defn add-user [did user-data]
-;	(let [{:keys [has-value? result]} (kv/fetch conn users-bucket did)]
-;		(if (not has-value?)
-;			(do
-;				(prn "add-user: Creating new user " did)
-;				(store-user did user-data)))))
-;				;:indexes {:data-type "user" :created-at #{(time-coerce/to-timestamp (time/now))}}}))))
-
 (defn put-user [uid user-data]
 	(let [ u (json/parse-string user-data true) ]
 		(store-user uid (assoc u :uid uid))))
 
 (defn query-users []
 	(kv/index-query (get-state :conn) users-bucket :data-type "user"))
-
-;(defn make-user [user-data]
-;	(let [	u (json/parse-string user-data true)
-;			did (:device_id u)
-;			{:keys [has-value? result]} (kv/fetch conn users-bucket did)
-;			user (:value (first result))]
-;		(prn "make-user: " u)
-;		(if has-value?
-;			{:result true, :userid (:device_id u)}
-;			(do
-;				(add-user did u)
-;				{:result true, :userid (:device_id user)}))))
-;;;;;; http://clojure-liberator.github.io/liberator/tutorial/all-together.html
 
 (defn make-user [user-data]
 	(let [	u (json/parse-string user-data true)

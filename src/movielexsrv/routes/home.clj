@@ -88,20 +88,6 @@
                       (assoc-in [:headers "Access-Control-Allow-Origin"] "*")
                       (assoc-in [:headers "Access-Control-Allow-Methods"] "GET, POST"))))
 
-; (defresource make-user
-;   :allowed-methods [:put]
-;   :handle-ok (fn [ ctx ]
-;                 (println "make-user :handle-ok")
-;                 (generate-string "::data"))
-;   :available-media-types ["application/json"]
-;   :put! (fn [ctx]
-;             (let [body (slurp (get-in ctx [:request :body]))]
-;               {::data (db/make-user body)}))
-;   :as-response (fn [d ctx]
-;                   (-> (liberator.representation/as-response d ctx)
-;                       (assoc-in [:headers "Access-Control-Allow-Origin"] "*")
-;                       (assoc-in [:headers "Access-Control-Allow-Methods"] "PUT"))))
-
 (defresource put-user [uid]
   :allowed-methods [:put :get]
   :handle-ok (fn [ ctx ]
@@ -183,7 +169,6 @@
   (GET "/movies/:lang" [lang] (get-movies-active lang))
   (GET "/movies-new/:lang" [lang] (get-movies-new lang))
   (GET "/movie/:lang/:mid" [lang mid] (get-movie lang mid))
-  (GET "/aquire/:did/:mid" [did mid] (acquire-movie did mid))  ; remove late
   (GET "/acquire/:did/:mid" [did mid] (acquire-movie did mid))
   (GET "/translation-vote/:lang/:did/:mid" [lang did mid] (translation-vote lang did mid))
   (GET "/get-translation-vote/:mid" [mid] (get-translation-vote mid))
