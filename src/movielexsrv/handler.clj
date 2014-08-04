@@ -11,8 +11,8 @@
 (defn init []
   (println "movielexsrv is starting")
   (println "CWD: " (System/getProperty "user.dir"))
-  (load-host-config)
-  (connect-riak)
+  (db/load-host-config)
+  (db/connect-riak)
   (db/users-bucket-create)
   (println "users-bucket-create")
   (db/votes-bucket-create)

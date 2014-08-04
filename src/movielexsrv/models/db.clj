@@ -45,7 +45,7 @@
   (@config key))
 
 (defn connect-riak []
-	(update-state :conn (wc/connect riak_url)))
+	(update-state :conn (wc/connect (get-config :riak-srv))))
 
 (defn make-abs-url [id u]
 	(if (nil? u)
@@ -212,7 +212,7 @@
 
 ;;;;;;;;;;;;;;;;;;; Votes
 (defn votes-bucket-create []
-	(wb/update conn votes-bucket {:last-write-wins true}))
+	(wb/update (get-state :conn) votes-bucket {:last-write-wins true}))
 
 (defn inc-vote [lang did vote]
 	(let [old-vote (get vote lang 0)]
