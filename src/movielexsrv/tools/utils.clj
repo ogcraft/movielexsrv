@@ -18,6 +18,7 @@
 
 (defn gethostname []
 	(let [full-name (:out (clojure.java.shell/sh "hostname"))]
-    (first (clojure.string/split full-name #"\."))))
+    		(clojure.string/trim-newline 
+			(first (clojure.string/split full-name #"\.")))))
 
 
