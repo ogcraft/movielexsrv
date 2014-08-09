@@ -3,6 +3,7 @@
             [liberator.core :refer [defresource resource]]
             [cheshire.core :refer [generate-string]]
             [noir.io :as io]
+            [hiccup.core :as h]
             [clojure.pprint :refer [pprint]]
             [clojure.java.io :refer [file]]
             [movielexsrv.models.db :as db]))
@@ -107,15 +108,25 @@
 (defresource get-users
   :allowed-methods [:get]
 
-  :handle-ok  (fn [ctx]
-                (pprint (db/query-users))
-                (generate-string (db/query-users)))
+  ;:handle-ok  (fn [ctx]
+  ;              (pprint (db/query-users))
+  ;              (generate-string (db/query-users)))
+
+  :handle-ok #(let [media-type
+                        (get-in % [:representation :media-type])]
+                    (prn "media-type:" media-type)
+                    (condp = media-type
+                      "application/json" (generate-string (db/query-users))
+                      "text/html" (h/html (db/render-users-html (db/query-users)))
+                      ;{:message "You requested a media type"
+                      ; :media-type media-type}
+                      nil))
 
   :as-response (fn [d ctx]
                   (-> (liberator.representation/as-response d ctx)
                       (assoc-in [:headers "Access-Control-Allow-Origin"] "*")
                       (assoc-in [:headers "Access-Control-Allow-Methods"] "GET, POST")))
-  :available-media-types ["application/json"])
+  :available-media-types ["text/html" "application/json"])
 
 (defresource get-stats
   :allowed-methods [:get]

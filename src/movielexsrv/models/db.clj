@@ -5,6 +5,7 @@
   		[com.ashafa.clutch :as couch]
   		[clj-time.core :as time]
 		[clj-time.format :as time-format]
+  		[hiccup.core :as h]
 		;[clj-time.coerce :as time-coerce :exclude [extend second]]
 		[clojurewerkz.welle.core    :as wc]
         [clojurewerkz.welle.buckets :as wb]
@@ -233,6 +234,24 @@
 	(load-host-config)
 	(connect-riak)
 	(get-stats))
+
+(defn render-user-html [uid]
+  (let [u (fetch-user uid)]
+    (if u
+      [:p
+        [:h3 "uid: " uid " account: " (get-in u [:user-data :account])]
+        [:p (with-out-str (clojure.pprint/pprint (:user-data u)))]
+        [:p (with-out-str (clojure.pprint/pprint (:mids u)))]]
+      "")))
+
+(defn render-users-html [uids]
+  [:html
+        [:head
+          [:title "Users"]]
+        [:body
+          [:h1 "Users"]
+          (for [uid uids]
+              (render-user-html uid))]])
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;(def users-data "data/users.data")
