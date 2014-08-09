@@ -163,7 +163,7 @@
 	:id-kp 		"646674";
 	:id-imdb 	"tt2103281"; 
 	:shortname 	"dawn_planet_apes2",
-	:movie-state "new", 
+	:movie-state "active", 
 	:descriptions [
 		{
 			:title "Dawn of the Planet of the Apes",
@@ -186,6 +186,7 @@
 			:duration "-"
 		}], 
 	:translations [
+		{:desc "", :file "dawn_planet_apes2-ru.trans", :title "Русский", :lang "ru", :img "flag-ru.png"}
 		]
 }
 {
