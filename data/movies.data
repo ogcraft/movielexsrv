@@ -37,7 +37,7 @@
 	:id-kp "602409";
 	:id-imdb "tt1872181"; 
 	:shortname "spiderman2",
-	:movie-state "active", 
+	:movie-state "old", 
 	:descriptions [
 		{
 			:desc "Peter Parker runs the gauntlet as the mysterious company Oscorp sends up a slew of super villains against him, impacting his life.", 
@@ -173,7 +173,7 @@
 			:lang "en", 
 			:img "tt2103281.jpg",
 			:src-url "http://www.imdb.com/title/tt2103281/",
-			:duration "-"
+			:duration "130 min / 02:10"
 		},
 		{
 			:title "Планета обезьян: Революция",
@@ -183,7 +183,7 @@
 			:lang "ru", 
 			:img "646674.jpg",
 			:src-url "http://m.kinopoisk.ru/movie/646674/",
-			:duration "-"
+			:duration "130 мин. / 02:10"
 		}], 
 	:translations [
 		{:desc "", :file "dawn_planet_apes2-ru.trans", :title "Русский", :lang "ru", :img "flag-ru.png"}
@@ -215,6 +215,37 @@
 			:lang "ru", 
 			:img "713260.jpg",
 			:src-url "http://m.kinopoisk.ru/movie/713260/",
+			:duration "94 мин. / 01:34"
+		}], 
+	:translations [
+		]
+}
+{
+	:fpkeys-file {:en "teenage_mutant_ninja_turtles-en.fpkeys"}, 
+	:id 		"kp461206",
+	:id-kp 		"461206";
+	:id-imdb 	"tt1291150"; 
+	:shortname 	"teenage_mutant_ninja_turtles",
+	:movie-state "new", 
+	:descriptions [
+		{
+			:title "Teenage Mutant Ninja Turtles",
+			:desc-short "A group of mutated warriors face off against an evil kingpin who wants to take over New York.",
+			:desc "Darkness has settled over New York City as Shredder and his evil Foot Clan have an iron grip on everything from the police to the politicians. The future is grim until four unlikely outcast brothers rise from the sewers and discover their destiny as Teenage Mutant Ninja Turtles. The Turtles must work with fearless reporter April O'Neil and her cameraman Vern Fenwick to save the city and unravel Shredder's diabolical plan.",
+			:year-released "2014", 
+			:lang "en", 
+			:img "tt1291150.jpg",
+			:src-url "http://www.imdb.com/title/tt1291150/",
+			:duration "94 min. / 01:34"
+		},
+		{
+			:title "Черепашки-ниндзя",
+			:desc-short "Город нуждается в героях. Тьма окутала Нью-Йорк в виде Шреддера и его зловещего Клана Футов. Будущее выглядит мрачным",
+			:desc "Город нуждается в героях. Тьма окутала Нью-Йорк в виде Шреддера и его зловещего Клана Футов, у которого имеется железный контроль над всеми, от полицейских до политиков. Будущее выглядит мрачным, пока из канализации не поднимается и не раскрывает своё предназначение четвёрка отверженных братьев — Черепашки-ниндзя. Черепашки должны работать вместе с бесстрашным репортёром Эйприл и её саркастическим оператором Верном Фенвиком, чтобы спасти город и разгадать дьявольский план Шреддера.",
+			:year-released "2014", 
+			:lang "ru", 
+			:img "461206.jpg",
+			:src-url "http://m.kinopoisk.ru/movie/461206/",
 			:duration "94 мин. / 01:34"
 		}], 
 	:translations [
