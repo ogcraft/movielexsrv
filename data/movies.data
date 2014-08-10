@@ -1,7 +1,7 @@
 [
 {
 	:fpkeys-file {:en "somelikemovielex-en.fpkeys"}, 
-	:id 1, 
+	:id "1", 
 	:id-kp "1";
 	:id-imdb "1"; 
 	:shortname "movielexdemo",
@@ -33,7 +33,7 @@
 }
 {
 	:fpkeys-file {:en "spiderman2-en.fpkeys"}, 
-	:id 1004, 
+	:id "kp602409", 
 	:id-kp "602409";
 	:id-imdb "tt1872181"; 
 	:shortname "spiderman2",
@@ -65,7 +65,7 @@
 }
 {
 	:fpkeys-file {:en "maleficent-en.fpkeys"}, 
-	:id 1005, 
+	:id "kp496849", 
 	:id-kp "496849";
 	:id-imdb "tt1587310"; 
 	:shortname "maleficent",
