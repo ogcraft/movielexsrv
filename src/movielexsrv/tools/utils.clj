@@ -21,4 +21,6 @@
     		(clojure.string/trim-newline 
 			(first (clojure.string/split full-name #"\.")))))
 
+(defn ver->int [v]
+  (map read-string (clojure.string/split v #"\.")))
 

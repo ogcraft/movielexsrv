@@ -98,6 +98,10 @@
   :put! (fn [ctx]
              (let [body (slurp (get-in ctx [:request :body]))]
                (db/put-user uid body)))
+               ;(generate-string {:user_id "11", :result "false", :reason "Not valid"})))
+  :handle-created (fn [ ctx ]
+                    (generate-string (db/validate-user uid)))
+                    ;(generate-string {:user_id uid, :result "true", :reason ""}))
 
   :available-media-types ["application/json"]
   :as-response (fn [d ctx]

@@ -149,7 +149,7 @@
 		user))
 
 (defn store-user [did u]
-	(prn "store-user: " u)
+	;(prn "store-user: " u)
 	(kv/store (get-state :conn) users-bucket did u {:content-type "application/clojure" :indexes {:data-type "user"}}))
 
 (defn delete-user [did]
@@ -162,10 +162,21 @@
            data-with-uid  (assoc data :uid uid)]
      (if u 
        (do 
-         (prn "Existing user: " u " data:" data)
+         ;(prn "Existing user: " u " data:" data)
          (store-user uid (assoc u :user-data data-with-uid)))
 	   (store-user uid {:user-data data-with-uid}))))
 
+(defn validate-user [uid]
+	(if-let [u (fetch-user uid)]
+		(let [ 	appver (utils/ver->int (get-in u [:user-data :appver]))
+				v1 (first appver)
+				v2 (second appver)
+				v3 (last appver)]
+			(if (> v1 0)
+				{:user_id uid, :result "true", :reason "Ok" :reason_code 0}
+				{:user_id uid, :result "false", :reason "Unsupported version" :reason_code 1001}))
+		{:user_id uid, :result "false", :reason "No found" :reason_code 1002}))
+                    
 (defn query-users []
 	(kv/index-query (get-state :conn) users-bucket :data-type "user"))
 
