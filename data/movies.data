@@ -226,7 +226,7 @@
 	:id-kp 		"461206";
 	:id-imdb 	"tt1291150"; 
 	:shortname 	"teenage_mutant_ninja_turtles",
-	:movie-state "active", 
+	:movie-state "new", 
 	:descriptions [
 		{
 			:title "Teenage Mutant Ninja Turtles",
