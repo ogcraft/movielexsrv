@@ -226,7 +226,7 @@
 	:id-kp 		"461206";
 	:id-imdb 	"tt1291150"; 
 	:shortname 	"teenage_mutant_ninja_turtles",
-	:movie-state "new", 
+	:movie-state "active", 
 	:descriptions [
 		{
 			:title "Teenage Mutant Ninja Turtles",
@@ -249,6 +249,7 @@
 			:duration "94 мин. / 01:34"
 		}], 
 	:translations [
+		{:desc "", :file "teenage_mutant_ninja_turtles-ru.trans", :title "Русский", :lang "ru", :img "flag-ru.png"}
 		]
 }
 ]
