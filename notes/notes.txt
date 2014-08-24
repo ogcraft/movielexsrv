@@ -2,5 +2,12 @@
 curl -X PUT -H "Content-Type: application/json" -d '{"account":"xyz","device_id":"11","os":"android","osver":"4.2.2","appver":"1.0.0","amatchver":"1.35"}' http://localhost:3000/api/user/11
 
 -----------
+ How to extract/insert Riak data
 
+Extract on movielex.com:
+java -jar riak-data-migrator-0.2.4.jar -a -h 127.0.0.1  -d -r ~/movielex_riak_export/
 
+Insert on local:
+java -jar ~/opt/riak-data-migrator-0.2.4/riak-data-migrator-0.2.4.jar -a -h 127.0.0.1  -l -r ~/Projects/movielex/movielex.com/movielex_riak_export/
+
+---------------------

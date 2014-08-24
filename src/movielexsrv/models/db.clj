@@ -246,14 +246,28 @@
 	(connect-riak)
 	(get-stats))
 
-(defn render-user-html [uid]
-  (let [u (fetch-user uid)]
-    (if u
+(defn collect-users [uids]
+          (map fetch-user uids))
+
+(defn group-users-by-account-device [uids]
+  (group-by #(get-in % [:user-data :account]) (collect-users uids)))
+
+;          [:p (with-out-str (clojure.pprint/pprint u))])]))
+
+(defn render-user-data [ud]
+          [:p (with-out-str (clojure.pprint/pprint ud))])
+
+(defn render-mids [mids]
+          [:p (with-out-str (clojure.pprint/pprint mids))])
+
+(defn render-user-html [kv]
+    (let [acc (key kv)
+          uvec   (val kv)]
       [:p
-        [:h3 "uid: " uid " account: " (get-in u [:user-data :account])]
-        [:p (with-out-str (clojure.pprint/pprint (:user-data u)))]
-        [:p (with-out-str (clojure.pprint/pprint (:mids u)))]]
-      "")))
+        [:h3 "Account: " acc]
+        (for [u uvec]
+          (render-user-data (u :user-data)))]))
+           ; (render-mids (u :mids))])]))
 
 (defn render-users-html [uids]
   [:html
@@ -261,8 +275,9 @@
           [:title "Users"]]
         [:body
           [:h1 "Users"]
-          (for [uid uids]
-              (render-user-html uid))]])
+          (for [kv (group-users-by-account-device uids)]
+              (render-user-html kv))]])
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;(def users-data "data/users.data")
