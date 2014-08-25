@@ -255,29 +255,34 @@
 ;          [:p (with-out-str (clojure.pprint/pprint u))])]))
 
 (defn render-user-data [ud]
-          [:p (with-out-str (clojure.pprint/pprint ud))])
+          [:div.user-data (with-out-str (clojure.pprint/pprint ud))])
 
 (defn render-mids [mids]
-          [:p (with-out-str (clojure.pprint/pprint mids))])
+          [:div.mids (with-out-str (clojure.pprint/pprint mids))])
+
+(defn render-user-device [u]
+	[:div 
+		(render-user-data (u :user-data)) 
+		(render-mids (u :mids))])
 
 (defn render-user-html [kv]
     (let [acc (key kv)
           uvec   (val kv)]
-      [:p
+      [:div.user-view
         [:h3 "Account: " acc]
-        (for [u uvec]
-          (render-user-data (u :user-data)))]))
-           ; (render-mids (u :mids))])]))
+        	(map render-user-device uvec)]))
 
 (defn render-users-html [uids]
   [:html
         [:head
-          [:title "Users"]]
+          	[:title "MovieLex Users"]]
         [:body
-          [:h1 "Users"]
-          (for [kv (group-users-by-account-device uids)]
-              (render-user-html kv))]])
-
+          	[:h1 "MovieLex Users"]
+          	[:ul
+          	(for [kv (group-users-by-account-device uids)]
+              		[:li (render-user-html kv)])]]])
+        
+(defn ttt [] (clojure.pprint/pprint (render-users-html (query-users))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;(def users-data "data/users.data")
