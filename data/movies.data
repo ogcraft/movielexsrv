@@ -142,7 +142,7 @@
 			:lang "en", 
 			:img "tt0458481.jpg",
 			:src-url "http://www.imdb.com/title/tt0458481/",
-			:duration "-"
+			:duration "120 min. / 02:00"
 		},
 		{
 			:title "Город грехов 2: Женщина, ради которой стоит убивать",
@@ -152,7 +152,7 @@
 			:lang "ru", 
 			:img "103391.jpg",
 			:src-url "http://m.kinopoisk.ru/movie/103391/",
-			:duration "-"
+			:duration "120 мин. / 02:00"
 		}], 
 	:translations [
 		{:desc "", :file "sin_city2-ru.trans", :title "Русский", :lang "ru", :img "flag-ru.png"}
