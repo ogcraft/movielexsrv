@@ -132,7 +132,7 @@
 	:id-kp 		"103391";
 	:id-imdb 	"tt0458481"; 
 	:shortname 	"sin_city2",
-	:movie-state "new", 
+	:movie-state "active", 
 	:descriptions [
 		{
 			:title "Sin City: A Dame to Kill For",
@@ -155,6 +155,7 @@
 			:duration "-"
 		}], 
 	:translations [
+		{:desc "", :file "sin_city2-ru.trans", :title "Русский", :lang "ru", :img "flag-ru.png"}
 		]
 }
 {
