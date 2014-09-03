@@ -157,11 +157,11 @@
 	(kv/delete (get-state :conn) users-bucket did))
 
 (defn put-user [uid user-data]
-	(let [ data           (json/parse-string user-data true) 
+	(let [ data           (json/parse-string user-data true)
            u              (fetch-user uid)
            data-with-uid  (assoc data :uid uid)]
-     (if u 
-       (do 
+     (if u
+       (do
          ;(prn "Existing user: " u " data:" data)
          (store-user uid (assoc u :user-data data-with-uid)))
 	   (store-user uid {:user-data data-with-uid}))))
@@ -176,7 +176,7 @@
 				{:user_id uid, :result "true", :reason "Ok" :reason_code 0}
 				{:user_id uid, :result "false", :reason "Unsupported version" :reason_code 1001}))
 		{:user_id uid, :result "false", :reason "No found" :reason_code 1002}))
-                    
+
 (defn query-users []
 	(kv/index-query (get-state :conn) users-bucket :data-type "user"))
 
@@ -254,34 +254,59 @@
 
 ;          [:p (with-out-str (clojure.pprint/pprint u))])]))
 
+
 (defn render-user-data [ud]
-          [:div.user-data (with-out-str (clojure.pprint/pprint ud))])
+  (if (not-empty ud)
+    [:div.user-data
+           [:table {:border "1", :width "70%", :bordercolor "brawn", :cellspacing "0", :cellpadding "2"} ;{:style "width:70%; border: 1px solid black;"}
+            [:tr
+              (reduce str (map #(str "<th>" % "</th>") (keys ud)))]
+            [:tr
+              (reduce str (map #(str "<td>" % "</td>") (vals ud)))]]]))
+
+             ;(with-out-str (clojure.pprint/pprint ud))]]]))
+
+;(def mmm {"kp496849" {:dates ["2014-08-31T18:21:43"]}, "kp103391" {:dates ["2014-08-31T17:15:29" "2014-08-31T17:16:36" "2014-08-31T18:04:49" "2014-08-31T18:42:01" "2014-08-31T18:46:35" "2014-08-31T19:34:10" "2014-09-01T19:00:21"]}, "kp646674" {:dates ["2014-08-09T06:09:03" "2014-08-09T12:44:03" "2014-08-31T18:14:06" "2014-08-31T18:57:29"]}, "1005" {:dates ["2014-08-08T12:33:10"]}, "1" {:dates ["2014-08-08T10:11:54" "2014-08-31T18:01:33" "2014-08-31T19:12:04" "2014-08-31T19:33:46" "2014-09-02T16:13:25"]}})
 
 (defn render-mids [mids]
-          [:div.mids (with-out-str (clojure.pprint/pprint mids))])
+  (if (not-empty mids)
+          [:div.mids
+           [:ul
+          	(for [k (keys mids)]
+              		[:li
+                   [:em k] [:span (:title (get-movie "ru" k))][:br]
+                   (let [ dates (get-in mids [k :dates])]
+                     (with-out-str (clojure.pprint/pprint dates)))])]]))
+
+           ;(with-out-str (clojure.pprint/pprint mids))]))
 
 (defn render-user-device [u]
-	[:div 
-		(render-user-data (u :user-data)) 
-		(render-mids (u :mids))])
+	[:div
+    [:h4 "Device:"]
+	  (render-user-data (u :user-data))
+		[:h4 "Acquired Movies:"]
+    ;(render-mids mmm)
+    (render-mids (u :mids))
+   "<br/>"])
 
 (defn render-user-html [kv]
     (let [acc (key kv)
           uvec   (val kv)]
       [:div.user-view
         [:h3 "Account: " acc]
-        	(map render-user-device uvec)]))
+        	(map render-user-device uvec)
+        [:hr]]))
 
 (defn render-users-html [uids]
   [:html
         [:head
-          	[:title "MovieLex Users"]]
+          	[:title (str "MovieLex Users: " (count uids))]]
         [:body
-          	[:h1 "MovieLex Users"]
+          	[:h1 (str "MovieLex Users: " (count uids))]
           	[:ul
           	(for [kv (group-users-by-account-device uids)]
               		[:li (render-user-html kv)])]]])
-        
+
 (defn ttt [] (clojure.pprint/pprint (render-users-html (query-users))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
