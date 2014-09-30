@@ -1,6 +1,6 @@
 (ns movielexsrv.tools.sitegen
-	(:require 
-    	clojure.contrib.io 
+	(:require
+    	clojure.contrib.io
     	clojure.java.io
     	[clojure.pprint :refer [pprint]]
     	selmer.parser
@@ -11,15 +11,15 @@
 
 (def cinema-template  	{:ru "site-template/ru/cinema.selmer.html"})
 
-(defn file-exists? [fn] 
+(defn file-exists? [fn]
 	(.exists (clojure.java.io/as-file fn)))
 
 (defn generate-cinema-page [lang]
-	(let [	active-movies 	(filter #(not (= (:shortname %) "mooviefishdemo")) 
+	(let [	active-movies 	(filter #(not (= (:shortname %) "movielexdemo"))
 								(db/get-movies-active lang))
 			new-movies 		(db/get-movies-new lang)
 			p 				(slurp ((keyword lang) cinema-template))]
-		(selmer.parser/render p 
+		(selmer.parser/render p
 			{:active-movies active-movies :new-movies new-movies})))
 
 (defn write-cinema-page [lang path]
