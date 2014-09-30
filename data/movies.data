@@ -253,4 +253,36 @@
 		{:desc "", :file "teenage_mutant_ninja_turtles-ru.trans", :title "Русский", :lang "ru", :img "flag-ru.png"}
 		]
 }
+{
+	:fpkeys-file {:en "the_maze_runner-en2.fpkeys"}, 
+	:id 		"kp575613",
+	:id-kp 		"575613";
+	:id-imdb 	"tt1790864"; 
+	:shortname 	"the_maze_runner",
+	:movie-state "active", 
+	:descriptions [
+		{
+			:title "The Maze Runner",
+			:desc-short "Thomas is trapped in a maze that will require him to join forces with fellow "runners" for a shot at escape.",
+			:desc "Thomas is deposited in a community of boys after his memory is erased, soon learning they're all trapped in a maze that will require him to join forces with fellow "runners" for a shot at escape.",
+			:year-released "2014", 
+			:lang "en", 
+			:img "tt1790864.jpg",
+			:src-url "http://www.imdb.com/title/tt1790864/",
+			:duration "113 min. / 01:53"
+		},
+		{
+			:title "Бегущий в лабиринте",
+			:desc-short "Томас оказывается среди 60 подростков, научившихся выживать в замкнутом пространстве. Они кормятся тем, что удается вырастить на земле, и пытаются найти выход из лабиринта.",
+			:desc "Томас оказывается среди 60 подростков, научившихся выживать в замкнутом пространстве. Раз в 30 дней прибывает новый мальчик. Группа ребят проживает в «Приюте» уже три года. Они кормятся тем, что удается вырастить на земле, и пытаются найти выход из лабиринта, окружающего их место жительства.",
+			:year-released "2014", 
+			:lang "ru", 
+			:img "575613.jpg",
+			:src-url "http://m.kinopoisk.ru/movie/575613/",
+			:duration "113 мин. / 01:53"
+		}], 
+	:translations [
+		{:desc "", :file "the_maze_runner-ru2.trans", :title "Русский", :lang "ru", :img "flag-ru.png"}
+		]
+}
 ]
