@@ -263,8 +263,8 @@
 	:descriptions [
 		{
 			:title "The Maze Runner",
-			:desc-short "Thomas is trapped in a maze that will require him to join forces with fellow "runners" for a shot at escape.",
-			:desc "Thomas is deposited in a community of boys after his memory is erased, soon learning they're all trapped in a maze that will require him to join forces with fellow "runners" for a shot at escape.",
+			:desc-short "Thomas is trapped in a maze that will require him to join forces with fellow runners for a shot at escape.",
+			:desc "Thomas is deposited in a community of boys after his memory is erased, soon learning they're all trapped in a maze that will require him to join forces with fellow runners for a shot at escape.",
 			:year-released "2014", 
 			:lang "en", 
 			:img "tt1790864.jpg",
