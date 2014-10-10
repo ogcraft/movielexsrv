@@ -1,114 +1,116 @@
 [
 {
-	:fpkeys-file {:en "somelikemovielex-en.fpkeys"}, 
-	:id "1", 
+	:fpkeys-file {:en "somelikemovielex-en.fpkeys"},
+	:id "1",
 	:id-kp "1";
-	:id-imdb "1"; 
+	:id-imdb "1";
 	:shortname "movielexdemo",
-	:movie-state "active", 
+	:movie-state "active",
 	:descriptions [
 		{
-			:desc "MovieLex Demo", 
+			:desc "MovieLex Demo",
 			:desc-short "MovieLex demo"
-			:year-released "1959", 
-			:title "Some like it hot", 
-			:lang "en", 
+			:year-released "1959",
+			:title "Some like it hot",
+			:lang "en",
 			:img "somelikemovielex.jpg"
 			:src-url ""
 			:duration "3 min 35 sec"
 		},
 		{
-			:desc "MovieLex демонстрационный фрагмент", 
+			:desc "MovieLex демонстрационный фрагмент",
 			:desc-short "MovieLex демонстрационный фрагмент"
-			:year-released "1959", 
-			:title "В джазе только девушки", 
-			:lang "ru", 
+			:year-released "1959",
+			:title "В джазе только девушки",
+			:lang "ru",
 			:img "somelikemovielex.jpg"
 			:src-url ""
 			:duration "3 мин 35 сек"
-		}], 
+		}],
 	:translations [
-		{:desc "From original dvd", :file "somelikemovielex-ru.trans", :title "Русский", :lang "ru", :img "flag-ru.png"}
+		{:desc "", :file "somelikemovielex-ru.trans", :title "Русский", :lang "ru", :img "flag-ru.png"}
+    {:desc "", :file "somelikemovielex-en.trans", :title "English", :lang "en", :img "flag-en.png"}
+    {:desc "", :file "somelikemovielex-de.trans", :title "Deutsch", :lang "de", :img "flag-de.png"}
 		]
 }
 {
-	:fpkeys-file {:en "spiderman2-en.fpkeys"}, 
-	:id "kp602409", 
+	:fpkeys-file {:en "spiderman2-en.fpkeys"},
+	:id "kp602409",
 	:id-kp "602409";
-	:id-imdb "tt1872181"; 
+	:id-imdb "tt1872181";
 	:shortname "spiderman2",
-	:movie-state "old", 
+	:movie-state "old",
 	:descriptions [
 		{
-			:desc "Peter Parker runs the gauntlet as the mysterious company Oscorp sends up a slew of super villains against him, impacting his life.", 
+			:desc "Peter Parker runs the gauntlet as the mysterious company Oscorp sends up a slew of super villains against him, impacting his life.",
 			:desc-short "Peter Parker runs the gauntlet as the mysterious company Oscorp sends up a slew of super villains against him, impacting his life."
-			:year-released "2014", 
-			:title "The Amazing Spider-Man 2", 
-			:lang "en", 
+			:year-released "2014",
+			:title "The Amazing Spider-Man 2",
+			:lang "en",
 			:img "spiderman2.jpg"
 			:src-url "http://www.imdb.com/title/tt1872181/"
 			:duration "142 min. / 02:22"
 		},
 		{
-			:desc "Питер Паркер под маской Человека-паука по-прежнему спасает мир от злодеев и преступников, а свободное время проводит со своей возлюбленной Гвен, но школьная пора близится к концу, и впереди героев ждет взрослая жизнь. Питер помнит о том, что дал отцу Гвен слово навсегда уйти из жизни девушки, тем самым больше не подвергая ее опасности. Однако сдержать это обещание не так просто. Судьба готовит Питеру сюрпризы: на его пути появится новый противник — Электро, а также ему будет суждено вновь встретиться с давним приятелем Гарри Озборном и узнать много нового о прошлом своей семьи.", 
+			:desc "Питер Паркер под маской Человека-паука по-прежнему спасает мир от злодеев и преступников, а свободное время проводит со своей возлюбленной Гвен, но школьная пора близится к концу, и впереди героев ждет взрослая жизнь. Питер помнит о том, что дал отцу Гвен слово навсегда уйти из жизни девушки, тем самым больше не подвергая ее опасности. Однако сдержать это обещание не так просто. Судьба готовит Питеру сюрпризы: на его пути появится новый противник — Электро, а также ему будет суждено вновь встретиться с давним приятелем Гарри Озборном и узнать много нового о прошлом своей семьи.",
 			:desc-short "Питер Паркер под маской Человека-паука по-прежнему спасает мир от злодеев и преступников"
-			:year-released "2014", 
-			:title "Новый Человек-паук: Высокое напряжение", 
-			:lang "ru", 
+			:year-released "2014",
+			:title "Новый Человек-паук: Высокое напряжение",
+			:lang "ru",
 			:img "spiderman2.jpg"
 			:src-url "http://m.kinopoisk.ru/movie/602409/"
 			:duration "142 мин. / 02:22"
-		}], 
+		}],
 	:translations [
 		{:desc "From original dvd", :file "spiderman2-ru.trans", :title "Русский", :lang "ru", :img "flag-ru.png"}
 		]
 }
 {
-	:fpkeys-file {:en "maleficent-en.fpkeys"}, 
-	:id "kp496849", 
+	:fpkeys-file {:en "maleficent-en.fpkeys"},
+	:id "kp496849",
 	:id-kp "496849";
-	:id-imdb "tt1587310"; 
+	:id-imdb "tt1587310";
 	:shortname "maleficent",
-	:movie-state "active", 
+	:movie-state "active",
 	:descriptions [
 		{
 			:desc "A vengeful fairy is driven to curse an infant princess, only to discover that the child may be the one person who can restore peace to their troubled land.",
-			:desc-short "A vengeful fairy is driven to curse an infant princess, only to discover that the child may be the one person who can restore peace to their troubled land." 
-			:year-released "2014", 
-			:title "Maleficent", 
-			:lang "en", 
+			:desc-short "A vengeful fairy is driven to curse an infant princess, only to discover that the child may be the one person who can restore peace to their troubled land."
+			:year-released "2014",
+			:title "Maleficent",
+			:lang "en",
 			:img "maleficent.jpg"
 			:src-url "http://www.imdb.com/title/tt1587310/"
 			:duration "97 min. / 01:37"
 		},
 		{
-			:desc "Юная волшебница Малефисента вела уединенную жизнь в зачарованном лесу, окруженная сказочными существами, но однажды все изменилось… В её мир вторглись люди, которые принесли с собой разрушение и хаос, и Малефисенте пришлось встать на защиту своих подданных, призвав на помощь могущественные тёмные силы. В пылу борьбы Малефисента наложила страшное заклятие на новорожденную дочь короля, прекрасную Аврору. Но, наблюдая за тем, как растет маленькая принцесса, Малефисента начинает сомневаться в правильности своего поступка — ведь, возможно, именно Аврора может вдохнуть новую жизнь в волшебное лесное царство.", 
+			:desc "Юная волшебница Малефисента вела уединенную жизнь в зачарованном лесу, окруженная сказочными существами, но однажды все изменилось… В её мир вторглись люди, которые принесли с собой разрушение и хаос, и Малефисенте пришлось встать на защиту своих подданных, призвав на помощь могущественные тёмные силы. В пылу борьбы Малефисента наложила страшное заклятие на новорожденную дочь короля, прекрасную Аврору. Но, наблюдая за тем, как растет маленькая принцесса, Малефисента начинает сомневаться в правильности своего поступка — ведь, возможно, именно Аврора может вдохнуть новую жизнь в волшебное лесное царство.",
 			:desc-short "Юная волшебница Малефисента вела уединенную жизнь в зачарованном лесу, окруженная сказочными существами.",
-			:year-released "2014", 
-			:title "Малефисента", 
-			:lang "ru", 
+			:year-released "2014",
+			:title "Малефисента",
+			:lang "ru",
 			:img "maleficent.jpg",
 			:src-url "http://m.kinopoisk.ru/movie/496849/",
 			:duration "97 мин. / 01:37"
-		}], 
+		}],
 	:translations [
 		{:desc "From original dvd", :file "maleficent-ru.trans", :title "Русский", :lang "ru", :img "flag-ru.png"}
 		]
 }
 {
-	:fpkeys-file {:en "22_jump_street-en.fpkeys"}, 
+	:fpkeys-file {:en "22_jump_street-en.fpkeys"},
 	:id 		"kp672899",
 	:id-kp 		"672899";
-	:id-imdb 	"tt2294449"; 
+	:id-imdb 	"tt2294449";
 	:shortname 	"22_jump_street",
-	:movie-state "new", 
+	:movie-state "new",
 	:descriptions [
 		{
 			:title "22 Jump Street",
 			:desc-short "After making their way through high school (twice), big changes are in store for officers Schmidt and Jenko when they go deep undercover at a local college.",
-			:desc "After making their way through high school (twice), big changes are in store for officers Schmidt and Jenko when they go deep undercover at a local college." 
-			:year-released "2014", 
-			:lang "en", 
+			:desc "After making their way through high school (twice), big changes are in store for officers Schmidt and Jenko when they go deep undercover at a local college."
+			:year-released "2014",
+			:lang "en",
 			:img "tt2294449.jpg",
 			:src-url "http://www.imdb.com/title/tt2294449/",
 			:duration "112 min. / 01:52"
@@ -117,29 +119,29 @@
 			:title "Мачо и ботан 2",
 			:desc-short "Офицерам Шмидту и Дженко теперь предстоит работать под прикрытием в местном колледже.",
 			:desc "Офицерам Шмидту и Дженко теперь предстоит работать под прикрытием в местном колледже. Однако когда Дженко встречает родственную душу в футбольной команде, а Шмидт проникает в богемную среду, они начинают сомневаться в их товариществе...",
-			:year-released "2014", 
-			:lang "ru", 
+			:year-released "2014",
+			:lang "ru",
 			:img "672899.jpg",
 			:src-url "http://m.kinopoisk.ru/movie/672899/",
 			:duration "112 мин. / 01:52"
-		}], 
+		}],
 	:translations [
 		]
 }
 {
-	:fpkeys-file {:en "sin_city2-en.fpkeys"}, 
+	:fpkeys-file {:en "sin_city2-en.fpkeys"},
 	:id 		"kp103391",
 	:id-kp 		"103391";
-	:id-imdb 	"tt0458481"; 
+	:id-imdb 	"tt0458481";
 	:shortname 	"sin_city2",
-	:movie-state "active", 
+	:movie-state "active",
 	:descriptions [
 		{
 			:title "Sin City: A Dame to Kill For",
-			:desc-short "The town's most hard-boiled citizens cross paths with some of its more reviled inhabitants." 
+			:desc-short "The town's most hard-boiled citizens cross paths with some of its more reviled inhabitants."
 			:desc "The town's most hard-boiled citizens cross paths with some of its more reviled inhabitants.",
-			:year-released "2014", 
-			:lang "en", 
+			:year-released "2014",
+			:lang "en",
 			:img "tt0458481.jpg",
 			:src-url "http://www.imdb.com/title/tt0458481/",
 			:duration "120 min. / 02:00"
@@ -148,30 +150,30 @@
 			:title "Город грехов 2: Женщина, ради которой стоит убивать",
 			:desc-short "В темных переулках Города Грехов Дуайт планирует жестоко отомстить женщине, которая его предала.",
 			:desc "В темных переулках Города Грехов Дуайт планирует жестоко отомстить женщине по имени Ава Лорд, которая его предала, в то время как Нэнси пытается смириться со смертью детектива Хартигана.",
-			:year-released "2014", 
-			:lang "ru", 
+			:year-released "2014",
+			:lang "ru",
 			:img "103391.jpg",
 			:src-url "http://m.kinopoisk.ru/movie/103391/",
 			:duration "120 мин. / 02:00"
-		}], 
+		}],
 	:translations [
 		{:desc "", :file "sin_city2-ru.trans", :title "Русский", :lang "ru", :img "flag-ru.png"}
 		]
 }
 {
-	:fpkeys-file {:en "dawn_planet_apes2-en.fpkeys"}, 
+	:fpkeys-file {:en "dawn_planet_apes2-en.fpkeys"},
 	:id 		"kp646674",
 	:id-kp 		"646674";
-	:id-imdb 	"tt2103281"; 
+	:id-imdb 	"tt2103281";
 	:shortname 	"dawn_planet_apes2",
-	:movie-state "active", 
+	:movie-state "active",
 	:descriptions [
 		{
 			:title "Dawn of the Planet of the Apes",
-			:desc-short "The growing and genetically evolving apes find themselves at a critical point with the human race." 
+			:desc-short "The growing and genetically evolving apes find themselves at a critical point with the human race."
 			:desc "In the wake of a disaster that changed the world, the growing and genetically evolving apes find themselves at a critical point with the human race.",
-			:year-released "2014", 
-			:lang "en", 
+			:year-released "2014",
+			:lang "en",
 			:img "tt2103281.jpg",
 			:src-url "http://www.imdb.com/title/tt2103281/",
 			:duration "130 min / 02:10"
@@ -180,30 +182,30 @@
 			:title "Планета обезьян: Революция",
 			:desc-short "Численность генетически модифицированных обезьян продолжает увеличиваться. Обезьяны и люди находятся на грани войны",
 			:desc "Численность генетически модифицированных обезьян, возглавляемых Цезарем, продолжает увеличиваться, но обезьянам угрожают люди, которым удалось выжить во время ужасной эпидемии десятилетней давности. Поначалу между соперниками устанавливается хрупкий мир, но он оказывается недолговечным. Обезьяны и люди находятся на грани войны, в ходе которой станет понятно, кто из них в будущем станет безраздельно править планетой.",
-			:year-released "2014", 
-			:lang "ru", 
+			:year-released "2014",
+			:lang "ru",
 			:img "646674.jpg",
 			:src-url "http://m.kinopoisk.ru/movie/646674/",
 			:duration "130 мин. / 02:10"
-		}], 
+		}],
 	:translations [
 		{:desc "", :file "dawn_planet_apes2-ru.trans", :title "Русский", :lang "ru", :img "flag-ru.png"}
 		]
 }
 {
-	:fpkeys-file {:en "vot_i_ona-en.fpkeys"}, 
+	:fpkeys-file {:en "vot_i_ona-en.fpkeys"},
 	:id 		"kp713260",
 	:id-kp 		"713260";
-	:id-imdb 	"tt2465146"; 
+	:id-imdb 	"tt2465146";
 	:shortname 	"vot_i_ona",
-	:movie-state "new", 
+	:movie-state "new",
 	:descriptions [
 		{
 			:title "And So It Goes",
-			:desc-short "A self-centered realtor enlists the help of his neighbor when he's suddenly left in charge of the granddaughter he never knew existed until his estranged son drops her off at his home." 
+			:desc-short "A self-centered realtor enlists the help of his neighbor when he's suddenly left in charge of the granddaughter he never knew existed until his estranged son drops her off at his home."
 			:desc "A self-centered realtor enlists the help of his neighbor when he's suddenly left in charge of the granddaughter he never knew existed until his estranged son drops her off at his home.",
-			:year-released "2014", 
-			:lang "en", 
+			:year-released "2014",
+			:lang "en",
 			:img "tt2465146.jpg",
 			:src-url "http://www.imdb.com/title/tt2465146/",
 			:duration "94 min. / 01:34"
@@ -212,29 +214,29 @@
 			:title "А вот и она",
 			:desc-short "Жизнь закоренелого эгоиста в одночасье меняется, когда он вдруг знакомится со своей внучкой, о существовании которой даже не подозревал.",
 			:desc "Жизнь закоренелого эгоиста в одночасье меняется, когда он вдруг знакомится со своей внучкой, о существовании которой даже не подозревал.",
-			:year-released "2014", 
-			:lang "ru", 
+			:year-released "2014",
+			:lang "ru",
 			:img "713260.jpg",
 			:src-url "http://m.kinopoisk.ru/movie/713260/",
 			:duration "94 мин. / 01:34"
-		}], 
+		}],
 	:translations [
 		]
 }
 {
-	:fpkeys-file {:en "teenage_mutant_ninja_turtles-en.fpkeys"}, 
+	:fpkeys-file {:en "teenage_mutant_ninja_turtles-en.fpkeys"},
 	:id 		"kp461206",
 	:id-kp 		"461206";
-	:id-imdb 	"tt1291150"; 
+	:id-imdb 	"tt1291150";
 	:shortname 	"teenage_mutant_ninja_turtles",
-	:movie-state "new", 
+	:movie-state "new",
 	:descriptions [
 		{
 			:title "Teenage Mutant Ninja Turtles",
 			:desc-short "A group of mutated warriors face off against an evil kingpin who wants to take over New York.",
 			:desc "Darkness has settled over New York City as Shredder and his evil Foot Clan have an iron grip on everything from the police to the politicians. The future is grim until four unlikely outcast brothers rise from the sewers and discover their destiny as Teenage Mutant Ninja Turtles. The Turtles must work with fearless reporter April O'Neil and her cameraman Vern Fenwick to save the city and unravel Shredder's diabolical plan.",
-			:year-released "2014", 
-			:lang "en", 
+			:year-released "2014",
+			:lang "en",
 			:img "tt1291150.jpg",
 			:src-url "http://www.imdb.com/title/tt1291150/",
 			:duration "94 min. / 01:34"
@@ -243,30 +245,30 @@
 			:title "Черепашки-ниндзя",
 			:desc-short "Город нуждается в героях. Тьма окутала Нью-Йорк в виде Шреддера и его зловещего Клана Футов. Будущее выглядит мрачным",
 			:desc "Город нуждается в героях. Тьма окутала Нью-Йорк в виде Шреддера и его зловещего Клана Футов, у которого имеется железный контроль над всеми, от полицейских до политиков. Будущее выглядит мрачным, пока из канализации не поднимается и не раскрывает своё предназначение четвёрка отверженных братьев — Черепашки-ниндзя. Черепашки должны работать вместе с бесстрашным репортёром Эйприл и её саркастическим оператором Верном Фенвиком, чтобы спасти город и разгадать дьявольский план Шреддера.",
-			:year-released "2014", 
-			:lang "ru", 
+			:year-released "2014",
+			:lang "ru",
 			:img "461206.jpg",
 			:src-url "http://m.kinopoisk.ru/movie/461206/",
 			:duration "94 мин. / 01:34"
-		}], 
+		}],
 	:translations [
 		{:desc "", :file "teenage_mutant_ninja_turtles-ru.trans", :title "Русский", :lang "ru", :img "flag-ru.png"}
 		]
 }
 {
-	:fpkeys-file {:en "the_maze_runner-en2.fpkeys"}, 
+	:fpkeys-file {:en "the_maze_runner-en2.fpkeys"},
 	:id 		"kp575613",
 	:id-kp 		"575613";
-	:id-imdb 	"tt1790864"; 
+	:id-imdb 	"tt1790864";
 	:shortname 	"the_maze_runner",
-	:movie-state "active", 
+	:movie-state "active",
 	:descriptions [
 		{
 			:title "The Maze Runner",
 			:desc-short "Thomas is trapped in a maze that will require him to join forces with fellow runners for a shot at escape.",
 			:desc "Thomas is deposited in a community of boys after his memory is erased, soon learning they're all trapped in a maze that will require him to join forces with fellow runners for a shot at escape.",
-			:year-released "2014", 
-			:lang "en", 
+			:year-released "2014",
+			:lang "en",
 			:img "tt1790864.jpg",
 			:src-url "http://www.imdb.com/title/tt1790864/",
 			:duration "113 min. / 01:53"
@@ -275,12 +277,12 @@
 			:title "Бегущий в лабиринте",
 			:desc-short "Томас оказывается среди 60 подростков, научившихся выживать в замкнутом пространстве. Они кормятся тем, что удается вырастить на земле, и пытаются найти выход из лабиринта.",
 			:desc "Томас оказывается среди 60 подростков, научившихся выживать в замкнутом пространстве. Раз в 30 дней прибывает новый мальчик. Группа ребят проживает в «Приюте» уже три года. Они кормятся тем, что удается вырастить на земле, и пытаются найти выход из лабиринта, окружающего их место жительства.",
-			:year-released "2014", 
-			:lang "ru", 
+			:year-released "2014",
+			:lang "ru",
 			:img "575613.jpg",
 			:src-url "http://m.kinopoisk.ru/movie/575613/",
 			:duration "113 мин. / 01:53"
-		}], 
+		}],
 	:translations [
 		{:desc "", :file "the_maze_runner-ru2.trans", :title "Русский", :lang "ru", :img "flag-ru.png"}
 		]
