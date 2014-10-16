@@ -62,7 +62,7 @@
 (defn update-url-in-translation [id t]
 	(let [	f (:file t)
 			i (:img  t)]
-		(assoc t :file (make-abs-url id f) :img  (make-abs-url id i))))
+		(assoc t :file (make-abs-url id f) :img  (make-abs-url "flags" i))))
 
 (defn get-short-desc [lang movie]
 	(let [{:keys [shortname movie-state descriptions id fpkeys-file src-url duration translations]} movie]
@@ -105,7 +105,7 @@
 	(println "load-movies from " fname)
 	(if (.exists (clojure.contrib.io/as-file fname))
 		(if-let [ms (load-file fname)]
-			(reset! movies (into {} (for [m ms] [(:id m) m])))
+			(reset! movies (into (sorted-map) (for [m ms] [(:id m) m])))
 			(reset! movies {}))
 		(spit "" fname)))
 
