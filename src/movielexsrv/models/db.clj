@@ -274,7 +274,8 @@
            [:ul
           	(for [k (keys mids)]
               		[:li
-                   [:em k] [:span (:title (get-movie "ru" k))][:br]
+                   ;[:em k] [:span (:title (get-movie "ru" k))][:br]
+                   [:em k] [:span (:title "Movie title")][:br]
                    (let [ dates (get-in mids [k :dates])]
                      (with-out-str (clojure.pprint/pprint dates)))])]]))
 
