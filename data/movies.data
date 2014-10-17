@@ -1,6 +1,6 @@
 [
 {
-	:fpkeys-file {:en "somelikemovielex-en.fpkeys"},
+	:fpkeys-file {:en "movielex-demo-fr.fpkeys"},
 	:id "1",
 	:id-kp "1";
 	:id-imdb "1";
@@ -15,7 +15,7 @@
 			:lang "en",
 			:img "somelikemovielex.jpg"
 			:src-url ""
-			:duration "3 min 35 sec"
+			:duration "6 min 30 sec"
 		},
 		{
 			:desc "MovieLex демонстрационный фрагмент",
@@ -25,12 +25,14 @@
 			:lang "ru",
 			:img "somelikemovielex.jpg"
 			:src-url ""
-			:duration "3 мин 35 сек"
+			:duration "6 мин 30 сек"
 		}],
 	:translations [
-		{:desc "", :file "somelikemovielex-ru.trans", :title "Русский", :lang "ru", :img "flag-ru.png"}
-    {:desc "", :file "somelikemovielex-en.trans", :title "English", :lang "en", :img "flag-en.png"}
-    {:desc "", :file "somelikemovielex-de.trans", :title "Deutsch", :lang "de", :img "flag-de.png"}
+		{:desc "", :file "movielex-demo-de.trans", :title "Deutsch",  :lang "ru", :img "flag-de.png"},
+    {:desc "", :file "movielex-demo-en.trans", :title "English",  :lang "en", :img "flag-en.png"},
+    {:desc "", :file "movielex-demo-es.trans", :title "Español",  :lang "de", :img "flag-es.png"},
+    {:desc "", :file "movielex-demo-ru.trans", :title "Русский",  :lang "ru", :img "flag-ru.png"},
+    {:desc "", :file "movielex-demo-it.trans", :title "Italiano", :lang "en", :img "flag-it.png"}
 		]
 }
 {
@@ -103,7 +105,7 @@
 	:id-kp 		"672899";
 	:id-imdb 	"tt2294449";
 	:shortname 	"22_jump_street",
-	:movie-state "new",
+	:movie-state "old",
 	:descriptions [
 		{
 			:title "22 Jump Street",
@@ -198,7 +200,7 @@
 	:id-kp 		"713260";
 	:id-imdb 	"tt2465146";
 	:shortname 	"vot_i_ona",
-	:movie-state "new",
+	:movie-state "old",
 	:descriptions [
 		{
 			:title "And So It Goes",
@@ -229,7 +231,7 @@
 	:id-kp 		"461206";
 	:id-imdb 	"tt1291150";
 	:shortname 	"teenage_mutant_ninja_turtles",
-	:movie-state "new",
+	:movie-state "old",
 	:descriptions [
 		{
 			:title "Teenage Mutant Ninja Turtles",
@@ -285,6 +287,70 @@
 		}],
 	:translations [
 		{:desc "", :file "the_maze_runner-ru2.trans", :title "Русский", :lang "ru", :img "flag-ru.png"}
+		]
+}
+{
+	:fpkeys-file {:en "the_equalizer-en.fpkeys"},
+	:id 		"kp196707",
+	:id-kp 		"196707";
+	:id-imdb 	"tt0455944";
+	:shortname 	"the_equalizer",
+	:movie-state "new",
+	:descriptions [
+		{
+			:title "The Equalizer",
+			:desc-short "A man believes he has put his mysterious past behind him and has dedicated himself to beginning a new, quiet life.",
+			:desc "A man believes he has put his mysterious past behind him and has dedicated himself to beginning a new, quiet life. But when he meets a young girl under the control of ultra-violent Russian gangsters, he can't stand idly by - he has to help her.",
+			:year-released "2014",
+			:lang "en",
+			:img "tt0455944.jpg",
+			:src-url "http://www.imdb.com/title/tt0455944/",
+			:duration "131 min. / 02:11"
+		},
+		{
+			:title "Великий уравнитель",
+			:desc-short "Роберт МакКолл после увольнения со службы он собирается начать нормальную мирную жизнь, дав себе обещание больше никогда не брать в руки оружия.",
+			:desc "Роберт МакКолл — бывший спецназовец. После увольнения со службы он собирается начать нормальную мирную жизнь, дав себе обещание больше никогда не брать в руки оружия. Но в один прекрасный момент он встречает молодую девушку, зарабатывающую на жизнь проституцией, которую на его глазах избивают бандиты и увозят в неизвестном направлении. Тогда он решает отыскать ее, после чего вступает в неравную схватку с русской мафией и продажными агентами ЦРУ.",
+			:year-released "2014",
+			:lang "ru",
+			:img "196707.jpg",
+			:src-url "http://m.kinopoisk.ru/movie/196707/",
+			:duration "131 мин. / 02:11"
+		}],
+	:translations [
+		{:desc "", :file "the_equalizer-ru.trans", :title "Русский", :lang "ru", :img "flag-ru.png"}
+		]
+}
+{
+	:fpkeys-file {:en "dracula_untold-en.fpkeys"},
+	:id 		"kp395057",
+	:id-kp 		"395057";
+	:id-imdb 	"tt0829150";
+	:shortname 	"dracula_untold",
+	:movie-state "new",
+	:descriptions [
+		{
+			:title "Dracula Untold",
+			:desc-short "Facing threats to his kingdom and his family, Vlad Tepes makes a deal with dangerous supernatural forces",
+			:desc "Facing threats to his kingdom and his family, Vlad Tepes makes a deal with dangerous supernatural forces - whilst trying to avoid succumbing to the darkness himself.",
+			:year-released "2014",
+			:lang "en",
+			:img "tt0829150.jpg",
+			:src-url "http://www.imdb.com/title/tt0829150/",
+			:duration "100 min. / 01:40"
+		},
+		{
+			:title "Дракула",
+			:desc-short "Влад Дракула был величайшим правителем, доблестным воином и страстным мужчиной.",
+			:desc "Влад Дракула был величайшим правителем, доблестным воином и страстным мужчиной. Но судьба свела его с врагом, коварство которого не знало границ. И тогда Дракула заключил сделку — нечеловеческая сила в обмен на самую малость — бессмертную душу",
+			:year-released "2014",
+			:lang "ru",
+			:img "395057.jpg",
+			:src-url "http://m.kinopoisk.ru/movie/395057/",
+			:duration "100 мин. / 01:40"
+		}],
+	:translations [
+		{:desc "", :file "dracula_untold-ru.trans", :title "Русский", :lang "ru", :img "flag-ru.png"}
 		]
 }
 ]
