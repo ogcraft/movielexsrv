@@ -73,7 +73,7 @@
 	:id-kp "496849";
 	:id-imdb "tt1587310";
 	:shortname "maleficent",
-	:movie-state "active",
+	:movie-state "old",
 	:descriptions [
 		{
 			:desc "A vengeful fairy is driven to curse an infant princess, only to discover that the child may be the one person who can restore peace to their troubled land.",
@@ -351,6 +351,40 @@
 		}],
 	:translations [
 		{:desc "", :file "dracula_untold-ru.trans", :title "Русский", :lang "ru", :img "flag-ru.png"}
+		]
+}
+{
+	:fpkeys-file {:en "lone-survivor-en.fpkeys"},
+	:id 		"kp462356",
+	:id-kp 		"462356";
+	:id-imdb 	"tt1091191";
+	:shortname 	"lone-survivor",
+	:movie-state "active",
+	:descriptions [
+		{
+			:title "Lone Survivor",
+			:desc-short "Marcus Luttrell and his team set out on a mission to kill notorious Taliban leader",
+			:desc "Marcus Luttrell and his team set out on a mission to capture or kill notorious Taliban leader Ahmad Shah, in late June 2005. Marcus and his team are left to fight for their lives in one of the most valiant efforts of modern warfare.",
+			:year-released "2013",
+			:lang "en",
+			:img "tt1091191.jpg",
+			:src-url "http://www.imdb.com/title/tt1091191/",
+			:duration "121 min. / 02:01"
+		},
+		{
+			:title "Уцелевший",
+			:desc-short "Афганистан, 2005 год. Команда американских спецназовцев получает задание обезвредить известного лидера талибов Ахмада Шаха.",
+			:desc "Афганистан, 2005 год. Команда американских спецназовцев получает задание обезвредить известного лидера талибов Ахмада Шаха. Попав в ловушку, солдаты принимают неравный кровопролитный бой, и все они погибают героями. Все, кроме одного. Для уцелевшего Маркуса Латтрела бой только начинается: он любой ценой должен выжить и пробраться к «своим». Когда почти всё потеряно, ему решается помочь Гулаб — мирный человек, ненавидящий войну.",
+			:year-released "2013",
+			:lang "ru",
+			:img "462356.jpg",
+			:src-url "http://m.kinopoisk.ru/movie/462356/",
+			:duration "121 мин. / 02:01"
+		}],
+	:translations [
+		{:desc "", :file "lone-survivor-fr.trans", :title "Francais", :lang "fr", :img "flag-fr.png"},
+		{:desc "", :file "lone-survivor-it.trans", :title "Italiano", :lang "it", :img "flag-fr.png"},
+		{:desc "", :file "lone-survivor-ru.trans", :title "Русский",  :lang "ru", :img "flag-fr.png"}
 		]
 }
 ]
