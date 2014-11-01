@@ -383,8 +383,42 @@
 		}],
 	:translations [
 		{:desc "", :file "lone-survivor-fr.trans", :title "Francais", :lang "fr", :img "flag-fr.png"},
-		{:desc "", :file "lone-survivor-it.trans", :title "Italiano", :lang "it", :img "flag-fr.png"},
-		{:desc "", :file "lone-survivor-ru.trans", :title "Русский",  :lang "ru", :img "flag-fr.png"}
+		{:desc "", :file "lone-survivor-it.trans", :title "Italiano", :lang "it", :img "flag-it.png"},
+		{:desc "", :file "lone-survivor-ru.trans", :title "Русский",  :lang "ru", :img "flag-ru.png"}
+		]
+},
+{
+	:fpkeys-file {:en "sunshine-en.fpkeys"},
+	:id 		"kp102245",
+	:id-kp 		"102245";
+	:id-imdb 	"tt0448134";
+	:shortname 	"sunshine",
+	:movie-state "notready",
+	:descriptions [
+		{
+			:title "Sunshine",
+			:desc-short "A team of international astronauts are sent to reignite the dying Sun in 2057.",
+			:desc "A team of international astronauts are sent on a dangerous mission to reignite the dying Sun with a nuclear fission bomb in 2057.",
+			:year-released "2007",
+			:lang "en",
+			:img "tt0448134.jpg",
+			:src-url "http://www.imdb.com/title/tt0448134/",
+			:duration "107 min. / 01:47"
+		},
+		{
+			:title "Пекло",
+			:desc-short "2057 год. Солнце погибает, и человечество встает перед лицом вымирания.",
+			:desc "2057 год. Солнце погибает, и человечество встает перед лицом вымирания. Последняя надежда планеты Земля связана с «Икаром 2» — космическим кораблем, экипаж которого состоит из восьми мужчин и женщин во главе с капитаном Канедой. Их миссия — доставить ядерный заряд, с помощью которого предполагается повторно воспламенить гаснущее Солнце.",
+			:year-released "2007",
+			:lang "ru",
+			:img "102245.jpg",
+			:src-url "http://m.kinopoisk.ru/movie/102245/",
+			:duration "107 мин. / 01:47"
+		}],
+	:translations [
+		{:desc "", :file "sunshine-fr.trans", :title "Francais", :lang "fr", :img "flag-fr.png"},
+		{:desc "", :file "sunshine-it.trans", :title "Italiano", :lang "it", :img "flag-it.png"},
+		{:desc "", :file "sunshine-ru.trans", :title "Русский",  :lang "ru", :img "flag-ru.png"}
 		]
 }
 ]
