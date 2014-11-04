@@ -284,3 +284,8 @@ mmm
 (render-users-html (query-users))
 q
 (quit)
+(use 'movielexsrv.models.db :reload-all)
+(query-users)
+(load-movies-data)
+(query-users)
+(quit)

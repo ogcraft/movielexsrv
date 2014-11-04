@@ -1,0 +1,1 @@
+docker run -d -p 8069:8069 -p 8087:8087 -p 8098:8098 --name riak1 lapax/riak
