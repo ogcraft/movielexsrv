@@ -98,9 +98,9 @@
   (map fetch-movie ids))
 
 (defn get-movies [lang state]
-  (let [movies (collect-movies (query-movies))]
-    (map #(get-short-desc lang %)
-         (filter #(= (:movie-state %) state) movies))))
+  (let [movies (collect-movies (query-movies))
+        movie-with-state (filter #(= (:movie-state %) state) movies)]
+    (map #(get-short-desc lang %) (sort-by :id movie-with-state))))
 
 (defn get-movies-full [state]
   (let [movies (collect-movies (query-movies))]
