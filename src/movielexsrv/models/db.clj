@@ -119,6 +119,13 @@
   (let [mid (read-string id)]
     (get-short-desc lang (fetch-movie mid))))
 
+(defn load-movies-from-file [fname]
+  (println "load-movies-from-file from " fname)
+  (if (.exists (clojure.contrib.io/as-file fname))
+    (if-let [ms (load-file fname)]
+      (doseq [m ms] (store-movie m)))))
+
+
 ;;;;;; old version movie handling version
 (comment
 
@@ -136,11 +143,6 @@
       (println "Storing movies to " fname)
       (spit fname (binding [*print-dup* true] @movies1remove)))
 
-    (defn load-movies-from-file [fname]
-      (println "load-movies-from-file from " fname)
-      (if (.exists (clojure.contrib.io/as-file fname))
-        (if-let [ms (load-file fname)]
-          (doseq [m ms] (store-movie m)))))
 
     (defn load-movies-data1 []
       (load-movies1 movies-data))
