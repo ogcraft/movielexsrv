@@ -11,3 +11,6 @@ Insert on local:
 java -jar ~/opt/riak-data-migrator-0.2.4/riak-data-migrator-0.2.4.jar -a -h 127.0.0.1  -l -r ~/Projects/movielex/movielex.com/movielex_riak_export/
 
 ---------------------
+last revision before to move movies to riak
+60e192ffc09431ab70f3a71c3ea32261e665e032
+----------------

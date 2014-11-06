@@ -14,8 +14,9 @@
   (db/load-host-config)
   (db/connect-riak)
   (db/users-bucket-create)
-  (db/votes-bucket-create)
-  (db/load-movies-data))
+  (db/movies-bucket-create)
+  (db/votes-bucket-create))
+  ;(db/load-movies-data))
   
 (defn destroy []
   (println "movielexsrv is shutting down"))
