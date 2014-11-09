@@ -26,6 +26,6 @@
 	(spit (str path "/cinema.html") (generate-cinema-page "ru")))
 
 (defn load-movies-and-generate-cinema [lang path]
-	(db/load-movies-data)
+	;(db/load-movies-data)
 	(write-cinema-page lang path))
 
