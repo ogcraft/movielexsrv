@@ -27,6 +27,7 @@
     :init movielexsrv.handler/init
     :destroy movielexsrv.handler/destroy}
     :aot :all
+    :auto-clean false
     :profiles
     {:production
       {:ring
