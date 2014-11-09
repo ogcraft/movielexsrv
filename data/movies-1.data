@@ -1,0 +1,103 @@
+[
+{
+	:fpkeys-file {:en "oblivion-en.fpkeys"},
+	:id 		"kp470185",
+	:id-kp 		"470185";
+	:id-imdb 	"tt1483013";
+	:shortname 	"oblivion",
+	:movie-state "active",
+	:descriptions [
+		{
+			:title "Oblivion",
+			:desc-short "A veteran assigned to extract Earth's remaining resources",
+			:desc "A veteran assigned to extract Earth's remaining resources begins to question what he knows about his mission and himself",
+			:year-released "2013",
+			:lang "en",
+			:img "tt1483013.jpg",
+			:src-url "http://www.imdb.com/title/tt1091191/",
+			:duration "124 min. / 02:04"
+		},
+		{
+			:title "Обливион",
+			:desc-short "Земля, пережившая войну с инопланетными захватчиками, опустела; остатки человечества готовятся покинуть непригодную для жизни планету",
+			:desc "Земля, пережившая войну с инопланетными захватчиками, опустела; остатки человечества готовятся покинуть непригодную для жизни планету. Главный герой — техник по обслуживанию дронов — находит разбившийся корабль NASA, команда которого погибает у него на глазах. Ему удаётся спасти лишь одну женщину — и вскоре он понимает, что это перевернёт его жизнь",
+			:year-released "2013",
+			:lang "ru",
+			:img "470185.jpg",
+			:src-url "http://m.kinopoisk.ru/movie/470185/",
+			:duration "124 мин. / 02:04"
+		}],
+	:translations [
+		{:desc "", :file "oblivion-fr.trans", :title "Francais", :lang "fr", :img "flag-fr.png"},
+		{:desc "", :file "oblivion-it.trans", :title "Italiano", :lang "it", :img "flag-it.png"},
+		{:desc "", :file "oblivion-ru.trans", :title "Русский",  :lang "ru", :img "flag-ru.png"}
+		]
+},
+{
+	:fpkeys-file {:en "lego_movie-en.fpkeys"},
+	:id 		"kp471644",
+	:id-kp 		"471644";
+	:id-imdb 	"tt1490017";
+	:shortname 	"lego_movie",
+	:movie-state "active",
+	:descriptions [
+		{
+			:title "The Lego Movie",
+			:desc-short "An ordinary Lego construction worker is recruited to join a quest",
+			:desc "An ordinary Lego construction worker, thought to be the prophesied 'Special', is recruited to join a quest to stop an evil tyrant from gluing the Lego universe into eternal stasis.",
+			:year-released "2013",
+			:lang "en",
+			:img "tt1490017.jpg",
+			:src-url "http://www.imdb.com/title/tt1490017/",
+			:duration "100 min. / 01:40"
+		},
+		{
+			:title "Лего. Фильм",
+			:desc-short "Обычная лего-фигурка соглашается присоединиться к походу против злого лего-диктатора, планирующего склеить вместе всю вселенную…",
+			:desc "Обычная лего-фигурка соглашается присоединиться к походу против злого лего-диктатора, планирующего склеить вместе всю вселенную…",
+			:year-released "2013",
+			:lang "ru",
+			:img "471644.jpg",
+			:src-url "http://m.kinopoisk.ru/movie/471644/",
+			:duration "100 мин. / 01:40"
+		}],
+	:translations [
+		{:desc "", :file "lego_movie-fr.trans", :title "Francais", :lang "fr", :img "flag-fr.png"},
+		{:desc "", :file "lego_movie-it.trans", :title "Italiano", :lang "it", :img "flag-it.png"},
+		{:desc "", :file "lego_movie-ru.trans", :title "Русский",  :lang "ru", :img "flag-ru.png"}
+		]
+},
+{
+	:fpkeys-file {:en "getaway-en.fpkey"},
+	:id 		"kp683191",
+	:id-kp 		"683191";
+	:id-imdb 	"tt2167202";
+	:shortname 	"getaway",
+	:movie-state "active",
+	:descriptions [
+		{
+			:title "Getaway",
+			:desc-short "To save his kidnapped wife, Brent Magna must drive at the orders of a mysterious man.",
+			:desc "To save his kidnapped wife, Brent Magna must drive at the orders of a mysterious man.",
+			:year-released "2013",
+			:lang "en",
+			:img "tt2167202.jpg",
+			:src-url "http://www.imdb.com/title/tt2167202/",
+			:duration "90 min. / 01:30"
+		},
+		{
+			:title "Погнали!",
+			:desc-short "Часы неумолимо отмеряют время для Брента Магны, который носится по улицам Софии в попытках спасти свою жену",
+			:desc "Часы неумолимо отмеряют время для Брента Магны, который носится по улицам Софии в попытках спасти свою жену. Сидя за рулём своего Ford Shelby GT500 Super Snake Брент вынужден подчиняться приказам таинственного человека, который отдаёт ему и его случайной пассажирке опасные приказы. Если они их не выполнят, жена Брента умрёт. На хвосте у них висит полиция, и выбора нет — подчиняйся или всё потеряешь. Или всё же выбор есть?",
+			:year-released "2013",
+			:lang "ru",
+			:img "683191.jpg",
+			:src-url "http://m.kinopoisk.ru/movie/683191/",
+			:duration "90 мин. / 01:30"
+		}],
+	:translations [
+		{:desc "", :file "getaway-fr.trans", :title "Francais", :lang "fr", :img "flag-fr.png"},
+		{:desc "", :file "getaway-ru.trans", :title "Русский",  :lang "ru", :img "flag-ru.png"}
+		]
+}
+]
