@@ -342,6 +342,7 @@
   (let [descriptions (:descriptions m)
         translations (:translations m)]
     [:div.movie-view
+     [:h2 [:a {:href "/api/movies-full"} "All Movies"]]
      [:h2 (str "id: " (:id m) " | " (get-movie-title "en" m) " | " (get-movie-title "ru" m))]
      [:table {:border "1", :width "70%", :bordercolor "brawn", :cellspacing "0", :cellpadding "2"}
       (kv-table-row ":id-kp" (:id-kp m))
@@ -349,13 +350,19 @@
       (kv-table-row ":shortname" (:shortname m))
       (kv-table-row ":movie-state" (:movie-state m))
       (kv-table-row ":fpkeys-file" (str (:fpkeys-file m)))]
-     [:p (map render-movie-description descriptions)]
-     [:p (map render-movie-translation translations)]]))
+      [:p (map render-movie-description descriptions)]
+      [:p (map render-movie-translation translations)]
+      [:h2 [:a {:href "/api/movies-full"} "All Movies"]]]))
 
-(defn render-movie-title-row-html [m]
-  (let [u (if (nil? m) "/api/movies-full" "/api/movie-full/")]
-    [:a {:href (str u (:id m))}
-      (str (:id m) " " (get-movie-title "en" m) " / " (get-movie-title "ru" m))]))
+(defn render-movie-title-row-html
+  ( [m]
+    (let [u (if (nil? m) "/api/movies-full" "/api/movie-full/")]
+      [:a {:href (str u (:id m))}
+        (str (:id m) " " (get-movie-title "en" m) " / " (get-movie-title "ru" m))]))
+  ( [id m]
+    (let [u (if (nil? m) "/api/movies-full" "/api/movie-full/")]
+      [:a {:href (str u (:id m))}
+      (str id " " (get-movie-title "en" m) " / " (get-movie-title "ru" m))])))
 
 (defn render-movies-html [ms]
   [:h2 "Movies:"]
@@ -381,7 +388,7 @@
      [:ul
       (for [k (keys mids)]
         [:li
-         [:em k [:span (render-movie-title-row-html (fetch-movie k))]]
+         [:em (render-movie-title-row-html (fetch-movie k))]
          [:br]
          (let [dates (get-in mids [k :dates])]
            (with-out-str (clojure.pprint/pprint dates)))])]]))

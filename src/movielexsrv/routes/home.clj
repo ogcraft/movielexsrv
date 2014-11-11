@@ -61,7 +61,6 @@
   :handle-ok (fn [ctx]
                (let [media-type
                      (get-in ctx [:representation :media-type])]
-                     (prn "media-type:" media-type)
                      (condp = media-type
                      "application/json" (generate-string (db/get-movie id))
                      "text/html" (h/html (db/render-movie-html (db/get-movie id)))
