@@ -78,6 +78,16 @@
        :duration      (:duration desc)
        :translations  (map update-url-in-translation-with-id translations)})))
 
+(defn get-movie-title [lang m]
+  (:title (get-short-desc lang m)))
+
+(defn get-movie-desc [lang m]
+  (:desc (get-short-desc lang m)))
+
+(defn get-movie-desc-short [lang m]
+  (:desc-short (get-short-desc lang m)))
+
+
 (defn movies-bucket-create []
   (wb/update (get-state :conn) movies-bucket {:last-write-wins true}))
 
@@ -115,9 +125,19 @@
 (defn get-movies-new [lang]
   (get-movies lang "new"))
 
-(defn get-movie [lang id]
-  (let [mid (read-string id)]
-    (get-short-desc lang (fetch-movie mid))))
+(defn get-movie
+  ( [lang id]
+    (let [m (fetch-movie id)]
+      (get-short-desc lang m)))
+  ( [id]
+   (fetch-movie id)))
+
+(defn put-movie [json]
+  (prn json)
+  (let [data (json/parse-string json true)]
+    (do
+      (prn data)
+      (store-movie data))))
 
 (defn load-movies-from-file [fname]
   (println "load-movies-from-file from " fname)
@@ -125,6 +145,10 @@
     (if-let [ms (load-file fname)]
       (doseq [m ms] (store-movie m)))))
 
+(defn movies-to-json [fname]
+  (if (.exists (clojure.contrib.io/as-file fname))
+    (if-let [ms (load-file fname)]
+      (json/generate-string (second ms)))))
 
 ;;;;;; old version movie handling version
 (comment
@@ -297,6 +321,46 @@
 
 ;          [:p (with-out-str (clojure.pprint/pprint u))])]))
 
+(defn kv-table-row [k v]
+  (str "<tr><td style='width: 100px'>" k "</td><td style='width: 700px'>" v "</td></tr>"))
+
+(defn render-movie-description [d]
+    [:div.translation-view
+     [:h3 "Language: " (:lang d)]
+     [:table {:border "1", :width "70%", :bordercolor "brawn", :cellspacing "0", :cellpadding "2"}
+      (reduce str (for [[k v] d] (kv-table-row k v)))]
+     ])
+
+(defn render-movie-translation [d]
+  [:div.description-view
+   [:h3 "Language: " (:lang d)]
+   [:table {:border "1", :width "70%", :bordercolor "brawn", :cellspacing "0", :cellpadding "2"}
+    (reduce str (for [[k v] d] (kv-table-row k v)))]
+   ])
+
+(defn render-movie-html [m]
+  (let [descriptions (:descriptions m)
+        translations (:translations m)]
+    [:div.movie-view
+     [:h2 (str "id: " (:id m) " | " (get-movie-title "en" m) " | " (get-movie-title "ru" m))]
+     [:table {:border "1", :width "70%", :bordercolor "brawn", :cellspacing "0", :cellpadding "2"}
+      (kv-table-row ":id-kp" (:id-kp m))
+      (kv-table-row ":id-imdb" (:id-imdb m))
+      (kv-table-row ":shortname" (:shortname m))
+      (kv-table-row ":movie-state" (:movie-state m))
+      (kv-table-row ":fpkeys-file" (str (:fpkeys-file m)))]
+     [:p (map render-movie-description descriptions)]
+     [:p (map render-movie-translation translations)]]))
+
+(defn render-movie-title-row-html [m]
+  (let [u (if (nil? m) "/api/movies-full" "/api/movie-full/")]
+    [:a {:href (str u (:id m))}
+      (str (:id m) " " (get-movie-title "en" m) " / " (get-movie-title "ru" m))]))
+
+(defn render-movies-html [ms]
+  [:h2 "Movies:"]
+  [:ol
+   (for [id ms] [:li (render-movie-title-row-html (fetch-movie id))])])
 
 (defn render-user-data [ud]
   (if (not-empty ud)
@@ -317,8 +381,8 @@
      [:ul
       (for [k (keys mids)]
         [:li
-         ;[:em k] [:span (:title (get-movie "ru" k))][:br]
-         [:em k] [:span (:title "Movie title")] [:br]
+         [:em k [:span (render-movie-title-row-html (fetch-movie k))]]
+         [:br]
          (let [dates (get-in mids [k :dates])]
            (with-out-str (clojure.pprint/pprint dates)))])]]))
 
@@ -329,7 +393,6 @@
    [:h4 "Device:"]
    (render-user-data (u :user-data))
    [:h4 "Acquired Movies:"]
-   ;(render-mids mmm)
    (render-mids (u :mids))
    "<br/>"])
 
