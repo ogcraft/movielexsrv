@@ -32,5 +32,38 @@
 		{:desc "", :file "percy_jackson_sea_of_monsters-it.trans", :title "Italiano", :lang "it", :img "flag-it.png"}
 		{:desc "", :file "percy_jackson_sea_of_monsters-ru.trans", :title "Русский",  :lang "ru", :img "flag-ru.png"}
 		]
+},
+{
+	:fpkeys-file {:en "winters_tale-en.fpkeys"},
+	:id 		"kp582158",
+	:id-kp 		"582158";
+	:id-imdb 	"tt1854564";
+	:shortname 	"winters_tale",
+	:movie-state "active",
+	:descriptions [
+		{
+			:title "Winter's Tale",
+			:desc-short "A burglar falls for an heiress as she dies in his arms. When he learns that he has the gift of reincarnation, he sets out to save her",
+			:desc "A burglar falls for an heiress as she dies in his arms. When he learns that he has the gift of reincarnation, he sets out to save her",
+			:year-released "2014",
+			:lang "en",
+			:img "tt1854564.jpg",
+			:src-url "http://www.imdb.com/title/tt1854564/",
+			:duration "118 min. / 01:58"
+		},
+		{
+			:title "Любовь сквозь время",
+			:desc-short "Питер Лэйк — талантливый вор, который и подумать не мог, что его собственное сердце украдет очаровательная Беверли Пенн.",
+			:desc "Питер Лэйк — талантливый вор, который и подумать не мог, что его собственное сердце украдет очаровательная Беверли Пенн. Но их любовь родилась под несчастливой звездой: Беверли угасает на глазах от неизлечимой болезни, а Питеру суждена куда более жестокая смерть от рук его давнего наставника, демона Перли Сомса.",
+			:year-released "2014",
+			:lang "ru",
+			:img "582158.jpg",
+			:src-url "http://m.kinopoisk.ru/movie/582158/",
+			:duration "118 мин. / 01:58"
+		}],
+	:translations [
+		{:desc "", :file "winters_tale-ua.trans", :title "Українська", 	:lang "ua", :img "flag-ua.png"},
+		{:desc "", :file "winters_tale-ru.trans", :title "Русский",  	:lang "ru", :img "flag-ru.png"}
+		]
 }
 ]
