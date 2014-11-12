@@ -18,6 +18,7 @@
   [enlive "1.1.5"]
   [selmer "0.6.9"]
   [com.novemberain/welle "3.0.0"]
+  [clj-http "1.0.1"]
   [org.clojure/clojurescript "0.0-2197"]]
 
   :plugins [[lein-ring "0.8.10"] 

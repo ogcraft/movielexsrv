@@ -1,0 +1,36 @@
+[
+{
+	:fpkeys-file {:en "percy_jackson_sea_of_monsters-en.fpkeys"},
+	:id 		"kp581932",
+	:id-kp 		"581932";
+	:id-imdb 	"tt1854564";
+	:shortname 	"percy_jackson_sea_of_monsters",
+	:movie-state "active",
+	:descriptions [
+		{
+			:title "Percy Jackson: Sea of Monsters",
+			:desc-short "In order to restore their dying safe haven, the son of Poseidon embark on a quest to the Sea of Monsters",
+			:desc "In order to restore their dying safe haven, the son of Poseidon and his friends embark on a quest to the Sea of Monsters to find the mythical Golden Fleece while trying to stop an ancient evil from rising",
+			:year-released "2013",
+			:lang "en",
+			:img "tt1854564.jpg",
+			:src-url "http://www.imdb.com/title/tt1854564/",
+			:duration "106 min. / 01:46"
+		},
+		{
+			:title "Перси Джексон и Море чудовищ",
+			:desc-short "Лагерь полукровок атакует Люк Кастеллан, который раскрывает свои планы по уничтожению горы Олимп",
+			:desc "Лагерь полукровок атакует Люк Кастеллан, который раскрывает свои планы по уничтожению горы Олимп. Наставник Перси, Хирон узнает, что Люк отравил волшебное дерево, которое отвечает за барьер, защищающий Лагерь Полукровок, и которое создано из Талии Грейс, дочери Зевса, убитой циклопом. Аннабет Чейз выясняет, что Золотое Руно может восстановить дерево, и директор лагеря, Дионис, посылает Клариссу Ла Ру, дочь Ареса и соперницу Перси, найти его",
+			:year-released "2013",
+			:lang "ru",
+			:img "581932.jpg",
+			:src-url "http://m.kinopoisk.ru/movie/581932/",
+			:duration "106 мин. / 01:46"
+		}],
+	:translations [
+		{:desc "", :file "percy_jackson_sea_of_monsters-fr.trans", :title "Francais", :lang "fr", :img "flag-fr.png"},
+		{:desc "", :file "percy_jackson_sea_of_monsters-it.trans", :title "Italiano", :lang "it", :img "flag-it.png"}
+		{:desc "", :file "percy_jackson_sea_of_monsters-ru.trans", :title "Русский",  :lang "ru", :img "flag-ru.png"}
+		]
+}
+]
