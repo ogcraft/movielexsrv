@@ -22,8 +22,17 @@
 		(selmer.parser/render p
 			{:active-movies (first movies-splited) :new-movies (second movies-splited)})))
 
-(defn write-cinema-page [lang path]
-	(spit (str path "/cinema.html") (generate-cinema-page "ru")))
+(defn write-cinema-page
+	([lang path]
+		(spit (str path "/cinema.html") (generate-cinema-page "ru")))
+	([lang]
+	 (let [remote-site-path "/var/www/movielex.com/public_html/ru"
+				 path (if (file-exists? remote-site-path ) remote-site-path "/tmp" )
+				 page (str path "/cinema.html")]
+		 (println "Generating [" page "]")
+		 (spit page (generate-cinema-page "ru"))
+		 (str "File cinema.html generated at [" path "]"))))
+
 
 (defn load-movies-and-generate-cinema [lang path]
 	;(db/load-movies-data)

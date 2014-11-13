@@ -6,7 +6,8 @@
             [hiccup.core :as h]
             [clojure.pprint :refer [pprint]]
             [clojure.java.io :refer [file]]
-            [movielexsrv.models.db :as db]))
+            [movielexsrv.models.db :as db]
+            [movielexsrv.tools.sitegen :as sitegen]))
 
 (def start-html "/index.html")
 
@@ -190,6 +191,18 @@
                       (assoc-in [:headers "Access-Control-Allow-Methods"] "GET, POST")))
   :available-media-types ["application/json"])
 
+(defresource generate-cinema-page [lang]
+             :allowed-methods [:get]
+
+             :handle-ok (fn [ctx]
+                          (println "generate-cinema-page")
+                          (generate-string (sitegen/write-cinema-page lang)))
+             :as-response (fn [d ctx]
+                            (-> (liberator.representation/as-response d ctx)
+                                (assoc-in [:headers "Access-Control-Allow-Origin"] "*")
+                                (assoc-in [:headers "Access-Control-Allow-Methods"] "GET, POST")))
+             :available-media-types ["application/json"])
+
 (defresource get-movies-html
     :available-media-types ["text/html"]
 
@@ -206,21 +219,19 @@
     (fn [{{{resource :resource} :route-params} :request}]
       (.lastModified (file (str (io/resource-path) start-html)))))
 
-;(defresource test-route
-;  :allowed-methods [:get]
-;  :handle-ok (fn [ _ ]
-;    (prn "test :handle-ok request: " request))
-;  :available-media-types ["application/json"])
+(defresource mytest
+  :allowed-methods [:get :post]
 
-;(context "/documents" [] (defroutes documents-routes
-;    (GET "/" [] "get all documents")
-;    (POST "/" {body :body} (str "create new document" body))
-;    (context "/:id" [id] (defroutes document-routes
-;      (GET "/" [] (str "get doc by id: " id))
-;      (PUT "/" {body :body} (str "update doc with id: " id "with body:" body))
-;      (DELETE "/" [] (str "delete doc with id: " id))
-;    ))))
+  :handle-ok (fn [ctx]
+                 (println "test ------------------ test")
+                 (pprint ctx)
+                 (str ctx))
 
+  :as-response (fn [d ctx]
+                   (-> (liberator.representation/as-response d ctx)
+                       (assoc-in [:headers "Access-Control-Allow-Origin"] "*")
+                       (assoc-in [:headers "Access-Control-Allow-Methods"] "GET, POST")))
+  :available-media-types ["application/json"])
 
 (defroutes home-routes
   (ANY "/" request home-txt)
@@ -231,12 +242,13 @@
   (GET "/movie-full/:mid" [mid] (get-movie-full mid))
   (GET "/movies-full" [] (get-movies-full))
   (ANY "/put-movie" [] (put-movie))
+  (POST "/generate-cinema-page/:lang" [lang] ())
   (GET "/acquire/:did/:mid" [did mid] (acquire-movie did mid))
   (GET "/translation-vote/:lang/:did/:mid" [lang did mid] (translation-vote lang did mid))
   (GET "/get-translation-vote/:mid" [mid] (get-translation-vote mid))
   (ANY "/user/:uid" [uid] (put-user uid))
   (GET "/users" [] get-users)
   (GET "/stats" [] get-stats)
-  (GET "/test" request (str request))
-  (GET "/" request get-movies-html)))
+  (GET "/generate-cinema-page" [] (generate-cinema-page "ru"))
+  (ANY "/test" [] mytest)))
 
