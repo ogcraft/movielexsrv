@@ -136,7 +136,7 @@
 	:id-kp 		"103391";
 	:id-imdb 	"tt0458481";
 	:shortname 	"sin_city2",
-	:movie-state "active",
+	:movie-state "old",
 	:descriptions [
 		{
 			:title "Sin City: A Dame to Kill For",
@@ -168,7 +168,7 @@
 	:id-kp 		"646674";
 	:id-imdb 	"tt2103281";
 	:shortname 	"dawn_planet_apes2",
-	:movie-state "active",
+	:movie-state "old",
 	:descriptions [
 		{
 			:title "Dawn of the Planet of the Apes",
@@ -263,7 +263,7 @@
 	:id-kp 		"575613";
 	:id-imdb 	"tt1790864";
 	:shortname 	"the_maze_runner",
-	:movie-state "active",
+	:movie-state "old",
 	:descriptions [
 		{
 			:title "The Maze Runner",
