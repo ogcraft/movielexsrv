@@ -15,12 +15,12 @@
 	(.exists (clojure.java.io/as-file fn)))
 
 (defn generate-cinema-page [lang]
-	(let [	active-movies 	(filter #(not (= (:shortname %) "movielexdemo"))
-								(db/get-movies-active lang))
-			new-movies 		(db/get-movies-new lang)
-			p 				(slurp ((keyword lang) cinema-template))]
+	(let [ 	movies (filter #(not (= (:id %) "1"))
+															 (db/get-movies-active lang))
+				  movies-splited (split-at (/ (count movies) 2) movies)
+					p (slurp ((keyword lang) cinema-template))]
 		(selmer.parser/render p
-			{:active-movies active-movies :new-movies new-movies})))
+			{:active-movies (first movies-splited) :new-movies (second movies-splited)})))
 
 (defn write-cinema-page [lang path]
 	(spit (str path "/cinema.html") (generate-cinema-page "ru")))
