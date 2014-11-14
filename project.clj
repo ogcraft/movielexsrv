@@ -23,11 +23,16 @@
 
   :plugins [[lein-ring "0.8.10"] 
             [lein-cljsbuild "1.0.3"]]
-  :ring {:handler movielexsrv.handler/app
-    :nrepl {:start? true :port 9998}
-    :init movielexsrv.handler/init
-    :destroy movielexsrv.handler/destroy}
-    :aot :all
+  :ring {
+      :handler movielexsrv.handler/app
+      :nrepl {:start? true :port 9998}
+      :init movielexsrv.handler/init
+      :destroy movielexsrv.handler/destroy
+      ;:auto-reload? true
+      ;:auto-refresh? true
+         }
+    :aot
+    :all
     :auto-clean false
     :profiles
     {:production
@@ -35,7 +40,6 @@
       {:open-browser? false, :stacktraces? false, :auto-reload? false}}
         :dev
       {:dependencies [[ring-mock "0.1.5"] [ring/ring-devel "1.2.1"]]}}
-  ;; cljsbuild options configuration
   :cljsbuild {:builds
               [{;; CLJS source code path
                 :source-paths ["src-cljs"]

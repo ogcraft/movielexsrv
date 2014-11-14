@@ -6,6 +6,7 @@
     [clj-time.core :as time]
     [clj-time.format :as time-format]
     [hiccup.core :as h]
+    [hiccup.page :as p]
     ;[clj-time.coerce :as time-coerce :exclude [extend second]]
     [clojurewerkz.welle.core :as wc]
     [clojurewerkz.welle.buckets :as wb]
@@ -321,21 +322,25 @@
 
 ;          [:p (with-out-str (clojure.pprint/pprint u))])]))
 
-(defn kv-table-row [k v]
-  (str "<tr><td style='width: 100px'>" k "</td><td style='width: 700px'>" v "</td></tr>"))
+(defn kv-table-row [k v c]
+  [:tr
+   [:td {:style "width: 100px"} k]
+   [:td {:style "width: 700px"} v]
+   [:td {:style "width: 100px"} c]])
+  ;(str "<tr><td style='width: 100px'>" k "</td><td style='width: 700px'>" v "</td></tr>"))
 
 (defn render-movie-description [d]
-    [:div.translation-view
-     [:h3 "Language: " (:lang d)]
-     [:table {:border "1", :width "70%", :bordercolor "brawn", :cellspacing "0", :cellpadding "2"}
-      (reduce str (for [[k v] d] (kv-table-row k v)))]
-     ])
+  [:div.translation-view
+   [:h3 "Language: " (:lang d)]
+   [:table {:border "1", :width "70%", :bordercolor "brawn", :cellspacing "0", :cellpadding "2"}
+    (for [[k v] d] (kv-table-row k v "ok"))]
+   ])
 
 (defn render-movie-translation [d]
   [:div.description-view
    [:h3 "Language: " (:lang d)]
    [:table {:border "1", :width "70%", :bordercolor "brawn", :cellspacing "0", :cellpadding "2"}
-    (reduce str (for [[k v] d] (kv-table-row k v)))]
+    (for [[k v] d] (kv-table-row k v "ok"))]
    ])
 
 (defn render-movie-html [m]
@@ -345,11 +350,11 @@
      [:h2 [:a {:href "/api/movies-full"} "All Movies"]]
      [:h2 (str "id: " (:id m) " | " (get-movie-title "en" m) " | " (get-movie-title "ru" m))]
      [:table {:border "1", :width "70%", :bordercolor "brawn", :cellspacing "0", :cellpadding "2"}
-      (kv-table-row ":id-kp" (:id-kp m))
-      (kv-table-row ":id-imdb" (:id-imdb m))
-      (kv-table-row ":shortname" (:shortname m))
-      (kv-table-row ":movie-state" (:movie-state m))
-      (kv-table-row ":fpkeys-file" (str (:fpkeys-file m)))]
+      (kv-table-row ":id-kp" (:id-kp m) "ok")
+      (kv-table-row ":id-imdb" (:id-imdb m)  "ok")
+      (kv-table-row ":shortname" (:shortname m) "ok")
+      (kv-table-row ":movie-state" (:movie-state m) "ok")
+      (kv-table-row ":fpkeys-file" (str (:fpkeys-file m)) "ok")]
       [:p (map render-movie-description descriptions)]
       [:p (map render-movie-translation translations)]
       [:h2 [:a {:href "/api/movies-full"} "All Movies"]]]))
