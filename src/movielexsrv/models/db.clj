@@ -418,8 +418,8 @@
                         [:p (form/text-field {:border "1", :width "200pc", :bordercolor "brawn"} "movie-state" "Input here active or old")]
                         [:table {:border "1", :width "70%", :bordercolor "brawn", :cellspacing "0", :cellpadding "2"}
                          (kv-table-5row
-                           "id-kp" (form/text-field {:style "width: 100%"} "id-kp" "Input here movie id-kp")
-                           "id-imdb" (form/text-field {:style "width: 100%"} "id-imdb" "Input here movie id-imdb")
+                           "Kinopoisk Url" (form/text-field {:style "width: 100%"} "src-url-kp" "Input here movie Kinopoisk Url")
+                           "IMBD Url" (form/text-field {:style "width: 100%"} "src-url-imdb" "Input here movie IMDB Url")
                            "ok")
                          (kv-table-5row
                            "shortname" (form/text-field {:style "width: 100%"} "shortname" "Input here movie shortname")
@@ -427,7 +427,7 @@
                          (kv-table-5row
                            "duration" (form/text-field {:style "width: 100%"} "duration" "Input here movie duration")
                            "year-released" (form/text-field {:style "width: 100%"} "year-released" "Input here movie year-released") "ok")]
-                        (form/with-group :desc-ru
+                        (form/with-group "desc[ru]"
                                          (form/hidden-field "lang" "ru")
                                          [:div.translation-view
                                           [:h3 "Russian Description"]
@@ -435,7 +435,7 @@
                                            (kv-table-row "Название" (form/text-field {:style "width: 100%"} "title" "Input here movie title") "ok")
                                            (kv-table-row "Описание" (form/text-area {:style "width: 100%" :rows "4"} "desc" "Input here movie desc") "ok")
                                            (kv-table-row "Описание короткое" (form/text-area {:style "width: 100%" :rows "4"} "desc-short" "Input here movie desc-short") "ok")]])
-                        (form/with-group :desc-en
+                        (form/with-group "desc[en]"
                                          (form/hidden-field "lang" "en")
                                          [:div.translation-view
                                           [:h3 "English Description"]
@@ -447,31 +447,45 @@
       (do
         [:h2 "NOT NEW"]))))
 
+(defn render-movie-full-as-json [id]
+  (let [m (fetch-movie id)]
+    [:head]
+    [:body {:style "background: #EFEFEF"}
+     [:title "Update movie as JSON"]
+     [:div.movie-view
+      [:h2 [:a {:href "/api/movies-full"} "All Movies"]]
+      [:h2 "Update movie JSON"]
+      (form/form-to [:post "/api/movie-full/update-json" :enctype "application/json"]
+                    [:p (form/submit-button "UPDATE!")]
+                    [:p (form/text-area {:style "width: 100%" :rows "100"} "desc" (with-out-str (clojure.pprint/pprint m)))])]]))
+
 
 (def testv1 {:movie-state "Input here active or old",
-             :id-imdb "Input here movie id-imdb",
-             :fpkeys-file "Input here movie fpkeys-file",
+             :src-url-kp "Input here movie Kinopoisk Url",
              :duration "Input here movie duration",
-             :year-released "Input here movie year-released",
-             :desc-ru
-             {:desc "Input here movie desc",
-              :lang "ru",
-              :desc-short "Input here movie desc-short",
-              :title "Input here movie title"},
              :shortname "Input here movie shortname",
-             :id-kp "Input here movie id-kp",
-             :desc-en
-             {:desc "Input here movie desc",
-              :title "Input here movie title",
-              :desc-short "Input here movie desc-short",
-              :lang "en"}})
+             :fpkeys-file "Input here movie fpkeys-file",
+             :src-url-imdb "Input here movie IMDB Url",
+             :year-released "Input here movie year-released",
+             :desc
+             {:ru
+              {:lang "ru",
+               :desc "Input here movie desc",
+               :desc-short "Input here movie desc-short",
+               :title "Input here movie title"},
+              :en
+              {:lang "en",
+               :desc "Input here movie desc",
+               :title "Input here movie title",
+               :desc-short "Input here movie desc-short"}}})
 
 (defn do-movie-full-update [params]
   (pprint params))
 
-;(with-out-str (clojure.pprint/pprint ud))]]]))
+(defn do-movie-full-update-json [params]
+  (pprint params))
 
-;(def mmm {"kp496849" {:dates ["2014-08-31T18:21:43"]}, "kp103391" {:dates ["2014-08-31T17:15:29" "2014-08-31T17:16:36" "2014-08-31T18:04:49" "2014-08-31T18:42:01" "2014-08-31T18:46:35" "2014-08-31T19:34:10" "2014-09-01T19:00:21"]}, "kp646674" {:dates ["2014-08-09T06:09:03" "2014-08-09T12:44:03" "2014-08-31T18:14:06" "2014-08-31T18:57:29"]}, "1005" {:dates ["2014-08-08T12:33:10"]}, "1" {:dates ["2014-08-08T10:11:54" "2014-08-31T18:01:33" "2014-08-31T19:12:04" "2014-08-31T19:33:46" "2014-09-02T16:13:25"]}})
+;(with-out-str (clojure.pprint/pprint ud))]]]))
 
 (defn render-mids [mids]
   (if (not-empty mids)

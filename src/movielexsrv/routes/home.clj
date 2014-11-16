@@ -122,6 +122,42 @@
                                 (assoc-in [:headers "Access-Control-Allow-Methods"] "POST")))
              :available-media-types ["application/json"])
 
+(defresource get-movie-full-as-json [id]
+             :allowed-methods [:get]
+             :handle-ok (fn [ctx]
+                          (let [media-type
+                                (get-in ctx [:representation :media-type])]
+                            "text/html" (h/html
+                                          (db/render-movie-full-as-json id))))
+             :available-media-types ["text/html"]
+             :as-response (fn [d ctx]
+                            (-> (liberator.representation/as-response d ctx)
+                                (assoc-in [:headers "Access-Control-Allow-Origin"] "*")
+                                (assoc-in [:headers "Access-Control-Allow-Methods"] "GET"))))
+
+(defresource post-movie-full-update-json []
+             :allowed-methods [:post]
+
+             :handle-ok (fn [ctx]
+                          (json/generate-string { :result "true", :reason "handle-ok"}))
+
+             :handle-created (fn [ctx]
+                               (json/generate-string { :result "true", :reason "handle-created"}))
+
+             :post! (fn [ctx]
+                      ;(println "movie-full-post")
+                      ;(pprint ctx)
+                      ;(pprint "==============================================")
+                      (let [params (get-in ctx [:request :params])]
+                        (db/do-movie-full-update-json params)))
+
+             :as-response (fn [d ctx]
+                            (-> (liberator.representation/as-response d ctx)
+                                (assoc-in [:headers "Access-Control-Allow-Origin"] "*")
+                                (assoc-in [:headers "Access-Control-Allow-Methods"] "POST")))
+             :available-media-types ["application/json"])
+
+
 (defresource put-movie []
              :allowed-methods [:put ]
              :handle-ok (fn [ ctx ]
@@ -280,7 +316,9 @@
                     (GET "/movie/:lang/:mid" [lang mid] (get-movie lang mid))
                     (GET "/movie-full/:mid" [mid] (get-movie-full mid))
                     (GET "/movie-full/:mid/edit" [mid] (get-movie-full-edit mid))
+                    (GET "/movie-full/:mid/json" [mid] (get-movie-full-as-json mid))
                     (POST "/movie-full/update" [] (post-movie-full-update))
+                    (POST "/movie-full/update-json" [] (post-movie-full-update-json))
                     (GET "/movies-full" [] (get-movies-full))
                     (ANY "/put-movie" [] (put-movie))
                     (POST "/generate-cinema-page/:lang" [lang] ())
