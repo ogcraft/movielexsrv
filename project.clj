@@ -1,4 +1,4 @@
-(defproject movielexsrv "0.1.4"
+(defproject movielexsrv "0.1.5"
   :description "MovieLex site back-end"
   :url "http://movielex.com/"
   ;; CLJ AND CLJS source code path

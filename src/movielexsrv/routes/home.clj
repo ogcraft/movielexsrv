@@ -87,42 +87,46 @@
                                 (assoc-in [:headers "Access-Control-Allow-Origin"] "*")
                                 (assoc-in [:headers "Access-Control-Allow-Methods"] "GET"))))
 
-(defresource get-movie-full-edit [id]
+(defresource movie-new-form []
              :allowed-methods [:get]
              :handle-ok (fn [ctx]
                           (let [media-type
                                 (get-in ctx [:representation :media-type])]
                                 "text/html" (h/html
-                                              (db/render-movie-full-edit id))))
+                                              (db/render-movie-new-form))))
              :available-media-types ["text/html"]
              :as-response (fn [d ctx]
                             (-> (liberator.representation/as-response d ctx)
                                 (assoc-in [:headers "Access-Control-Allow-Origin"] "*")
                                 (assoc-in [:headers "Access-Control-Allow-Methods"] "GET"))))
 
-(defresource post-movie-full-update []
+(defresource movie-new-update []
              :allowed-methods [:post]
 
              :handle-ok (fn [ctx]
-                          (json/generate-string { :result "true", :reason "handle-ok"}))
+                         ; (pprint ctx)
+                        (let [params (get-in ctx [:request :params])]
+                          ;(json/generate-string { :result "true", :reason "handle-ok" :id (ctx ::id)})))
+             "text/html" (h/html (db/render-movie-html (db/get-movie (ctx ::id))))))
 
-             :handle-created (fn [ctx]
-                          (json/generate-string { :result "true", :reason "handle-created"}))
+:handle-created (fn [ctx]
+                          ; (pprint ctx)
+                       (let [params (get-in ctx [:request :params])]
+                         ;(json/generate-string { :result "true", :reason "handle-created" :id (ctx ::id)})))
+                         "text/html" (h/html (db/render-movie-html (db/get-movie (ctx ::id))))))
 
              :post! (fn [ctx]
-                      ;(println "movie-full-post")
                       ;(pprint ctx)
-                      ;(pprint "==============================================")
                       (let [params (get-in ctx [:request :params])]
-                        (db/do-movie-full-update params)))
+                        (assoc ctx ::id (db/do-movie-new-update params))))
 
              :as-response (fn [d ctx]
                             (-> (liberator.representation/as-response d ctx)
                                 (assoc-in [:headers "Access-Control-Allow-Origin"] "*")
                                 (assoc-in [:headers "Access-Control-Allow-Methods"] "POST")))
-             :available-media-types ["application/json"])
+             :available-media-types ["application/json" "text/html"])
 
-(defresource get-movie-full-as-json [id]
+(defresource movie-as-json-form [id]
              :allowed-methods [:get]
              :handle-ok (fn [ctx]
                           (let [media-type
@@ -135,27 +139,26 @@
                                 (assoc-in [:headers "Access-Control-Allow-Origin"] "*")
                                 (assoc-in [:headers "Access-Control-Allow-Methods"] "GET"))))
 
-(defresource post-movie-full-update-json []
+(defresource put-movie-json-from-form []
              :allowed-methods [:post]
 
              :handle-ok (fn [ctx]
-                          (json/generate-string { :result "true", :reason "handle-ok"}))
+                          (let [params (get-in ctx [:request :params])]
+                            "text/html" (h/html (db/render-movie-html (db/get-movie (ctx ::id))))))
 
              :handle-created (fn [ctx]
-                               (json/generate-string { :result "true", :reason "handle-created"}))
+                               (let [params (get-in ctx [:request :params])]
+                                 "text/html" (h/html (db/render-movie-html (db/get-movie (ctx ::id))))))
 
              :post! (fn [ctx]
-                      ;(println "movie-full-post")
-                      ;(pprint ctx)
-                      ;(pprint "==============================================")
                       (let [params (get-in ctx [:request :params])]
-                        (db/do-movie-full-update-json params)))
+                        (assoc ctx ::id (db/do-movie-update-json params))))
 
              :as-response (fn [d ctx]
                             (-> (liberator.representation/as-response d ctx)
                                 (assoc-in [:headers "Access-Control-Allow-Origin"] "*")
                                 (assoc-in [:headers "Access-Control-Allow-Methods"] "POST")))
-             :available-media-types ["application/json"])
+             :available-media-types ["application/json" "text/html"])
 
 
 (defresource put-movie []
@@ -311,24 +314,24 @@
 (defroutes home-routes
            (ANY "/" request home-txt)
            (context "/api" []
-                    (GET "/movies/:lang" [lang] (get-movies-active lang))
-                    (GET "/movies-new/:lang" [lang] (get-movies-new lang))
-                    (GET "/movie/:lang/:mid" [lang mid] (get-movie lang mid))
-                    (GET "/movie-full/:mid" [mid] (get-movie-full mid))
-                    (GET "/movie-full/:mid/edit" [mid] (get-movie-full-edit mid))
-                    (GET "/movie-full/:mid/json" [mid] (get-movie-full-as-json mid))
-                    (POST "/movie-full/update" [] (post-movie-full-update))
-                    (POST "/movie-full/update-json" [] (post-movie-full-update-json))
-                    (GET "/movies-full" [] (get-movies-full))
-                    (ANY "/put-movie" [] (put-movie))
+                    (GET  "/movies/:lang"               [lang] (get-movies-active lang))
+                    (GET  "/movies-new/:lang"           [lang] (get-movies-new lang))
+                    (GET  "/movie/:lang/:mid"           [lang mid] (get-movie lang mid))
+                    (GET  "/movie-full/:mid"            [mid] (get-movie-full mid))
+                    (GET  "/movie/new"                  [] (movie-new-form))
+                    (POST "/movie/new/update"           [] (movie-new-update))
+                    (GET  "/movie-json/:mid"            [mid] (movie-as-json-form mid))
+                    (POST "/movie-full/update-json"     [] (put-movie-json-from-form))
+                    (GET  "/movies-full"                [] (get-movies-full))
+                    (ANY  "/put-movie"                  [] (put-movie))
                     (POST "/generate-cinema-page/:lang" [lang] ())
-                    (GET "/acquire/:did/:mid" [did mid] (acquire-movie did mid))
-                    (GET "/translation-vote/:lang/:did/:mid" [lang did mid] (translation-vote lang did mid))
-                    (GET "/get-translation-vote/:mid" [mid] (get-translation-vote mid))
-                    (ANY "/user/:uid" [uid] (put-user uid))
-                    (GET "/users" [] get-users)
-                    (GET "/stats" [] get-stats)
-                    (GET "/generate-cinema-page" [] (generate-cinema-page "ru"))
-                    (ANY "/test" [] mytest))
+                    (GET  "/acquire/:did/:mid"          [did mid] (acquire-movie did mid))
+                    (GET  "/translation-vote/:lang/:did/:mid" [lang did mid] (translation-vote lang did mid))
+                    (GET  "/get-translation-vote/:mid" [mid] (get-translation-vote mid))
+                    (ANY  "/user/:uid"                  [uid] (put-user uid))
+                    (GET  "/users" [] get-users)
+                    (GET  "/stats" [] get-stats)
+                    (GET  "/generate-cinema-page" [] (generate-cinema-page "ru"))
+                    (ANY  "/test" [] mytest))
            (POST "/posttest" {params :params} (str params)))
 

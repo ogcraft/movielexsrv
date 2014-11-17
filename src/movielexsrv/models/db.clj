@@ -369,6 +369,7 @@
     [:div.movie-view
      [:h2 [:a {:href "/api/movies-full"} "All Movies"]]
      [:h2 (str "id: " (:id m) " | " (get-movie-title "en" m) " | " (get-movie-title "ru" m))]
+     [:h2 [:a {:href (str "/api/movie-json/" (:id m))} "RAW"]]
      [:table {:border "1", :width "70%", :bordercolor "brawn", :cellspacing "0", :cellpadding "2"}
       (kv-table-row ":id-kp" (:id-kp m) "ok")
       (kv-table-row ":id-imdb" (:id-imdb m)  "ok")
@@ -390,9 +391,13 @@
       (str id " " (get-movie-title "en" m) " / " (get-movie-title "ru" m))])))
 
 (defn render-movies-html [ms]
-  [:h2 "Movies:"]
+  [:head]
+  [:body {:style "background: #EFEFEF"}
+   [:title "Movies"]
+  [:h2 (str "Total : " (count ms) " movies")]
+  [:p [:a {:href "/api/movie/new"} "Add new movie"]]
   [:ol
-   (for [id ms] [:li (render-movie-title-row-html (fetch-movie id))])])
+   (for [id ms] [:li (render-movie-title-row-html (fetch-movie id))])]])
 
 (defn render-user-data [ud]
   (if (not-empty ud)
@@ -403,49 +408,64 @@
       [:tr
        (reduce str (map #(str "<td>" % "</td>") (vals ud)))]]]))
 
-(defn render-movie-full-edit [id]
-  (let [m (fetch-movie id)]
-    (if (nil? m)
-      (do
-        [:head]
-        [:body {:style "background: #EFEFEF"}
-         [:title "Update Movie"]
-         [:div.movie-view
-          [:h2 [:a {:href "/api/movies-full"} "All Movies"]]
-          [:h2 "Enter new movie"]
-          (form/form-to [:post "/api/movie-full/update" :enctype "application/json"]
-                        [:p (form/submit-button "UPDATE!")]
-                        [:p (form/text-field {:border "1", :width "200pc", :bordercolor "brawn"} "movie-state" "Input here active or old")]
-                        [:table {:border "1", :width "70%", :bordercolor "brawn", :cellspacing "0", :cellpadding "2"}
-                         (kv-table-5row
-                           "Kinopoisk Url" (form/text-field {:style "width: 100%"} "src-url-kp" "Input here movie Kinopoisk Url")
-                           "IMBD Url" (form/text-field {:style "width: 100%"} "src-url-imdb" "Input here movie IMDB Url")
-                           "ok")
-                         (kv-table-5row
-                           "shortname" (form/text-field {:style "width: 100%"} "shortname" "Input here movie shortname")
-                           "fpkeys-file" (form/text-field {:style "width: 100%"} "fpkeys-file" "Input here movie fpkeys-file") "ok")
-                         (kv-table-5row
-                           "duration" (form/text-field {:style "width: 100%"} "duration" "Input here movie duration")
-                           "year-released" (form/text-field {:style "width: 100%"} "year-released" "Input here movie year-released") "ok")]
-                        (form/with-group "desc[ru]"
-                                         (form/hidden-field "lang" "ru")
-                                         [:div.translation-view
-                                          [:h3 "Russian Description"]
-                                          [:table {:border "1", :width "70%", :bordercolor "brawn", :cellspacing "0", :cellpadding "2"}
-                                           (kv-table-row "Название" (form/text-field {:style "width: 100%"} "title" "Input here movie title") "ok")
-                                           (kv-table-row "Описание" (form/text-area {:style "width: 100%" :rows "4"} "desc" "Input here movie desc") "ok")
-                                           (kv-table-row "Описание короткое" (form/text-area {:style "width: 100%" :rows "4"} "desc-short" "Input here movie desc-short") "ok")]])
-                        (form/with-group "desc[en]"
-                                         (form/hidden-field "lang" "en")
-                                         [:div.translation-view
-                                          [:h3 "English Description"]
-                                          [:table {:border "1", :width "70%", :bordercolor "brawn", :cellspacing "0", :cellpadding "2"}
-                                           (kv-table-row "title" (form/text-field {:style "width: 100%"} "title" "Input here movie title") "ok")
-                                           (kv-table-row "desc" (form/text-area {:style "width: 100%" :rows "4"} "desc" "Input here movie desc") "ok")
-                                           (kv-table-row "desc-short" (form/text-area {:style "width: 100%" :rows "4"} "desc-short" "Input here movie desc-short") "ok")]]))
-          ]])
-      (do
-        [:h2 "NOT NEW"]))))
+(defn input-trans-row [n]
+  (form/with-group (str "trans-" n)
+    (kv-table-5row  "File" (form/text-field {:style "width: 100%"} "file" "")
+                    "Language" (form/text-field {:style "width: 100%"} "lang-name" "") "ok")))
+
+(defn render-movie-new-form []
+  [:head]
+  [:body {:style "background: #EFEFEF"}
+   [:title "Update Movie"]
+   [:div.movie-view
+    [:h2 [:a {:href "/api/movies-full"} "All Movies"]]
+    [:h2 "Enter new movie"]
+    (form/form-to [:post "/api/movie/new/update" :enctype "application/json"]
+                  [:p (form/submit-button "SUBMIT")]
+                  ;[:p (form/text-field {:border "1", :width "200pc", :bordercolor "brawn"} "movie-state" "Input here active or old")]
+                  [:table {:border "1", :width "70%", :bordercolor "brawn", :cellspacing "0", :cellpadding "2"}
+                   (kv-table-5row
+                     "Kinopoisk Url" (form/text-field {:style "width: 100%"} "src-url-kp")
+                     "IMBD Url" (form/text-field {:style "width: 100%"} "src-url-imdb")
+                     "ok")
+                   (kv-table-5row
+                     "shortname" (form/text-field {:style "width: 100%"} "shortname")
+                     "fpkeys-file" (form/text-field {:style "width: 100%"} "fpkeys-file") "ok")
+                   (kv-table-5row
+                     "duration" (form/text-field {:style "width: 100%"} "duration")
+                     "year-released" (form/text-field {:style "width: 100%"} "year-released") "ok")]
+                  (form/with-group :desc
+                  (form/with-group :ru
+                                   (form/hidden-field "lang" "ru")
+                                   [:div.description-view
+                                    [:h3 "Russian Description"]
+                                    [:table {:border "1", :width "70%", :bordercolor "brawn", :cellspacing "0", :cellpadding "2"}
+                                     (kv-table-row "Название" (form/text-field {:style "width: 100%"} "title") "ok")
+                                     (kv-table-row "Описание" (form/text-area {:style "width: 100%" :rows "4"} "desc") "ok")
+                                     (kv-table-row "Описание короткое" (form/text-area {:style "width: 100%" :rows "4"} "desc-short") "ok")]])
+                  (form/with-group :en
+                                   (form/hidden-field "lang" "en")
+                                   [:div.description-view
+                                    [:h3 "English Description"]
+                                    [:table {:border "1", :width "70%", :bordercolor "brawn", :cellspacing "0", :cellpadding "2"}
+                                     (kv-table-row "title" (form/text-field {:style "width: 100%"} "title") "ok")
+                                     (kv-table-row "desc" (form/text-area {:style "width: 100%" :rows "4"} "desc") "ok")
+                                     (kv-table-row "desc-short" (form/text-area {:style "width: 100%" :rows "4"} "desc-short") "ok")]]))
+                  (form/with-group :trans
+                                   [:div.translation-view
+                                    [:h3 (str "Translation files. en-English, ru-Русский, au-Українська,
+                                              fr-Francais, es-Español, it-Italiano, de-Deutsch ")]
+                                    [:table {:border "1", :width "70%", :bordercolor "brawn", :cellspacing "0", :cellpadding "2"}
+                                     (input-trans-row 1)
+                                     (input-trans-row 2)
+                                     (input-trans-row 3)
+                                     (input-trans-row 4)
+                                     (input-trans-row 5)
+                                     (input-trans-row 6)
+                                     (input-trans-row 7)
+                                     (input-trans-row 8)
+                                     (input-trans-row 9)]]))]])
+
 
 (defn render-movie-full-as-json [id]
   (let [m (fetch-movie id)]
@@ -457,33 +477,119 @@
       [:h2 "Update movie JSON"]
       (form/form-to [:post "/api/movie-full/update-json" :enctype "application/json"]
                     [:p (form/submit-button "UPDATE!")]
-                    [:p (form/text-area {:style "width: 100%" :rows "100"} "desc" (with-out-str (clojure.pprint/pprint m)))])]]))
+                    [:p (form/text-area {:style "width: 100%" :rows "100"} "moviejson" (with-out-str (clojure.pprint/pprint m)))])]]))
 
 
-(def testv1 {:movie-state "Input here active or old",
-             :src-url-kp "Input here movie Kinopoisk Url",
-             :duration "Input here movie duration",
-             :shortname "Input here movie shortname",
-             :fpkeys-file "Input here movie fpkeys-file",
-             :src-url-imdb "Input here movie IMDB Url",
-             :year-released "Input here movie year-released",
+(def testv1 {:movie-state   "old",
+             :src-url-kp    "http://m.kinopoisk.ru/movie/582158/",
+             :duration      "100",
+             :shortname     "winters_tale",
+             :fpkeys-file   "winters_tale-en.fpkeys",
+             :src-url-imdb  "http://www.imdb.com/title/tt1854564/",
+             :year-released "2013",
              :desc
-             {:ru
-              {:lang "ru",
-               :desc "Input here movie desc",
-               :desc-short "Input here movie desc-short",
-               :title "Input here movie title"},
-              :en
-              {:lang "en",
-               :desc "Input here movie desc",
-               :title "Input here movie title",
-               :desc-short "Input here movie desc-short"}}})
+                            {:ru
+                             {:lang       "ru",
+                              :desc       "Питер Лэйк — талантливый вор",
+                              :desc-short "вор, который и подумать не мог",
+                              :title      "Любовь сквозь время"},
+                             :en
+                             {:lang       "en",
+                              :desc       "A burglar falls for",
+                              :title      "Winter Tale",
+                              :desc-short "an heiress"}}
+  :trans
+  {:trans-7 {:lang-name "", :file ""},
+   :trans-6 {:lang-name "", :file ""},
+   :trans-5 {:lang-name "", :file ""},
+   :trans-2 {:file "lego_movie-ru.trans", :lang-name "Русский"},
+   :trans-3 {:lang-name "", :file ""},
+   :trans-8 {:file "", :lang-name ""},
+   :trans-4 {:file "", :lang-name ""},
+   :trans-9 {:file "", :lang-name ""},
+   :trans-1 {:lang-name "Italiano", :file "lego_movie-it.trans"}}})
 
-(defn do-movie-full-update [params]
-  (pprint params))
+(defn get-id-kp [url]
+  (last (clojure.string/split url #"/")))
 
-(defn do-movie-full-update-json [params]
-  (pprint params))
+(defn get-id-imdb [url]
+  (last (clojure.string/split url #"/")))
+
+(defn min-to-hours [min]
+  (let [m (mod min 60)
+        h (/ (- min m) 60)]
+    {:hour h, :min m}))
+
+(defn convert-duration [lang min-str]
+  (let [t (min-to-hours (Integer/parseInt min-str))]
+    (if (= lang "ru")
+      (str min-str " мин. / " (:hour t) ":" (:min t))
+      (str min-str " min. / " (:hour t) ":" (:min t)))))
+
+(defn make-descriptions [params]
+  (let [d {}
+        descs (params :desc)]
+    (for [v (vals descs)]
+      (-> d
+          (assoc :title (v :title))
+          (assoc :desc (v :desc))
+          (assoc :desc-short (v :desc-short))
+          (assoc :lang (v :lang))
+          (assoc :year-released (params :year-released))
+          (assoc :src-url (if (= (v :lang) "ru")
+                            (params :src-url-kp)
+                            (params :src-url-imdb)))
+          (assoc :duration (convert-duration (v :lang) (params :duration)))
+          (assoc :img (if (= (v :lang) "ru")
+                        (str (get-id-kp (params :src-url-kp)) ".jpg")
+                        (str (get-id-imdb (params :src-url-imdb)) "jpg")))
+          ))))
+
+(defn get-lang-from-file-name [fname]
+  (let [l (.length fname)
+        p1 (- l 8)
+        p2 (- l 6)]
+    (subs fname p1 p2)))
+
+(defn make-translations [params]
+  (let [d {}
+        trans (filter #(> (count (:file %)) 2) (vals (params :trans)))]
+    (for [v trans]
+        (-> d
+          (assoc :desc "")
+          (assoc :file (v :file))
+          (assoc :title (v :lang-name))
+          (assoc :lang (get-lang-from-file-name (v :file)))
+          (assoc :img (str "flag-" (get-lang-from-file-name (v :file)) ".png"))
+          ))))
+
+(defn do-movie-new-update [params]
+  (let [id-kp (get-id-kp (params :src-url-kp))
+        id-imdb (get-id-imdb (params :src-url-imdb))
+        m (do
+            (-> {}
+                (assoc :movie-state "new")
+                (assoc :id (str "kp" id-kp))
+                (assoc :id-kp id-kp)
+                (assoc :id-imdb id-imdb)
+                (assoc :shortname (params :shortname))
+                (assoc :fpkeys-file {:en (params :fpkeys-file)})
+                (assoc :descriptions (make-descriptions params))
+                (assoc :translations (make-translations params))))]
+    (do
+      (println "---------------") (pprint m) (println "---------------")
+      (store-movie m)
+      (m :id))))
+
+(def a1 "{:translations\r\n ({:img \"flag-ru.png\",\r\n   :lang \"ru\",\r\n   :title \"Русский\",\r\n   :file \"lego_movie-ru.trans\",\r\n   :desc \"\"}\r\n  {:img \"flag-it.png\",\r\n   :lang \"it\",\r\n   :title \"Italiano\",\r\n   :file \"lego_movie-it.trans\",\r\n   :desc \"\"}),\r\n :descriptions\r\n ({:img \"22.jpg\",\r\n   :duration \"130 мин. / 2:10\",\r\n   :src-url \"http://m.kinopoisk.ru/movie/22/\",\r\n   :year-released \"2022\",\r\n   :lang \"ru\",\r\n   :desc-short \"ыыыыыыыыыыыыыыыыыыыыыыыы\",\r\n   :desc \"аааааааасссссдфффффффффффффф\",\r\n   :title \"ДФГЧЧЙЙ\"}\r\n  {:img \"tt11jpg\",\r\n   :duration \"130 min. / 2:10\",\r\n   :src-url \"http://www.imdb.com/title/tt11\",\r\n   :year-released \"2022\",\r\n   :lang \"en\",\r\n   :desc-short \"zzzzzzzzzzzzzzzzzzzz\",\r\n   :desc \"qqqqqqqqqqqqqqqq\",\r\n   :title \"SDFGHHJ\"}),\r\n :fpkeys-file {:en \"aaa-en.fpkeys\"},\r\n :shortname \"aaa\",\r\n :id-imdb \"tt11\",\r\n :id-kp \"22\",\r\n :id \"kp22\",\r\n :movie-state \"active\"}\r\n")
+(defn tttv1 []
+  (pprint (do-movie-new-update testv1)))
+
+(defn do-movie-update-json [params]
+  (let [m (read-string (params :moviejson))]
+    (do
+      (store-movie m)
+      (m :id))))
 
 ;(with-out-str (clojure.pprint/pprint ud))]]]))
 
