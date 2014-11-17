@@ -324,44 +324,42 @@
 
 ;          [:p (with-out-str (clojure.pprint/pprint u))])]))
 
-(defn kv-table-row [k v c]
+(defn kv-table-row [k v]
   [:tr
    [:td {:style "width: 100px"} k]
-   [:td {:style "width: 700px"} v]
-   [:td {:style "width: 100px"} c]])
+   [:td {:style "width: 700px"} v]])
 
-(defn kv-table-5row [k1 v1 k2 v2 c]
+(defn kv-table-5row [k1 v1 k2 v2]
   [:tr
    [:td {:style "width: 100px"} k1]
    [:td {:style "width: 200px"} v1]
    [:td {:style "width: 100px"} k2]
-   [:td {:style "width: 200px"} v2]
-   [:td {:style "width: 100px"} c]])
+   [:td {:style "width: 200px"} v2]])
 
 (defn render-movie-description [d]
   [:div.translation-view
    [:h3 "Language: " (:lang d)]
    [:table {:border "1", :width "70%", :bordercolor "brawn", :cellspacing "0", :cellpadding "2"}
     ;(for [[k v] d] (kv-table-row k v "ok"))
-    (kv-table-row "lang" (:lang d) "ok")
-    (kv-table-row "title" (:title d) "ok")
-    (kv-table-row "src-url" (:src-url d) "ok")
-    (kv-table-row "img" (:img d) "ok")
-    (kv-table-row "year-released" (:year-released d) "ok")
-    (kv-table-row "duration" (:duration d) "ok")
-    (kv-table-row "desc" (:desc d) "ok")
-    (kv-table-row "desc-short" (:desc-short d) "ok")]])
+    (kv-table-row "lang" (:lang d))
+    (kv-table-row "title" (:title d))
+    (kv-table-row "src-url" (:src-url d))
+    (kv-table-row "img" (:img d))
+    (kv-table-row "year-released" (:year-released d))
+    (kv-table-row "duration" (:duration d))
+    (kv-table-row "desc" (:desc d))
+    (kv-table-row "desc-short" (:desc-short d))]])
 
 (defn render-movie-translation [d]
   [:div.description-view
    [:h3 "Language: " (:lang d)]
    [:table {:border "1", :width "70%", :bordercolor "brawn", :cellspacing "0", :cellpadding "2"}
     ;(for [[k v] d] (kv-table-row k v "ok"))
-    (kv-table-row "lang" (:lang d) "ok")
-    (kv-table-row "title" (:title d) "ok")
-    (kv-table-row "img" (:img d) "ok")
-    (kv-table-row "file" (:file d) "ok")
-    (kv-table-row "desc" (:desc d) "ok")]])
+    (kv-table-row "lang" (:lang d))
+    (kv-table-row "title" (:title d))
+    (kv-table-row "img" (:img d))
+    (kv-table-row "file" (:file d))
+    (kv-table-row "desc" (:desc d))]])
 
 (defn render-movie-html [m]
   (let [descriptions (:descriptions m)
@@ -371,11 +369,11 @@
      [:h2 (str "id: " (:id m) " | " (get-movie-title "en" m) " | " (get-movie-title "ru" m))]
      [:h2 [:a {:href (str "/api/movie-json/" (:id m))} "RAW"]]
      [:table {:border "1", :width "70%", :bordercolor "brawn", :cellspacing "0", :cellpadding "2"}
-      (kv-table-row ":id-kp" (:id-kp m) "ok")
-      (kv-table-row ":id-imdb" (:id-imdb m)  "ok")
-      (kv-table-row ":shortname" (:shortname m) "ok")
-      (kv-table-row ":movie-state" (:movie-state m) "ok")
-      (kv-table-row ":fpkeys-file" (str (:fpkeys-file m)) "ok")]
+      (kv-table-row ":id-kp" (:id-kp m))
+      (kv-table-row ":id-imdb" (:id-imdb m))
+      (kv-table-row ":shortname" (:shortname m))
+      (kv-table-row ":movie-state" (:movie-state m))
+      (kv-table-row ":fpkeys-file" (str (:fpkeys-file m)))]
       [:p (map render-movie-description descriptions)]
       [:p (map render-movie-translation translations)]
       [:h2 [:a {:href "/api/movies-full"} "All Movies"]]]))
@@ -411,7 +409,7 @@
 (defn input-trans-row [n]
   (form/with-group (str "trans-" n)
     (kv-table-5row  "File" (form/text-field {:style "width: 100%"} "file" "")
-                    "Language" (form/text-field {:style "width: 100%"} "lang-name" "") "ok")))
+                    "Language" (form/text-field {:style "width: 100%"} "lang-name" ""))))
 
 (defn render-movie-new-form []
   [:head]
@@ -422,35 +420,33 @@
     [:h2 "Enter new movie"]
     (form/form-to [:post "/api/movie/new/update" :enctype "application/json"]
                   [:p (form/submit-button "SUBMIT")]
-                  ;[:p (form/text-field {:border "1", :width "200pc", :bordercolor "brawn"} "movie-state" "Input here active or old")]
                   [:table {:border "1", :width "70%", :bordercolor "brawn", :cellspacing "0", :cellpadding "2"}
                    (kv-table-5row
                      "Kinopoisk Url" (form/text-field {:style "width: 100%"} "src-url-kp")
-                     "IMBD Url" (form/text-field {:style "width: 100%"} "src-url-imdb")
-                     "ok")
+                     "IMBD Url" (form/text-field {:style "width: 100%"} "src-url-imdb"))
                    (kv-table-5row
-                     "shortname" (form/text-field {:style "width: 100%"} "shortname")
-                     "fpkeys-file" (form/text-field {:style "width: 100%"} "fpkeys-file") "ok")
+                     "fpkeys-file" (form/text-field {:style "width: 100%"} "fpkeys-file")
+                     "movie-state" (form/text-field {:style "width: 100%"} "movie-state" "active"))
                    (kv-table-5row
                      "duration in mins" (form/text-field {:style "width: 100%"} "duration")
-                     "year-released" (form/text-field {:style "width: 100%"} "year-released") "ok")]
+                     "year-released" (form/text-field {:style "width: 100%"} "year-released"))]
                   (form/with-group :desc
                   (form/with-group :ru
                                    (form/hidden-field "lang" "ru")
                                    [:div.description-view
                                     [:h3 "Russian Description"]
                                     [:table {:border "1", :width "70%", :bordercolor "brawn", :cellspacing "0", :cellpadding "2"}
-                                     (kv-table-row "Название" (form/text-field {:style "width: 100%"} "title") "ok")
-                                     (kv-table-row "Описание" (form/text-area {:style "width: 100%" :rows "4"} "desc") "ok")
-                                     (kv-table-row "Описание короткое" (form/text-area {:style "width: 100%" :rows "4"} "desc-short") "ok")]])
+                                     (kv-table-row "Название" (form/text-field {:style "width: 100%"} "title"))
+                                     (kv-table-row "Описание" (form/text-area {:style "width: 100%" :rows "4"} "desc"))
+                                     (kv-table-row "Описание короткое" (form/text-area {:style "width: 100%" :rows "4"} "desc-short"))]])
                   (form/with-group :en
                                    (form/hidden-field "lang" "en")
                                    [:div.description-view
                                     [:h3 "English Description"]
                                     [:table {:border "1", :width "70%", :bordercolor "brawn", :cellspacing "0", :cellpadding "2"}
-                                     (kv-table-row "title" (form/text-field {:style "width: 100%"} "title") "ok")
-                                     (kv-table-row "desc" (form/text-area {:style "width: 100%" :rows "4"} "desc") "ok")
-                                     (kv-table-row "desc-short" (form/text-area {:style "width: 100%" :rows "4"} "desc-short") "ok")]]))
+                                     (kv-table-row "title" (form/text-field {:style "width: 100%"} "title"))
+                                     (kv-table-row "desc" (form/text-area {:style "width: 100%" :rows "4"} "desc"))
+                                     (kv-table-row "desc-short" (form/text-area {:style "width: 100%" :rows "4"} "desc-short"))]]))
                   (form/with-group :trans
                                    [:div.translation-view
                                     [:h3 (str "Translation files. en-English, ru-Русский, au-Українська,
@@ -479,35 +475,6 @@
                     [:p (form/submit-button "UPDATE!")]
                     [:p (form/text-area {:style "width: 100%" :rows "100"} "moviejson" (with-out-str (clojure.pprint/pprint m)))])]]))
 
-
-(def testv1 {:movie-state   "old",
-             :src-url-kp    "http://m.kinopoisk.ru/movie/582158/",
-             :duration      "100",
-             :shortname     "winters_tale",
-             :fpkeys-file   "winters_tale-en.fpkeys",
-             :src-url-imdb  "http://www.imdb.com/title/tt1854564/",
-             :year-released "2013",
-             :desc
-                            {:ru
-                             {:lang       "ru",
-                              :desc       "Питер Лэйк — талантливый вор",
-                              :desc-short "вор, который и подумать не мог",
-                              :title      "Любовь сквозь время"},
-                             :en
-                             {:lang       "en",
-                              :desc       "A burglar falls for",
-                              :title      "Winter Tale",
-                              :desc-short "an heiress"}}
-  :trans
-  {:trans-7 {:lang-name "", :file ""},
-   :trans-6 {:lang-name "", :file ""},
-   :trans-5 {:lang-name "", :file ""},
-   :trans-2 {:file "lego_movie-ru.trans", :lang-name "Русский"},
-   :trans-3 {:lang-name "", :file ""},
-   :trans-8 {:file "", :lang-name ""},
-   :trans-4 {:file "", :lang-name ""},
-   :trans-9 {:file "", :lang-name ""},
-   :trans-1 {:lang-name "Italiano", :file "lego_movie-it.trans"}}})
 
 (defn get-id-kp [url]
   (last (clojure.string/split url #"/")))
@@ -568,22 +535,18 @@
         id-imdb (get-id-imdb (params :src-url-imdb))
         m (do
             (-> {}
-                (assoc :movie-state "new")
+                (assoc :movie-state (params :movie-state))
                 (assoc :id (str "kp" id-kp))
                 (assoc :id-kp id-kp)
                 (assoc :id-imdb id-imdb)
-                (assoc :shortname (params :shortname))
+                (assoc :shortname (str "kp" id-kp))
                 (assoc :fpkeys-file {:en (params :fpkeys-file)})
                 (assoc :descriptions (make-descriptions params))
                 (assoc :translations (make-translations params))))]
     (do
-      (println "---------------") (pprint m) (println "---------------")
+      ;(println "---------------") (pprint m) (println "---------------")
       (store-movie m)
       (m :id))))
-
-(def a1 "{:translations\r\n ({:img \"flag-ru.png\",\r\n   :lang \"ru\",\r\n   :title \"Русский\",\r\n   :file \"lego_movie-ru.trans\",\r\n   :desc \"\"}\r\n  {:img \"flag-it.png\",\r\n   :lang \"it\",\r\n   :title \"Italiano\",\r\n   :file \"lego_movie-it.trans\",\r\n   :desc \"\"}),\r\n :descriptions\r\n ({:img \"22.jpg\",\r\n   :duration \"130 мин. / 2:10\",\r\n   :src-url \"http://m.kinopoisk.ru/movie/22/\",\r\n   :year-released \"2022\",\r\n   :lang \"ru\",\r\n   :desc-short \"ыыыыыыыыыыыыыыыыыыыыыыыы\",\r\n   :desc \"аааааааасссссдфффффффффффффф\",\r\n   :title \"ДФГЧЧЙЙ\"}\r\n  {:img \"tt11jpg\",\r\n   :duration \"130 min. / 2:10\",\r\n   :src-url \"http://www.imdb.com/title/tt11\",\r\n   :year-released \"2022\",\r\n   :lang \"en\",\r\n   :desc-short \"zzzzzzzzzzzzzzzzzzzz\",\r\n   :desc \"qqqqqqqqqqqqqqqq\",\r\n   :title \"SDFGHHJ\"}),\r\n :fpkeys-file {:en \"aaa-en.fpkeys\"},\r\n :shortname \"aaa\",\r\n :id-imdb \"tt11\",\r\n :id-kp \"22\",\r\n :id \"kp22\",\r\n :movie-state \"active\"}\r\n")
-(defn tttv1 []
-  (pprint (do-movie-new-update testv1)))
 
 (defn do-movie-update-json [params]
   (let [m (read-string (params :moviejson))]
