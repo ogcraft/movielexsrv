@@ -416,7 +416,7 @@
 (defn render-movie-new-form []
   [:head]
   [:body {:style "background: #EFEFEF"}
-   [:title "Update Movie"]
+   [:title "New Movie"]
    [:div.movie-view
     [:h2 [:a {:href "/api/movies-full"} "All Movies"]]
     [:h2 "Enter new movie"]
@@ -432,7 +432,7 @@
                      "shortname" (form/text-field {:style "width: 100%"} "shortname")
                      "fpkeys-file" (form/text-field {:style "width: 100%"} "fpkeys-file") "ok")
                    (kv-table-5row
-                     "duration" (form/text-field {:style "width: 100%"} "duration")
+                     "duration in mins" (form/text-field {:style "width: 100%"} "duration")
                      "year-released" (form/text-field {:style "width: 100%"} "year-released") "ok")]
                   (form/with-group :desc
                   (form/with-group :ru
