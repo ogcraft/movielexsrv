@@ -17,10 +17,10 @@
 (defn generate-cinema-page [lang]
 	(let [ 	movies (filter #(not (= (:id %) "1"))
 															 (db/get-movies-active lang))
-				  movies-splited (split-at (/ (count movies) 2) movies)
+				  ;movies-splited (split-at (/ (count movies) 2) movies)
 					p (slurp ((keyword lang) cinema-template))]
 		(selmer.parser/render p
-			{:active-movies (first movies-splited) :new-movies (second movies-splited)})))
+			{:active-movies movies})))
 
 (defn write-cinema-page
 	([lang path]

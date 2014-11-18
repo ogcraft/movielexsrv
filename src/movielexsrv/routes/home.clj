@@ -268,13 +268,13 @@
              :allowed-methods [:get]
 
              :handle-ok (fn [ctx]
-                          (println "generate-cinema-page")
-                          (json/generate-string (sitegen/write-cinema-page lang)))
+                          (println "generate-cinema-page handler")
+                          (sitegen/generate-cinema-page lang))
              :as-response (fn [d ctx]
                             (-> (liberator.representation/as-response d ctx)
                                 (assoc-in [:headers "Access-Control-Allow-Origin"] "*")
-                                (assoc-in [:headers "Access-Control-Allow-Methods"] "GET, POST")))
-             :available-media-types ["application/json"])
+                                (assoc-in [:headers "Access-Control-Allow-Methods"] "GET")))
+             :available-media-types ["text/html"])
 
 (defresource get-movies-html
     :available-media-types ["text/html"]
@@ -291,6 +291,7 @@
     :last-modified
     (fn [{{{resource :resource} :route-params} :request}]
       (.lastModified (file (str (io/resource-path) start-html)))))
+
 
 (defresource mytest
   :allowed-methods [:get :post]
@@ -324,14 +325,13 @@
                     (POST "/movie-full/update-json"     [] (put-movie-json-from-form))
                     (GET  "/movies-full"                [] (get-movies-full))
                     (ANY  "/put-movie"                  [] (put-movie))
-                    (POST "/generate-cinema-page/:lang" [lang] ())
                     (GET  "/acquire/:did/:mid"          [did mid] (acquire-movie did mid))
                     (GET  "/translation-vote/:lang/:did/:mid" [lang did mid] (translation-vote lang did mid))
                     (GET  "/get-translation-vote/:mid" [mid] (get-translation-vote mid))
                     (ANY  "/user/:uid"                  [uid] (put-user uid))
-                    (GET  "/users" [] get-users)
-                    (GET  "/stats" [] get-stats)
-                    (GET  "/generate-cinema-page" [] (generate-cinema-page "ru"))
+                    (GET  "/users"                      [] get-users)
+                    (GET  "/stats"                      [] get-stats)
+                    (GET  "/cinema-page/:lang"          [lang] (generate-cinema-page lang))
                     (ANY  "/test" [] mytest))
            (POST "/posttest" {params :params} (str params)))
 

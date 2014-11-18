@@ -43,9 +43,9 @@
         <div class="columnContainer">
                 <div class="column" id="left" >
                     <h1>Наши фильмы</h1>
-                    <ul class="left-movies">
+                    <table>
                         {% for m in active-movies %}
-                        <li>
+                        <tr><td>
                             <div class="movie-entry"> 
                                 <div class="title">{{m.title}}</div>
                                 <img src="{{m.img}}">
@@ -60,34 +60,12 @@
                                     <!--</a>-->
                                 </div>
                             </div>
-                        </li>
+                        </td></tr>
                         {% endfor %}
-                    </ul>
+                    </table>
                 </div>
-                <div class="column" id="right">
-                    <h1>Наши фильмы</h1>
-                 
-                    <ul class="right-movies">
-                        {% for n in new-movies %}
-                        <li>
-                            <div class="movie-entry">
-                                <div class="title">{{n.title}}</div>
-                                <img src="{{n.img}}">
-                                <div class="year-released">год: {{n.year-released}}</div>
-                                <div class="duration">время: {{n.duration}}</div>
-                                <br/>
-                                <div class="desc">{{n.desc-short}}</div>
-                                
-                                <div class="iwant">
-                                        
-                                </div>
-                            </div>
-                        </li>
-                        {% endfor %}
-                    </ul> 
 
-             </div>  
-            </div> 
+            </div>
             <div class="hr960"> <hr/> </div>
 
             <div class="saveandgo">
