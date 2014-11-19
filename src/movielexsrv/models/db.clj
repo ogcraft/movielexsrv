@@ -101,7 +101,7 @@
               {:content-type "application/clojure" :indexes {:data-type "movie"}})))
 
 (defn query-movies []
-  (kv/index-query (get-state :conn) movies-bucket :data-type "movie"))
+  (sort (kv/index-query (get-state :conn) movies-bucket :data-type "movie")))
 
 (defn fetch-movie [mid]
   (let [{:keys [has-value? result]} (kv/fetch (get-state :conn) movies-bucket mid)]
