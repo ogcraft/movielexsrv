@@ -71,56 +71,38 @@
 			(e/image {} "http://movielex.com/ru/images/ok.png")]]]
 	 [:div {:class "email"} "movielex.com@gmail.com"]])
 
-(comment {:movie-state "active",
- :desc-short
-							"The growing and genetically evolving apes find themselves at a critical point with the human race.",
- :fpkeys-file
-							"http://movielex.com/files/kp646674/dawn_planet_apes2-en.fpkeys",
- :desc
-								"In the wake of a disaster that changed the world, the growing and genetically evolving apes find themselves at a critical point with the human race.",
- :duration "130 min / 02:10",
- :year-released "2014",
- :title "Dawn of the Planet of the Apes",
- :id "kp646674",
- :shortname "dawn_planet_apes2",
- :src-url "http://www.imdb.com/title/tt2103281/",
- :img "http://movielex.com/files/kp646674/tt2103281.jpg",
- :translations
-								({:desc "",
-									:file
-												 "http://movielex.com/files/kp646674/dawn_planet_apes2-ru.trans",
-									:title "Русский",
-									:lang "ru",
-									:img "http://movielex.com/files/flags/flag-ru.png"})})
 
-(defn translation-render [t]
+(defn single-translation-render [t]
 	(conj [:td {:style "vertical-align:middle;text-align:center;"} [:p {:style "margin-left : 20px;"} (:lang t)]]
 	[:td {:style "vertical-align:middle;text-align:center;"}
 	 (e/image {:style "margin:1px;float:right;width:15px;height:15px"} (:img t) (:lang t))]))
 
+(defn translation-render [m]
+		[:tr {:style "float:left"}
+		 [:td "Переводы: "]
+		 (let [ts (:translations m)]
+			 (map single-translation-render ts))])
+
 (defn single-movie-render [m]
-	[:tr
-	 [:td
-		[:div {:class "movie-entry"}
-		 [:div {:class "title"} (:title m)]
-		 (e/image (:img m))
-		 [:div {:class "year-released"} (str "год: " (:year-released m))]
-		 [:div {:class "duration"} (str "время: " (:duration m))]
-		 [:br]
-		 [:div {:class "desc"} (:desc m)]
-		 [:div {:class "translation"} ; :style "margin:10px; float:left;"}
-			[:table ;{ :border "1px" :bordercolor "white"}
-			 [:tr
-				[:td "Переводы: "]
-				(let [ts (:translations m)]
-					(map translation-render ts))]]]]]])
+	[:table ;{:border "1",:bordercolor "white", :cellspacing "0", :cellpadding "0"}
+		[:tr
+		 [:td
+			[:div {:class "movie-entry"}
+			 [:div {:class "title"} (:title m)]
+			 (e/image (:img m))
+			 [:div {:class "year-released"} (str "год: " (:year-released m))]
+			 [:div {:class "duration"} (str "время: " (:duration m))]
+			 [:br]
+			 [:div {:class "desc"}
+				(:desc m)]]]]
+		(translation-render m)])
 
 (defn movies-render [movies]
 	[:div {:class "columnContainer"}
 	 [:div {:class "column" :id "left"}
 		[:h1 "Наши фильмы"]
-		[:table
-		 (map single-movie-render movies)]]])
+		;[:table ;{:border "1",:bordercolor "white", :cellspacing "0", :cellpadding "0"}
+		 (map single-movie-render movies)]])
 
 
 (defn cinema-page-ru [movies]
