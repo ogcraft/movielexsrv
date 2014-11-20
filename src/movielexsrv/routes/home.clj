@@ -276,6 +276,18 @@
                                 (assoc-in [:headers "Access-Control-Allow-Methods"] "GET")))
              :available-media-types ["text/html"])
 
+(defresource generate-cinema-page1 [lang]
+             :allowed-methods [:get]
+
+             :handle-ok (fn [ctx]
+                          (sitegen/generate-cinema-page1 lang))
+             :as-response (fn [d ctx]
+                            (-> (liberator.representation/as-response d ctx)
+                                (assoc-in [:headers "Access-Control-Allow-Origin"] "*")
+                                (assoc-in [:headers "Access-Control-Allow-Methods"] "GET")))
+             :available-media-types ["text/html"])
+
+
 (defresource get-movies-html
     :available-media-types ["text/html"]
 
@@ -332,6 +344,7 @@
                     (GET  "/users"                      [] get-users)
                     (GET  "/stats"                      [] get-stats)
                     (GET  "/cinema-page/:lang"          [lang] (generate-cinema-page lang))
+                    (GET  "/cinema-page1/:lang"          [lang] (generate-cinema-page1 lang))
                     (ANY  "/test" [] mytest))
            (POST "/posttest" {params :params} (str params)))
 
