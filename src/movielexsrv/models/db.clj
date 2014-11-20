@@ -362,7 +362,7 @@
     (kv-table-row "lang" (:lang d))
     (kv-table-row "title" (:title d))
     (kv-table-row "img" [:div
-                         [:img {:src (make-abs-url mid (:img d)), :alt (:img d) :height "60", ;:width "100"
+                         [:img {:src (make-abs-url mid (:img d)), :alt (:img d) :height "60  ", ;:width "100"
                                 :style "float:left;"}]
                          [:p {:style "margin-left : 20px;float:left;"} (:img d)]])
     (kv-table-row "file" (:file d))
