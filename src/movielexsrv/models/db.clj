@@ -101,7 +101,7 @@
               {:content-type "application/clojure" :indexes {:data-type "movie"}})))
 
 (defn query-movies []
-  (kv/index-query (get-state :conn) movies-bucket :data-type "movie"))
+  (sort (kv/index-query (get-state :conn) movies-bucket :data-type "movie")))
 
 (defn fetch-movie [mid]
   (let [{:keys [has-value? result]} (kv/fetch (get-state :conn) movies-bucket mid)]
@@ -336,37 +336,47 @@
    [:td {:style "width: 100px"} k2]
    [:td {:style "width: 200px"} v2]])
 
-(defn render-movie-description [d]
-  [:div.translation-view
+(defn render-movie-description [mid d]
+   [:div.translation-view
    [:h3 "Language: " (:lang d)]
    [:table {:border "1", :width "70%", :bordercolor "brawn", :cellspacing "0", :cellpadding "2"}
     ;(for [[k v] d] (kv-table-row k v "ok"))
     (kv-table-row "lang" (:lang d))
     (kv-table-row "title" (:title d))
     (kv-table-row "src-url" (:src-url d))
-    (kv-table-row "img" (:img d))
+    ;(kv-table-row "img" (:img d)) ;<img src="/pic/logo3.gif" alt="Кинозал.ТВ">
+    (kv-table-row "img" [:div
+                         [:img {:src (make-abs-url mid (:img d)), :alt (:img d) :height "120", ;:width "100"
+                                :style "float:left;"}]
+                         [:p {:style "margin-left : 20px;float:left;"} (:img d)]])
     (kv-table-row "year-released" (:year-released d))
     (kv-table-row "duration" (:duration d))
     (kv-table-row "desc" (:desc d))
     (kv-table-row "desc-short" (:desc-short d))]])
 
-(defn render-movie-translation [d]
+(defn render-movie-translation [mid d]
   [:div.description-view
    [:h3 "Language: " (:lang d)]
    [:table {:border "1", :width "70%", :bordercolor "brawn", :cellspacing "0", :cellpadding "2"}
     ;(for [[k v] d] (kv-table-row k v "ok"))
     (kv-table-row "lang" (:lang d))
     (kv-table-row "title" (:title d))
-    (kv-table-row "img" (:img d))
+    (kv-table-row "img" [:div
+                         [:img {:src (make-abs-url mid (:img d)), :alt (:img d) :height "60", ;:width "100"
+                                :style "float:left;"}]
+                         [:p {:style "margin-left : 20px;float:left;"} (:img d)]])
     (kv-table-row "file" (:file d))
     (kv-table-row "desc" (:desc d))]])
 
 (defn render-movie-html [m]
   (let [descriptions (:descriptions m)
-        translations (:translations m)]
+        translations (:translations m)
+        mid   (:id m)
+        render-movie-description-with-id (partial render-movie-description mid)
+        render-movie-translation-with-id (partial render-movie-translation "flags")]
     [:div.movie-view
      [:h2 [:a {:href "/api/movies-full"} "All Movies"]]
-     [:h2 (str "id: " (:id m) " | " (get-movie-title "en" m) " | " (get-movie-title "ru" m))]
+     [:h2 (str "id: " mid " | " (get-movie-title "en" m) " | " (get-movie-title "ru" m))]
      [:h2 [:a {:href (str "/api/movie-json/" (:id m))} "RAW"]]
      [:table {:border "1", :width "70%", :bordercolor "brawn", :cellspacing "0", :cellpadding "2"}
       (kv-table-row ":id-kp" (:id-kp m))
@@ -374,8 +384,8 @@
       (kv-table-row ":shortname" (:shortname m))
       (kv-table-row ":movie-state" (:movie-state m))
       (kv-table-row ":fpkeys-file" (str (:fpkeys-file m)))]
-      [:p (map render-movie-description descriptions)]
-      [:p (map render-movie-translation translations)]
+      [:p (map render-movie-description-with-id descriptions)]
+      [:p (map render-movie-translation-with-id translations)]
       [:h2 [:a {:href "/api/movies-full"} "All Movies"]]]))
 
 (defn render-movie-title-row-html
@@ -509,7 +519,7 @@
           (assoc :duration (convert-duration (v :lang) (params :duration)))
           (assoc :img (if (= (v :lang) "ru")
                         (str (get-id-kp (params :src-url-kp)) ".jpg")
-                        (str (get-id-imdb (params :src-url-imdb)) "jpg")))
+                        (str (get-id-imdb (params :src-url-imdb)) ".jpg")))
           ))))
 
 (defn get-lang-from-file-name [fname]
