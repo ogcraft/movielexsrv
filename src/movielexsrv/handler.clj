@@ -11,7 +11,9 @@
             [cemerick.friend :as friend]
             (cemerick.friend [workflows :as workflows]
                              [credentials :as creds])
-            [movielexsrv.models.db :as db]))
+            [movielexsrv.models.db :as db]
+            [movielexsrv.admins :as admins :refer (admins)]
+            [hiccup.core :as h]))
 
 (defn init []
   (println "movielexsrv is starting")
@@ -30,16 +32,20 @@
 ;  (route/resources "/")
 ;  (route/not-found "Not Found"))
 
-; a dummy in-memory user "database"
-(def admins {"ogcraft" {:username "ogcraft"
-                        :password (creds/hash-bcrypt "ogcraft")
-                        :roles    #{::admin}}
-             "pavela"  {:username "pavela"
-                        :password (creds/hash-bcrypt "pavela")
-                        :roles    #{::admin}}})
+
+(def secured-routes (friend/authenticate
+                      private-routes1
+                      {:allow-anon? true
+                       :login-uri "/login"
+                       :default-landing-uri "/"
+                       :unauthorized-handler #(-> (h/html [:h2 "You do not have sufficient privileges to access " (:uri %)])
+                                                  ring.util.response/redirect
+                                                  (ring.util.response/status 401))
+                       :credential-fn #(creds/bcrypt-credential-fn admins/admins %)
+                       :workflows [(workflows/interactive-form)]}))
 
 (def app
-  (-> (routes public-routes private-routes private-routes1 movielexapp-routes)
+  (-> (routes public-routes private-routes movielexapp-routes secured-routes)
       (handler/site)
       (wrap-base-url)))
 

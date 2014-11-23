@@ -6,6 +6,7 @@
             [clojure.pprint :refer [pprint]]
             [clojure.java.io :refer [file]]
             [movielexsrv.models.db :as db]
+            [movielexsrv.admins :as admins :refer (admins)]
             [cemerick.friend :as friend]
             (cemerick.friend [workflows :as workflows]
                              [credentials :as creds])
@@ -343,6 +344,11 @@
 (defroutes private-routes1
            (GET "/login" req
                 (h/html (db/render-login-form)))
+           (GET "/" req (h/html [:h2 "Go to login "]))
+           (GET "/test-admin" req
+                (pprint req)
+                (pprint admins/admins)
+                (pprint (friend/authorize #{:movielexsrv.admins/admin} "You're an admin!")))
            (GET "/logout" req
                 (friend/logout* (ring.util.response/redirect (str (:context req) "/")))))
 
