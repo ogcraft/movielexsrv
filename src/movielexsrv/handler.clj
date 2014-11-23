@@ -5,7 +5,12 @@
             [hiccup.middleware :refer [wrap-base-url]]
             [compojure.handler :as handler]
             [compojure.route :as route]
-            [movielexsrv.routes.home :refer [home-routes]]
+            [liberator.core :refer [defresource resource]]
+            [liberator.dev :as ldev]
+            [movielexsrv.routes.home :refer [public-routes private-routes private-routes1 movielexapp-routes]]
+            [cemerick.friend :as friend]
+            (cemerick.friend [workflows :as workflows]
+                             [credentials :as creds])
             [movielexsrv.models.db :as db]))
 
 (defn init []
@@ -21,12 +26,20 @@
 (defn destroy []
   (println "movielexsrv is shutting down"))
   
-(defroutes app-routes
-  (route/resources "/")
-  (route/not-found "Not Found"))
+;(defroutes app-routes
+;  (route/resources "/")
+;  (route/not-found "Not Found"))
+
+; a dummy in-memory user "database"
+(def admins {"ogcraft" {:username "ogcraft"
+                        :password (creds/hash-bcrypt "ogcraft")
+                        :roles    #{::admin}}
+             "pavela"  {:username "pavela"
+                        :password (creds/hash-bcrypt "pavela")
+                        :roles    #{::admin}}})
 
 (def app
-  (-> (routes home-routes app-routes)
+  (-> (routes public-routes private-routes private-routes1 movielexapp-routes)
       (handler/site)
       (wrap-base-url)))
 

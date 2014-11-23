@@ -485,6 +485,17 @@
                     [:p (form/submit-button "UPDATE!")]
                     [:p (form/text-area {:style "width: 100%" :rows "100"} "moviejson" (with-out-str (clojure.pprint/pprint m)))])]]))
 
+(defn render-login-form []
+  [:head]
+  [:body {:style "background: #EFEFEF"}
+   [:title "Movielex.com Administration Page"]
+   [:div.login
+    [:h2 "Movielex.com Administration Page"]
+    (form/form-to [:post "/api/login"]
+                  [:table {:border "0", :width "300px", :bordercolor "", :cellspacing "0", :cellpadding "2"}
+                   (kv-table-row "Username: " (form/text-field {:style "width: 100px"} "username"))
+                   (kv-table-row "Password: " (form/password-field {:style "width: 100px"} "password"))]
+                  [:p (form/submit-button "Login")])]])
 
 (defn get-id-kp [url]
   (last (clojure.string/split url #"/")))

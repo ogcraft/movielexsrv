@@ -17,6 +17,7 @@
   [domina "1.0.2"]
   [enlive "1.1.5"]
   [selmer "0.6.9"]
+  [com.cemerick/friend "0.2.1"]
   [com.novemberain/welle "3.0.0"]
   [clj-http "1.0.1"]
   [org.clojure/clojurescript "0.0-2197"]]

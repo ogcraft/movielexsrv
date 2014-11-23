@@ -2,11 +2,13 @@
   (:require [compojure.core :refer :all]
             [liberator.core :refer [defresource resource]]
             [cheshire.core :as json]
-            [noir.io :as io]
             [hiccup.core :as h]
             [clojure.pprint :refer [pprint]]
             [clojure.java.io :refer [file]]
             [movielexsrv.models.db :as db]
+            [cemerick.friend :as friend]
+            (cemerick.friend [workflows :as workflows]
+                             [credentials :as creds])
             [movielexsrv.tools.sitegen :as sitegen]))
 
 (def start-html "/index.html")
@@ -277,21 +279,21 @@
              :available-media-types ["text/html"])
 
 
-(defresource get-movies-html
-    :available-media-types ["text/html"]
-
-    :exists?
-    (fn [context]
-      [(io/get-resource start-html)
-       {::file (file (str (io/resource-path) start-html))}])
-
-    :handle-ok
-    (fn [{{{resource :resource} :route-params} :request}]
-      (println "get-movies-html :handle-ok")
-      (clojure.java.io/input-stream (io/get-resource start-html)))
-    :last-modified
-    (fn [{{{resource :resource} :route-params} :request}]
-      (.lastModified (file (str (io/resource-path) start-html)))))
+;(defresource get-movies-html
+;    :available-media-types ["text/html"]
+;
+;    :exists?
+;    (fn [context]
+;      [(io/get-resource start-html)
+;       {::file (file (str (io/resource-path) start-html))}])
+;
+;    :handle-ok
+;    (fn [{{{resource :resource} :route-params} :request}]
+;      (println "get-movies-html :handle-ok")
+;      (clojure.java.io/input-stream (io/get-resource start-html)))
+;    :last-modified
+;    (fn [{{{resource :resource} :route-params} :request}]
+;      (.lastModified (file (str (io/resource-path) start-html)))))
 
 
 (defresource mytest
@@ -313,6 +315,7 @@
                        (assoc-in [:headers "Access-Control-Allow-Methods"] "GET, POST")))
   :available-media-types ["application/json"])
 
+(comment
 (defroutes home-routes
            (ANY "/" request home-txt)
            (context "/api" []
@@ -335,4 +338,50 @@
                     (GET  "/cinema-page/:lang"          [lang] (generate-cinema-page lang))
                     (ANY  "/test" [] mytest))
            (POST "/posttest" {params :params} (str params)))
+)
 
+(defroutes private-routes1
+           (GET "/login" req
+                (h/html (db/render-login-form)))
+           (GET "/logout" req
+                (friend/logout* (ring.util.response/redirect (str (:context req) "/")))))
+
+(defroutes private-routes
+           (context "/api" []
+                    (GET  "/movie-full/:mid"            [mid] (get-movie-full mid))
+                    (GET  "/movie/new"                  [] (movie-new-form))
+                    (POST "/movie/new/update"           [] (movie-new-update))
+                    (GET  "/movie-json/:mid"            [mid] (movie-as-json-form mid))
+                    (POST "/movie-full/update-json"     [] (put-movie-json-from-form))
+                    (GET  "/movies-full"                [] (get-movies-full))
+                    (ANY  "/put-movie"                  [] (put-movie))
+                    (GET  "/users"                      [] get-users)
+                    (GET  "/stats"                      [] get-stats)
+                    (ANY  "/test" [] mytest))
+           (POST "/posttest" {params :params} (str params)))
+
+; MovieLexApp routes
+;GETMOVIES_REST = "%s/api/movies/%s";
+;GETMOVIEDETAIL_REST = "%s/api/movie/%s/%s";
+;PUTUSERID_REST = "%s/api/user/%s";
+;ACQUIRE_MOVIE_REST = "%s/api/acquire/%s/%s";
+;GETACQUIRE_PERMISSION_REST = "%s/api/acquire/%s/%s";
+
+(defroutes movielexapp-routes
+           (context "/api" []
+                    (GET  "/movies/:lang"                     [lang] (get-movies-active lang))
+                    (GET  "/movie/:lang/:mid"                 [lang mid] (get-movie lang mid))
+                    (GET  "/acquire/:did/:mid"                [did mid] (acquire-movie did mid))
+                    (ANY  "/user/:uid"                        [uid] (put-user uid))))
+;                    (GET  "/movies-new/:lang"                [lang] (get-movies-new lang))))
+
+(defroutes public-routes
+           (context "/api" []
+                    (ANY "/" request (ring.util.response/redirect "/api/login"))
+                    ;(GET "/login" [] (admin-login))
+                    (friend/logout (ANY "/logout" request (ring.util.response/redirect "/api")))
+                    (GET  "/translation-vote/:lang/:did/:mid" [lang did mid] (translation-vote lang did mid))
+                    (GET  "/get-translation-vote/:mid"        [mid] (get-translation-vote mid))
+                    (GET  "/cinema-page/:lang"                [lang] (generate-cinema-page lang))
+                    (ANY  "/test"                             [] mytest))
+           (POST "/posttest" {params :params} (str params)))
