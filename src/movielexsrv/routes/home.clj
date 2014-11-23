@@ -344,11 +344,11 @@
 (defroutes private-routes1
            (GET "/login" req
                 (h/html (db/render-login-form)))
-           (GET "/" req (h/html [:h2 "Go to login "]))
+           (GET "/" req (h/html [:h2 "Go and login "]))
            (GET "/test-admin" req
                 (pprint req)
                 (pprint admins/admins)
-                (pprint (friend/authorize #{:movielexsrv.admins/admin} "You're an admin!")))
+                (friend/authorize #{:movielexsrv.admins/admin} (h/html [:h2 "You're an admin!"])))
            (GET "/logout" req
                 (friend/logout* (ring.util.response/redirect (str (:context req) "/")))))
 
@@ -383,9 +383,9 @@
 
 (defroutes public-routes
            (context "/api" []
-                    (ANY "/" request (ring.util.response/redirect "/api/login"))
+                    (ANY "/" request (ring.util.response/redirect "/login"))
                     ;(GET "/login" [] (admin-login))
-                    (friend/logout (ANY "/logout" request (ring.util.response/redirect "/api")))
+                    (friend/logout (ANY "/logout" request (ring.util.response/redirect "/")))
                     (GET  "/translation-vote/:lang/:did/:mid" [lang did mid] (translation-vote lang did mid))
                     (GET  "/get-translation-vote/:mid"        [mid] (get-translation-vote mid))
                     (GET  "/cinema-page/:lang"                [lang] (generate-cinema-page lang))
