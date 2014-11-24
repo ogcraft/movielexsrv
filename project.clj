@@ -20,6 +20,7 @@
   [com.cemerick/friend "0.2.1"]
   [com.novemberain/welle "3.0.0"]
   [clj-http "1.0.1"]
+  [org.apache.httpcomponents/httpclient "4.3.5"]
   [org.clojure/clojurescript "0.0-2197"]]
 
   :plugins [[lein-ring "0.8.10"] 
