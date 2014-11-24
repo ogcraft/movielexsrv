@@ -9,6 +9,9 @@
     [hiccup.core :as h]
     [hiccup.page :as p]
     [hiccup.form :as form]
+    [cemerick.friend :as friend]
+    (cemerick.friend [workflows :as workflows]
+                     [credentials :as creds])
     ;[clj-time.coerce :as time-coerce :exclude [extend second]]
     [clojurewerkz.welle.core :as wc]
     [clojurewerkz.welle.buckets :as wb]
@@ -496,6 +499,18 @@
                    (kv-table-row "Username: " (form/text-field {:style "width: 100px"} "username"))
                    (kv-table-row "Password: " (form/password-field {:style "width: 100px"} "password"))]
                   [:p (form/submit-button "Login")])]])
+
+(defn render-api-main [req]
+  (p/html5 [:head]
+  [:body {:style "background: #EFEFEF"}
+   [:title "MovieLex.com management links"]
+    (if-let [identity (friend/identity req)]
+      [:div
+       [:h2 "Management Links"]
+       [:p (with-out-str (clojure.pprint/pprint (friend/identity req)))]]
+      [:div
+        [:p "Anauthorized access"]])]))
+
 
 (defn get-id-kp [url]
   (last (clojure.string/split url #"/")))

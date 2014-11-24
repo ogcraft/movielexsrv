@@ -7,7 +7,7 @@
             [compojure.route :as route]
             [liberator.core :refer [defresource resource]]
             [liberator.dev :as ldev]
-            [movielexsrv.routes.home :refer [public-routes private-routes private-routes1 movielexapp-routes]]
+            [movielexsrv.routes.home :refer [public-routes secured-routes movielexapp-routes]]
             [cemerick.friend :as friend]
             (cemerick.friend [workflows :as workflows]
                              [credentials :as creds])
@@ -32,20 +32,8 @@
 ;  (route/resources "/")
 ;  (route/not-found "Not Found"))
 
-
-(def secured-routes (friend/authenticate
-                      private-routes1
-                      {:allow-anon? true
-                       :login-uri "/login"
-                       :default-landing-uri "/"
-                       :unauthorized-handler #(-> (h/html [:h2 "You do not have sufficient privileges to access " (:uri %)])
-                                                  ring.util.response/redirect
-                                                  (ring.util.response/status 401))
-                       :credential-fn #(creds/bcrypt-credential-fn admins/admins %)
-                       :workflows [(workflows/interactive-form)]}))
-
 (def app
-  (-> (routes public-routes private-routes movielexapp-routes secured-routes)
+  (-> (routes public-routes movielexapp-routes secured-routes)
       (handler/site)
       (wrap-base-url)))
 
