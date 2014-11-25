@@ -8,6 +8,7 @@
     [clj-time.format :as time-format]
     [hiccup.core :as h]
     [hiccup.page :as p]
+    [hiccup.element :as e]
     [hiccup.form :as form]
     [cemerick.friend :as friend]
     (cemerick.friend [workflows :as workflows]
@@ -501,15 +502,24 @@
                   [:p (form/submit-button "Login")])]])
 
 (defn render-api-main [req]
-  (p/html5 [:head]
-  [:body {:style "background: #EFEFEF"}
-   [:title "MovieLex.com management links"]
-    (if-let [identity (friend/identity req)]
-      [:div
-       [:h2 "Management Links"]
-       [:p (with-out-str (clojure.pprint/pprint (friend/identity req)))]]
-      [:div
-        [:p "Anauthorized access"]])]))
+  (let [id (friend/identity req)
+           stats (get-stats)]
+    (p/html5 [:head]
+             [:body {:style "background: #EFEFEF"}
+              [:title "MovieLex.com management links"]
+              [:div
+               [:h2 (str "Administrator: " (:current id))]
+               [:table {:border "0", :width "300px", :bordercolor "", :cellspacing "0", :cellpadding "2"}
+                (kv-table-row "Users: " (:users-num stats))
+                (kv-table-row "Movies " (:movies-num stats))]
+               [:br]
+               (e/unordered-list
+                 [[:p (e/link-to "/api/movies-full" "All movies")]
+                  [:p (e/link-to "/api/movie/new" "Add NEW movie")]
+                  [:p (e/link-to "/api/users" "All users")]])
+                [:br]
+                  [:div (e/link-to "/api/logout" "LOGOUT")]]
+              ])))
 
 
 (defn get-id-kp [url]
