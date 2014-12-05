@@ -29,28 +29,39 @@
 
 (defn upper-menu-ru []
   [:div {:class "menu"}
-   [:div {:class "logo"}
-    [:a {:href "/ru/"}
-     (e/image {:width "150%" :height "150%"}
-              "http://movielex.com/ru/images/logo.svg")]]
-   [:div
-    [:ul {:class "topmenu"}
-     [:li [:a {:href "/ru/"} "главная"]]
-     [:li [:a {:id "active" :href "/api/cinema-page/ru"} "кинозал"]]
-     [:li [:a {:href "/ru/help.html"} "помощь и контакты"]]
-     [:li [:a {:href "/ru/demo.html"} "демо"]]]]])
+    [:table {:class "topmenu-table" :border "0" :cellpadding "2" :cellspacing "0" :width "100%"}
+      [:tr
+        [:td {:style "width:100px"}
+         [:div {:class "logo"}
+          [:a {:href "/ru/"}
+            [:img {:src "http://movielex.com/ru/images/logo.svg" :width "150%" :height "150%"}]]]]
+       [:td {:style "width:50px;padding-top:10px;" :align "center"}[:a {:style "color:#eee" :href "/ru/index.html"} "главная"]]
+       [:td {:style "width: 50px;padding-top: 10px;" :align "center"} [:a {:style "color: orange" :href "/api/cinema-page/ru"} "кинозал"]]
+       [:td {:style "width: 100px;padding-top: 10px;" :align "center"} [:a {:style "color: #eee" :href "/ru/help.html"} "помощь и контакты"]]
+       [:td {:style "width: 50px;padding-top: 10px;" :align "center"} [:a {:style "color: #eee" :href "/ru/demo.html"} "демо"]]
+       [:td {:style "width: 200px;padding-top: 10px;" :align "center"} [:a {:style "color: #eee" :href ""}]]
+       [:td {:style "width: 50px;padding-top: 10px;" :align "center"} [:a {:href "/ru/index.html"}
+        [:img {:src "http://movielex.com/files/flags/flag-ru.png" :style "height: 20px;width: 20px;" :alt "ru"}]]]
+       [:td {:style "width: 50px;padding-top: 10px;" :align "center"} [:a {:href "/en/index.html"}
+        [:img {:src "http://movielex.com/files/flags/flag-en.png" :style "height: 20px;width: 20px;"}]]]]]])
 
 (defn upper-menu-en []
   [:div {:class "menu"}
-   [:div {:class "logo"}
-    [:a {:href "/en/"}
-     (e/image {:width "150%" :height "150%"}
-              "http://movielex.com/ru/images/logo.svg")]]
-   [:div
-    [:ul {:class "topmenu"}
-     [:li [:a {:href "/en/"} "home"]]
-     [:li [:a {:id "active" :href "/api/cinema-page/en"} "movies"]]]]])
-
+   [:table {:class "topmenu-table" :border "0" :cellpadding "2" :cellspacing "0" :width "100%"}
+    [:tr
+     [:td {:style "width:100px"}
+      [:div {:class "logo"}
+       [:a {:href "/en/"}
+        [:img {:src "http://movielex.com/ru/images/logo.svg" :width "150%" :height "150%"}]]]]
+     [:td {:style "width:50px;padding-top:10px;" :align "center"}[:a {:style "color:#eee" :href "/en/index.html"} "home"]]
+     [:td {:style "width: 50px;padding-top: 10px;" :align "center"} [:a {:style "color: orange" :href "/api/cinema-page/en"} "movies"]]
+     [:td {:style "width: 100px;padding-top: 10px;" :align "center"} [:a {:style "color: #eee" :href ""} ]]
+     [:td {:style "width: 50px;padding-top: 10px;" :align "center"} [:a {:style "color: #eee" :href ""} ]]
+     [:td {:style "width: 200px;padding-top: 10px;" :align "center"} [:a {:style "color: #eee" :href ""}]]
+     [:td {:style "width: 50px;padding-top: 10px;" :align "center"} [:a {:href "/ru/index.html"}
+                                                                     [:img {:src "http://movielex.com/files/flags/flag-ru.png" :style "height: 20px;width: 20px;" :alt "ru"}]]]
+     [:td {:style "width: 50px;padding-top: 10px;" :align "center"} [:a {:href "/en/index.html"}
+                                                                     [:img {:src "http://movielex.com/files/flags/flag-en.png" :style "height: 20px;width: 20px;"}]]]]]])
 
 (defn promo-header-ru []
   [:div {:class "header-promo-cinema"}
@@ -59,10 +70,10 @@
     (e/image {} "http://movielex.com/ru/images/upload.png")]])
 
 (defn promo-header-en []
-  [:div {:class "header-promo-cinema"}
+  [:div {:class "header-promo-cinema-en"}
    [:a {:href  "http://play.google.com/store/apps/details?id=com.movielex.movielexapp"
         :class "upload-btn topupload"}
-    (e/image {} "http://movielex.com/ru/images/upload.png")]])
+    (e/image {:style "height: 50px;width: 188px;"} "http://movielex.com/en/images/upload.png")]])
 
 (defn saveandgo-ru []
   [:div {:class "saveandgo-ru"}
@@ -75,7 +86,7 @@
   [:div {:class "saveandgo-ru"}
    [:a {:class "upload-btn"
         :href  "http://play.google.com/store/apps/details?id=com.movielex.movielexapp"}
-    (e/image {} "http://movielex.com/ru/images/upload.png")]
+    (e/image {:style "height: 50px;width: 188px;"} "http://movielex.com/en/images/upload.png")]
    [:div {:class "gotocinema"} "... and watch a movie!"]])
 
 (defn footer []
