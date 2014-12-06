@@ -67,23 +67,23 @@
   [:div {:class "header-promo-cinema"}
    [:a {:href  "http://play.google.com/store/apps/details?id=com.movielex.movielexapp"
         :class "upload-btn topupload"}
-    (e/image {} "http://movielex.com/ru/images/upload.png")]])
+    (e/image {:style "height: 50px;width: 150px;"} "http://movielex.com/ru/images/upload.png")]])
 
 (defn promo-header-en []
   [:div {:class "header-promo-cinema-en"}
    [:a {:href  "http://play.google.com/store/apps/details?id=com.movielex.movielexapp"
         :class "upload-btn topupload"}
-    (e/image {:style "height: 50px;width: 188px;"} "http://movielex.com/en/images/upload.png")]])
+    (e/image {:style "height: 50px;width: 150px;"} "http://movielex.com/en/images/upload.png")]])
 
 (defn saveandgo-ru []
-  [:div {:class "saveandgo-ru"}
+  [:div {:class "saveandgo"}
    [:a {:class "upload-btn"
         :href  "http://play.google.com/store/apps/details?id=com.movielex.movielexapp"}
     (e/image {:style "height: 50px;width: 150px;"} "http://movielex.com/ru/images/upload.png")]
    [:div {:class "gotocinema"} "... и пойти в кино!"]])
 
 (defn saveandgo-en []
-  [:div {:class "saveandgo-ru"}
+  [:div {:class "saveandgo"}
    [:a {:class "upload-btn"
         :href  "http://play.google.com/store/apps/details?id=com.movielex.movielexapp"}
     (e/image {:style "height: 50px;width: 150px;"} "http://movielex.com/en/images/upload.png")]
