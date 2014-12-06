@@ -79,14 +79,14 @@
   [:div {:class "saveandgo-ru"}
    [:a {:class "upload-btn"
         :href  "http://play.google.com/store/apps/details?id=com.movielex.movielexapp"}
-    (e/image {} "http://movielex.com/ru/images/upload.png")]
+    (e/image {:style "height: 50px;width: 150px;"} "http://movielex.com/ru/images/upload.png")]
    [:div {:class "gotocinema"} "... и пойти в кино!"]])
 
 (defn saveandgo-en []
   [:div {:class "saveandgo-ru"}
    [:a {:class "upload-btn"
         :href  "http://play.google.com/store/apps/details?id=com.movielex.movielexapp"}
-    (e/image {:style "height: 50px;width: 188px;"} "http://movielex.com/en/images/upload.png")]
+    (e/image {:style "height: 50px;width: 150px;"} "http://movielex.com/en/images/upload.png")]
    [:div {:class "gotocinema"} "... and watch a movie!"]])
 
 (defn footer []
