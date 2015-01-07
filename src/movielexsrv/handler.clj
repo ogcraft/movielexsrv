@@ -23,11 +23,11 @@
   (db/users-bucket-create)
   (db/movies-bucket-create)
   (db/votes-bucket-create))
-  ;(db/load-movies-data))
-  
+;(db/load-movies-data))
+
 (defn destroy []
   (println "movielexsrv is shutting down"))
-  
+
 ;(defroutes app-routes
 ;  (route/resources "/")
 ;  (route/not-found "Not Found"))
