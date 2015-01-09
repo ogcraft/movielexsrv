@@ -643,6 +643,13 @@
 
 (defn ttt [] (clojure.pprint/pprint (render-users-html (query-users))))
 
+(defn user-emails []
+  (remove nil?
+     (keys (group-users-by-account-device (query-users)))))
+
+(defn write-emails-to-file [file-name]
+  (spit file-name (user-emails)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;(def users-data "data/users.data")
 ;(defn users-count-file []
